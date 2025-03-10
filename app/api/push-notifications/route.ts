@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     if (!token) {
       return NextResponse.json(
         { success: false, message: "FCM token is required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
             ? error.message
             : "An error occurred sending notification",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

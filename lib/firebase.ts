@@ -1,17 +1,16 @@
 // Firebase configuration for push notifications
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDFUVzKPPJ-MnXl9HGVfIY_pI4ZW1JnDDM",
-  authDomain: "nextjs-pwa-example.firebaseapp.com",
-  projectId: "nextjs-pwa-example",
-  storageBucket: "nextjs-pwa-example.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:a1b2c3d4e5f6a7b8c9d0e1",
-  measurementId: "G-ABCDEFGHIJ",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "",
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "",
 };
 
 let messaging: any = null;
@@ -19,7 +18,9 @@ let messaging: any = null;
 // Initialize Firebase
 export async function initializeFirebase() {
   if (typeof window === "undefined") return;
-
+  if (Object.keys(firebaseConfig).map((key) => key === "")) {
+    return alert("Firebase configuration is not set");
+  }
   try {
     const app = initializeApp(firebaseConfig);
     messaging = getMessaging(app);
@@ -34,7 +35,7 @@ export async function initializeFirebase() {
           payload.notification?.title || "New Notification";
         const notificationOptions = {
           body: payload.notification?.body || "You have a new notification",
-          icon: "/icon-192x192.png",
+          icon: "/icon-512x512.png",
         };
 
         new Notification(notificationTitle, notificationOptions);
@@ -53,6 +54,10 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
   if (!("Notification" in window)) {
     throw new Error("This browser does not support notifications");
   }
+  if (Object.keys(firebaseConfig).map((key) => key === "")) {
+    alert("Firebase configuration is not set");
+    return "denied";
+  }
 
   if (Notification.permission === "granted") {
     return "granted";
@@ -64,8 +69,12 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
 
 // Subscribe to a topic
 export async function subscribeToTopic(topic: string) {
+  if (Object.keys(firebaseConfig).map((key) => key === "")) {
+    alert("Firebase configuration is not set");
+    return;
+  }
   if (!messaging) {
-    throw new Error("Firebase messaging is not initialized");
+    return alert("Firebase configuration is not set");
   }
 
   try {
@@ -101,7 +110,7 @@ export async function sendTestNotification(title: string, body: string) {
       if ("Notification" in window && Notification.permission === "granted") {
         const notification = new Notification(title, {
           body,
-          icon: "/icon-192x192.png",
+          icon: "/icon-512x512.png",
         });
 
         notification.onclick = () => {
