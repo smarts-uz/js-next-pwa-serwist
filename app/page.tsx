@@ -1,16 +1,32 @@
-import { Suspense } from "react"
-import FeatureCard from "@/components/FeatureCard"
-import NetworkStatus from "@/components/NetworkStatus"
-import PWAInstallPrompt from "@/components/PWAInstallPrompt"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { FileText, MapPin, Database, Wifi, Link, Bell, Smartphone } from "lucide-react"
+import { Suspense } from "react";
+import FeatureCard from "@/components/FeatureCard";
+import NetworkStatus from "@/components/NetworkStatus";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  FileText,
+  MapPin,
+  Database,
+  Wifi,
+  Link,
+  Bell,
+  Smartphone,
+} from "lucide-react";
 
 export default function Home() {
   return (
     <main className="container mx-auto p-4 max-w-5xl">
       <div className="flex flex-col items-center justify-center mb-8 text-center">
         <h1 className="text-4xl font-bold mb-2">Next.js PWA</h1>
-        <p className="text-muted-foreground mb-4">A comprehensive Progressive Web App with advanced features</p>
+        <p className="text-muted-foreground mb-4">
+          A comprehensive Progressive Web App with advanced features
+        </p>
         <Suspense fallback={<div>Loading...</div>}>
           <PWAInstallPrompt />
         </Suspense>
@@ -21,7 +37,9 @@ export default function Home() {
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>PWA Features</CardTitle>
-          <CardDescription>Explore the capabilities of this Progressive Web App</CardDescription>
+          <CardDescription>
+            Explore the capabilities of this Progressive Web App
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -73,7 +91,9 @@ export default function Home() {
       <Card>
         <CardHeader>
           <CardTitle>About PWAs</CardTitle>
-          <CardDescription>Progressive Web Apps combine the best of web and mobile apps</CardDescription>
+          <CardDescription>
+            Progressive Web Apps combine the best of web and mobile apps
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-start space-x-4">
@@ -81,8 +101,8 @@ export default function Home() {
             <div>
               <h3 className="font-medium">App-like Experience</h3>
               <p className="text-sm text-muted-foreground">
-                PWAs provide a full-screen experience, can be installed on the home screen, and work offline like native
-                apps.
+                PWAs provide a full-screen experience, can be installed on the
+                home screen, and work offline like native apps.
               </p>
             </div>
           </div>
@@ -92,7 +112,8 @@ export default function Home() {
             <div>
               <h3 className="font-medium">Network Independence</h3>
               <p className="text-sm text-muted-foreground">
-                PWAs work offline or on low-quality networks, ensuring a consistent user experience.
+                PWAs work offline or on low-quality networks, ensuring a
+                consistent user experience.
               </p>
             </div>
           </div>
@@ -102,13 +123,13 @@ export default function Home() {
             <div>
               <h3 className="font-medium">Engagement</h3>
               <p className="text-sm text-muted-foreground">
-                Push notifications help re-engage users with timely, relevant content.
+                Push notifications help re-engage users with timely, relevant
+                content.
               </p>
             </div>
           </div>
         </CardContent>
       </Card>
     </main>
-  )
+  );
 }
-

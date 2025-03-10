@@ -1,5 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import PushNotificationManager from "@/components/PushNotificationManager"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import PushNotificationManager from "@/components/PushNotificationManager";
 
 export default function PushNotificationsPage() {
   return (
@@ -9,7 +15,9 @@ export default function PushNotificationsPage() {
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Firebase Push Notifications</CardTitle>
-          <CardDescription>Subscribe to receive notifications even when the app is closed</CardDescription>
+          <CardDescription>
+            Subscribe to receive notifications even when the app is closed
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <PushNotificationManager />
@@ -22,8 +30,9 @@ export default function PushNotificationsPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p>
-            Push notifications allow web applications to receive messages from a server when the app is not active,
-            enabling timely updates and re-engagement with users.
+            Push notifications allow web applications to receive messages from a
+            server when the app is not active, enabling timely updates and
+            re-engagement with users.
           </p>
 
           <div className="bg-muted p-4 rounded-md">
@@ -38,12 +47,12 @@ export default function PushNotificationsPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Note: Push notifications require user permission, a secure context (HTTPS), and service worker support. This
-            implementation uses Firebase Cloud Messaging for cross-browser compatibility.
+            Note: Push notifications require user permission, a secure context
+            (HTTPS), and service worker support. This implementation uses
+            Firebase Cloud Messaging for cross-browser compatibility.
           </p>
         </CardContent>
       </Card>
     </main>
-  )
+  );
 }
-

@@ -1,5 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import FileHandler from "@/components/FileHandler"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import FileHandler from "@/components/FileHandler";
 
 export default function FileHandlingPage() {
   return (
@@ -9,7 +15,9 @@ export default function FileHandlingPage() {
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>File System Access API</CardTitle>
-          <CardDescription>Open, edit, and save files directly from your web browser</CardDescription>
+          <CardDescription>
+            Open, edit, and save files directly from your web browser
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <FileHandler />
@@ -22,8 +30,9 @@ export default function FileHandlingPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p>
-            The File System Access API allows web apps to read or save changes directly to files and folders on the
-            user's device. This creates a more seamless experience similar to native applications.
+            The File System Access API allows web apps to read or save changes
+            directly to files and folders on the user's device. This creates a
+            more seamless experience similar to native applications.
           </p>
 
           <div className="bg-muted p-4 rounded-md">
@@ -38,12 +47,11 @@ export default function FileHandlingPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Note: File System Access API requires a secure context (HTTPS) and is currently supported in Chromium-based
-            browsers.
+            Note: File System Access API requires a secure context (HTTPS) and
+            is currently supported in Chromium-based browsers.
           </p>
         </CardContent>
       </Card>
     </main>
-  )
+  );
 }
-

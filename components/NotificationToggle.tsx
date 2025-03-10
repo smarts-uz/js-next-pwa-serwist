@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Wifi, WifiOff } from "lucide-react"
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Wifi, WifiOff } from "lucide-react";
 
 export default function NetworkStatus() {
-  const [isOnline, setIsOnline] = useState(true)
+  const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
     // Set initial state
-    setIsOnline(navigator.onLine)
+    setIsOnline(navigator.onLine);
 
     // Add event listeners
-    const handleOnline = () => setIsOnline(true)
-    const handleOffline = () => setIsOnline(false)
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener("online", handleOnline)
-    window.addEventListener("offline", handleOffline)
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener("online", handleOnline)
-      window.removeEventListener("offline", handleOffline)
-    }
-  }, [])
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   return (
     <Card className={isOnline ? "border-green-500" : "border-red-500"}>
@@ -49,6 +49,5 @@ export default function NetworkStatus() {
         </p>
       </CardContent>
     </Card>
-  )
+  );
 }
-

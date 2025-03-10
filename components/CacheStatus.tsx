@@ -1,16 +1,24 @@
-import { Suspense } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import NetworkStatus from "@/components/NetworkStatus"
-import SyncStatus from "@/components/SyncStatus"
-import NotificationToggle from "@/components/NotificationToggle"
-import DataForm from "@/components/DataForm"
-import CacheStatus from "@/components/CacheStatus"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Suspense } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import NetworkStatus from "@/components/NetworkStatus";
+import SyncStatus from "@/components/SyncStatus";
+import NotificationToggle from "@/components/NotificationToggle";
+import DataForm from "@/components/DataForm";
+import CacheStatus from "@/components/CacheStatus";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   return (
     <main className="container mx-auto p-4 max-w-5xl">
-      <h1 className="text-4xl font-bold mb-8 text-center">Next.js PWA Example</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">
+        Next.js PWA Example
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         <NetworkStatus />
@@ -28,7 +36,9 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>PWA Features</CardTitle>
-              <CardDescription>Explore the capabilities of this Progressive Web App</CardDescription>
+              <CardDescription>
+                Explore the capabilities of this Progressive Web App
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Suspense fallback={<div>Loading cache status...</div>}>
@@ -62,7 +72,10 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>Offline Data Management</CardTitle>
-              <CardDescription>Submit data even when offline - it will sync when you're back online</CardDescription>
+              <CardDescription>
+                Submit data even when offline - it will sync when you're back
+                online
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <DataForm />
@@ -74,7 +87,9 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>Push Notifications</CardTitle>
-              <CardDescription>Subscribe to receive timely updates</CardDescription>
+              <CardDescription>
+                Subscribe to receive timely updates
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <NotificationToggle />
@@ -83,6 +98,5 @@ export default function Home() {
         </TabsContent>
       </Tabs>
     </main>
-  )
+  );
 }
-

@@ -1,130 +1,152 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle, Bell, BellOff, Send } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle, Bell, BellOff, Send } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   initializeFirebase,
   requestNotificationPermission,
   subscribeToTopic,
   sendTestNotification,
-} from "@/lib/firebase"
+} from "@/lib/firebase";
 
 export default function PushNotificationManager() {
-  const [isSupported, setIsSupported] = useState(false)
-  const [permission, setPermission] = useState<NotificationPermission>("default")
-  const [isSubscribed, setIsSubscribed] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-  const [testTitle, setTestTitle] = useState("Test Notification")
-  const [testBody, setTestBody] = useState("This is a test notification from the PWA")
-  const [firebaseInitialized, setFirebaseInitialized] = useState(false)
+  const [isSupported, setIsSupported] = useState(false);
+  const [permission, setPermission] =
+    useState<NotificationPermission>("default");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [testTitle, setTestTitle] = useState("Test Notification");
+  const [testBody, setTestBody] = useState(
+    "This is a test notification from the PWA",
+  );
+  const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
   useEffect(() => {
     // Check if push notifications are supported
-    const isPushSupported = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window
+    const isPushSupported =
+      "serviceWorker" in navigator &&
+      "PushManager" in window &&
+      "Notification" in window;
 
-    setIsSupported(isPushSupported)
+    setIsSupported(isPushSupported);
 
     if (isPushSupported) {
       // Get current permission state
-      setPermission(Notification.permission)
+      setPermission(Notification.permission);
 
       // Initialize Firebase
       initializeFirebase()
         .then(() => {
-          setFirebaseInitialized(true)
-          console.log("Firebase initialized successfully")
+          setFirebaseInitialized(true);
+          console.log("Firebase initialized successfully");
         })
         .catch((err) => {
-          console.error("Failed to initialize Firebase:", err)
-          setError("Failed to initialize Firebase. Push notifications may not work properly.")
-        })
+          console.error("Failed to initialize Firebase:", err);
+          setError(
+            "Failed to initialize Firebase. Push notifications may not work properly.",
+          );
+        });
     }
-  }, [])
+  }, []);
 
   const handleRequestPermission = async () => {
-    setLoading(true)
-    setError(null)
-    setSuccess(null)
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
 
     try {
-      const permissionResult = await requestNotificationPermission()
-      setPermission(permissionResult)
+      const permissionResult = await requestNotificationPermission();
+      setPermission(permissionResult);
 
       if (permissionResult === "granted") {
-        setSuccess("Notification permission granted!")
+        setSuccess("Notification permission granted!");
       } else {
-        setError(`Permission ${permissionResult}. Please enable notifications in your browser settings.`)
+        setError(
+          `Permission ${permissionResult}. Please enable notifications in your browser settings.`,
+        );
       }
     } catch (err) {
-      console.error("Error requesting notification permission:", err)
-      setError(err instanceof Error ? err.message : "Failed to request notification permission")
+      console.error("Error requesting notification permission:", err);
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to request notification permission",
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSubscribe = async () => {
-    setLoading(true)
-    setError(null)
-    setSuccess(null)
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
 
     try {
       if (permission !== "granted") {
-        const permissionResult = await requestNotificationPermission()
-        setPermission(permissionResult)
+        const permissionResult = await requestNotificationPermission();
+        setPermission(permissionResult);
 
         if (permissionResult !== "granted") {
-          throw new Error("Notification permission denied")
+          throw new Error("Notification permission denied");
         }
       }
 
-      await subscribeToTopic("general")
-      setIsSubscribed(true)
-      setSuccess("Successfully subscribed to push notifications!")
+      await subscribeToTopic("general");
+      setIsSubscribed(true);
+      setSuccess("Successfully subscribed to push notifications!");
     } catch (err) {
-      console.error("Error subscribing to push notifications:", err)
-      setError(err instanceof Error ? err.message : "Failed to subscribe to push notifications")
+      console.error("Error subscribing to push notifications:", err);
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to subscribe to push notifications",
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSendTestNotification = async () => {
-    setLoading(true)
-    setError(null)
-    setSuccess(null)
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
 
     try {
       if (!isSubscribed) {
-        throw new Error("You must subscribe to notifications first")
+        throw new Error("You must subscribe to notifications first");
       }
 
-      await sendTestNotification(testTitle, testBody)
-      setSuccess("Test notification sent!")
+      await sendTestNotification(testTitle, testBody);
+      setSuccess("Test notification sent!");
     } catch (err) {
-      console.error("Error sending test notification:", err)
-      setError(err instanceof Error ? err.message : "Failed to send test notification")
+      console.error("Error sending test notification:", err);
+      setError(
+        err instanceof Error ? err.message : "Failed to send test notification",
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   if (!isSupported) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Not Supported</AlertTitle>
-        <AlertDescription>Push notifications are not supported in your browser.</AlertDescription>
+        <AlertDescription>
+          Push notifications are not supported in your browser.
+        </AlertDescription>
       </Alert>
-    )
+    );
   }
 
   return (
@@ -138,7 +160,10 @@ export default function PushNotificationManager() {
       )}
 
       {success && (
-        <Alert variant="success" className="bg-green-50 text-green-800 border-green-200">
+        <Alert
+          variant="success"
+          className="bg-green-50 text-green-800 border-green-200"
+        >
           <AlertCircle className="h-4 w-4 text-green-500" />
           <AlertTitle>Success</AlertTitle>
           <AlertDescription>{success}</AlertDescription>
@@ -149,7 +174,10 @@ export default function PushNotificationManager() {
         <Alert>
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Firebase Initializing</AlertTitle>
-          <AlertDescription>Firebase is being initialized. Some features may not be available yet.</AlertDescription>
+          <AlertDescription>
+            Firebase is being initialized. Some features may not be available
+            yet.
+          </AlertDescription>
         </Alert>
       )}
 
@@ -158,11 +186,15 @@ export default function PushNotificationManager() {
           <div>
             <h3 className="font-medium mb-2">Notification Permission</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Current status: <span className="font-medium capitalize">{permission}</span>
+              Current status:{" "}
+              <span className="font-medium capitalize">{permission}</span>
             </p>
 
             {permission !== "granted" && (
-              <Button onClick={handleRequestPermission} disabled={loading || !firebaseInitialized}>
+              <Button
+                onClick={handleRequestPermission}
+                disabled={loading || !firebaseInitialized}
+              >
                 <Bell className="mr-2 h-4 w-4" />
                 Request Permission
               </Button>
@@ -171,7 +203,9 @@ export default function PushNotificationManager() {
 
           {permission === "granted" && (
             <div className="pt-4 border-t">
-              <h3 className="font-medium mb-2">Push Notification Subscription</h3>
+              <h3 className="font-medium mb-2">
+                Push Notification Subscription
+              </h3>
               <p className="text-sm text-muted-foreground mb-4">
                 {isSubscribed
                   ? "You are subscribed to push notifications."
@@ -179,7 +213,10 @@ export default function PushNotificationManager() {
               </p>
 
               {!isSubscribed ? (
-                <Button onClick={handleSubscribe} disabled={loading || !firebaseInitialized}>
+                <Button
+                  onClick={handleSubscribe}
+                  disabled={loading || !firebaseInitialized}
+                >
                   <Bell className="mr-2 h-4 w-4" />
                   Subscribe to Notifications
                 </Button>
@@ -221,7 +258,10 @@ export default function PushNotificationManager() {
                   />
                 </div>
 
-                <Button onClick={handleSendTestNotification} disabled={loading || !firebaseInitialized}>
+                <Button
+                  onClick={handleSendTestNotification}
+                  disabled={loading || !firebaseInitialized}
+                >
                   <Send className="mr-2 h-4 w-4" />
                   Send Test Notification
                 </Button>
@@ -231,6 +271,5 @@ export default function PushNotificationManager() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
-

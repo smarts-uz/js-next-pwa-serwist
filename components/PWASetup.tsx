@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { registerSW } from "@/lib/pwa-utils"
+import { useEffect } from "react";
+import { registerSW } from "@/lib/pwa-utils";
 
 export default function PWASetup() {
   useEffect(() => {
     // Register service worker
-    registerSW()
+    registerSW();
 
     // Register protocol handler
     if ("navigator" in window && "registerProtocolHandler" in navigator) {
@@ -14,14 +14,12 @@ export default function PWASetup() {
         navigator.registerProtocolHandler(
           "web+pwa",
           `${window.location.origin}/features/protocol-handler?url=%s`,
-          "Next.js PWA",
-        )
+        );
       } catch (error) {
-        console.error("Failed to register protocol handler:", error)
+        console.error("Failed to register protocol handler:", error);
       }
     }
-  }, [])
+  }, []);
 
-  return null
+  return null;
 }
-

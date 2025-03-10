@@ -1,5 +1,13 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import LocalStorageManager from "@/components/LocalStorageManager"
+"force client";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import LocalStorageManager from "@/components/LocalStorageManager";
 
 export default function LocalStoragePage() {
   return (
@@ -9,7 +17,9 @@ export default function LocalStoragePage() {
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Manage Local Storage</CardTitle>
-          <CardDescription>Store and retrieve data that persists across browser sessions</CardDescription>
+          <CardDescription>
+            Store and retrieve data that persists across browser sessions
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <LocalStorageManager />
@@ -22,8 +32,9 @@ export default function LocalStoragePage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p>
-            Local Storage provides a simple key-value storage mechanism that persists data across browser sessions,
-            allowing PWAs to maintain state and user preferences even after the browser is closed.
+            Local Storage provides a simple key-value storage mechanism that
+            persists data across browser sessions, allowing PWAs to maintain
+            state and user preferences even after the browser is closed.
           </p>
 
           <div className="bg-muted p-4 rounded-md">
@@ -38,12 +49,12 @@ export default function LocalStoragePage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Note: For more complex data storage needs, consider using IndexedDB which offers larger storage capacity and
-            support for structured data.
+            Note: For more complex data storage needs, consider using IndexedDB
+            which offers larger storage capacity and support for structured
+            data.
           </p>
         </CardContent>
       </Card>
     </main>
-  )
+  );
 }
-

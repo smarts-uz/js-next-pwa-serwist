@@ -1,23 +1,6 @@
 Next.js Progressive Web App (PWA)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 A comprehensive Progressive Web App built with Next.js that demonstrates modern web capabilities and PWA features. This application showcases how web apps can provide native-like experiences with features such as file handling, geolocation, offline support, push notifications, and more.
-
-
-
-
 
 ## 📋 Table of Contents
 
@@ -34,7 +17,6 @@ A comprehensive Progressive Web App built with Next.js that demonstrates modern 
 - [Troubleshooting](#-troubleshooting)
 - [License](#-license)
 
-
 ## ✨ Features
 
 This PWA demonstrates the following advanced web capabilities:
@@ -47,7 +29,6 @@ This PWA demonstrates the following advanced web capabilities:
 - Create new files and save them to the device
 - Register as a file handler for specific file types
 
-
 ### 2. Geolocation Services
 
 - Access device location (latitude, longitude)
@@ -55,7 +36,6 @@ This PWA demonstrates the following advanced web capabilities:
 - Real-time location tracking with watch functionality
 - Accuracy information and error handling
 - Integration with map services
-
 
 ### 3. Interactive Local Storage
 
@@ -65,7 +45,6 @@ This PWA demonstrates the following advanced web capabilities:
 - Data persistence across browser sessions
 - Storage limit handling
 
-
 ### 4. Network Information
 
 - Online/offline status detection with real-time updates
@@ -73,7 +52,6 @@ This PWA demonstrates the following advanced web capabilities:
 - Effective connection type monitoring (4g, 3g, 2g)
 - Bandwidth and latency information
 - Data-saving mode detection
-
 
 ### 5. Offline Functionality
 
@@ -83,7 +61,6 @@ This PWA demonstrates the following advanced web capabilities:
 - Visual indicators for online/offline status
 - Seamless transition between online and offline states
 
-
 ### 6. Protocol Handling
 
 - Registration as a handler for custom URL protocols
@@ -92,7 +69,6 @@ This PWA demonstrates the following advanced web capabilities:
 - Integration with other applications via custom protocols
 - Deep linking capabilities
 
-
 ### 7. Push Notifications
 
 - Firebase Cloud Messaging integration
@@ -100,7 +76,6 @@ This PWA demonstrates the following advanced web capabilities:
 - Subscription to notification topics
 - Test notification sending functionality
 - Background notification handling via service worker
-
 
 ## 🚀 Demo
 
@@ -115,11 +90,9 @@ Before you begin, ensure you have the following installed:
 - A modern web browser (Chrome, Edge, Firefox, or Safari)
 - Firebase account (for push notifications)
 
-
 ## 🔧 Installation
 
 1. Clone the repository:
-
 
 ```shellscript
 git clone https://github.com/yourusername/nextjs-pwa.git
@@ -128,13 +101,11 @@ cd nextjs-pwa
 
 2. Install dependencies:
 
-
 ```shellscript
 npm install
 ```
 
 3. Create a `.env.local` file in the root directory with the following variables:
-
 
 ```plaintext
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
@@ -157,7 +128,6 @@ NEXT_PUBLIC_VAPID_KEY=your_vapid_public_key
 4. Generate VAPID keys for web push notifications
 5. Update the `.env.local` file with your Firebase configuration
 
-
 ### Service Worker
 
 The service worker is configured to:
@@ -166,7 +136,6 @@ The service worker is configured to:
 - Provide a network-first strategy with cache fallback
 - Handle push notifications
 - Implement background sync
-
 
 You can customize the caching strategy in `public/sw.js`.
 
@@ -181,7 +150,6 @@ The `public/manifest.json` file contains the PWA configuration including:
 - Shortcuts for quick access
 - Protocol handlers
 - File handlers
-
 
 ## 🚀 Usage
 
@@ -217,7 +185,6 @@ To fully test PWA features:
 3. Install the PWA when prompted
 4. Test features in both online and offline modes
 
-
 ## 🔍 PWA Features in Detail
 
 ### File Handling
@@ -250,18 +217,16 @@ navigator.geolocation.getCurrentPosition(
   },
   (error) => {
     // Handle errors
-  }
+  },
 );
 ```
 
 For real-time tracking, the app uses `watchPosition`:
 
 ```javascript
-const watchId = navigator.geolocation.watchPosition(
-  (position) => {
-    // Update with new position
-  }
-);
+const watchId = navigator.geolocation.watchPosition((position) => {
+  // Update with new position
+});
 
 // Later, to stop watching:
 navigator.geolocation.clearWatch(watchId);
@@ -273,13 +238,13 @@ The app provides a visual interface for localStorage operations:
 
 ```javascript
 // Add an item
-localStorage.setItem('key', 'value');
+localStorage.setItem("key", "value");
 
 // Get an item
-const value = localStorage.getItem('key');
+const value = localStorage.getItem("key");
 
 // Remove an item
-localStorage.removeItem('key');
+localStorage.removeItem("key");
 
 // Clear all items
 localStorage.clear();
@@ -298,14 +263,14 @@ if (navigator.connection) {
 }
 
 // Listen for changes
-navigator.connection.addEventListener('change', updateConnectionInfo);
+navigator.connection.addEventListener("change", updateConnectionInfo);
 ```
 
 Basic online/offline detection uses:
 
 ```javascript
-window.addEventListener('online', handleOnline);
-window.addEventListener('offline', handleOffline);
+window.addEventListener("online", handleOnline);
+window.addEventListener("offline", handleOffline);
 ```
 
 ### Protocol Handling
@@ -314,9 +279,9 @@ The app registers as a handler for custom protocols:
 
 ```javascript
 navigator.registerProtocolHandler(
-  'web+pwa',
+  "web+pwa",
   `${window.location.origin}/features/protocol-handler?url=%s`,
-  'Next.js PWA'
+  "Next.js PWA",
 );
 ```
 
@@ -332,20 +297,20 @@ const permission = await Notification.requestPermission();
 
 // Get FCM token
 const token = await getToken(messaging, {
-  vapidKey: 'YOUR_VAPID_KEY'
+  vapidKey: "YOUR_VAPID_KEY",
 });
 
 // Send to server for subscription
-await fetch('/api/push-notifications', {
-  method: 'POST',
-  body: JSON.stringify({ token })
+await fetch("/api/push-notifications", {
+  method: "POST",
+  body: JSON.stringify({ token }),
 });
 ```
 
 The service worker handles incoming push messages:
 
 ```javascript
-self.addEventListener('push', (event) => {
+self.addEventListener("push", (event) => {
   const data = event.data.json();
   self.registration.showNotification(data.title, data.options);
 });
@@ -390,11 +355,9 @@ nextjs-pwa/
 3. Configure environment variables
 4. Deploy
 
-
 ### Other Hosting Providers
 
 1. Build the application:
-
 
 ```shellscript
 npm run build
@@ -403,13 +366,9 @@ npm run build
 2. Deploy the `.next` folder and `public` directory to your hosting provider
 3. Ensure your server is configured to:
 
-1. Serve over HTTPS
-2. Set correct MIME types for service worker and manifest
-3. Set appropriate cache headers
-
-
-
-
+4. Serve over HTTPS
+5. Set correct MIME types for service worker and manifest
+6. Set appropriate cache headers
 
 ## 🤝 Contributing
 
@@ -421,7 +380,6 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-
 Please ensure your code follows the project's style and includes appropriate tests.
 
 ## ❓ Troubleshooting
@@ -431,36 +389,26 @@ Please ensure your code follows the project's style and includes appropriate tes
 1. **Service worker not registering**
 
 1. Ensure you're using HTTPS or localhost
-2. Check for console errors
-3. Verify the service worker path is correct
+1. Check for console errors
+1. Verify the service worker path is correct
 
-
-
-2. **Push notifications not working**
+1. **Push notifications not working**
 
 1. Verify Firebase configuration
-2. Check that permission has been granted
-3. Ensure the VAPID key is correct
+1. Check that permission has been granted
+1. Ensure the VAPID key is correct
 
-
-
-3. **File handling not working**
+1. **File handling not working**
 
 1. File System Access API requires Chrome/Edge or other Chromium-based browsers
-2. Must be served over HTTPS
-3. User must interact with the page before using the API
+1. Must be served over HTTPS
+1. User must interact with the page before using the API
 
-
-
-4. **PWA not installable**
+1. **PWA not installable**
 
 1. Verify manifest.json is correctly formatted
-2. Ensure icons are available and properly sized
-3. Check that the service worker is registered successfully
-
-
-
-
+1. Ensure icons are available and properly sized
+1. Check that the service worker is registered successfully
 
 ### Getting Help
 
@@ -469,7 +417,6 @@ If you encounter issues not covered here:
 1. Check the [Issues](https://github.com/yourusername/nextjs-pwa/issues) section
 2. Search for similar problems in the Next.js or PWA communities
 3. Open a new issue with detailed information about your problem
-
 
 ## 📄 License
 

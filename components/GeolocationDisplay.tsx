@@ -1,127 +1,129 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle, MapPin, RefreshCw } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle, MapPin, RefreshCw } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface GeolocationPosition {
   coords: {
-    latitude: number
-    longitude: number
-    accuracy: number
-    altitude: number | null
-    altitudeAccuracy: number | null
-    heading: number | null
-    speed: number | null
-  }
-  timestamp: number
+    latitude: number;
+    longitude: number;
+    accuracy: number;
+    altitude: number | null;
+    altitudeAccuracy: number | null;
+    heading: number | null;
+    speed: number | null;
+  };
+  timestamp: number;
 }
 
 export default function GeolocationDisplay() {
-  const [position, setPosition] = useState<GeolocationPosition | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [position, setPosition] = useState<GeolocationPosition | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isSupported, setIsSupported] = useState(() => {
     if (typeof window !== "undefined") {
-      return "geolocation" in navigator
+      return "geolocation" in navigator;
     }
-    return false
-  })
-  const [watchId, setWatchId] = useState<number | null>(null)
-  const [isWatching, setIsWatching] = useState(false)
+    return false;
+  });
+  const [watchId, setWatchId] = useState<number | null>(null);
+  const [isWatching, setIsWatching] = useState(false);
 
   const getLocation = () => {
-    if (!isSupported) return
+    if (!isSupported) return;
 
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setPosition(position as GeolocationPosition)
-        setLoading(false)
+        setPosition(position as GeolocationPosition);
+        setLoading(false);
       },
       (error) => {
-        console.error("Geolocation error:", error)
-        setError(getGeolocationErrorMessage(error.code))
-        setLoading(false)
+        console.error("Geolocation error:", error);
+        setError(getGeolocationErrorMessage(error.code));
+        setLoading(false);
       },
       {
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
       },
-    )
-  }
+    );
+  };
 
   const startWatchingLocation = () => {
-    if (!isSupported || isWatching) return
+    if (!isSupported || isWatching) return;
 
-    setError(null)
-    setIsWatching(true)
+    setError(null);
+    setIsWatching(true);
 
     const id = navigator.geolocation.watchPosition(
       (position) => {
-        setPosition(position as GeolocationPosition)
-        setLoading(false)
+        setPosition(position as GeolocationPosition);
+        setLoading(false);
       },
       (error) => {
-        console.error("Geolocation watch error:", error)
-        setError(getGeolocationErrorMessage(error.code))
-        setLoading(false)
-        stopWatchingLocation()
+        console.error("Geolocation watch error:", error);
+        setError(getGeolocationErrorMessage(error.code));
+        setLoading(false);
+        stopWatchingLocation();
       },
       {
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
       },
-    )
+    );
 
-    setWatchId(id)
-  }
+    setWatchId(id);
+  };
 
   const stopWatchingLocation = () => {
     if (watchId !== null) {
-      navigator.geolocation.clearWatch(watchId)
-      setWatchId(null)
-      setIsWatching(false)
+      navigator.geolocation.clearWatch(watchId);
+      setWatchId(null);
+      setIsWatching(false);
     }
-  }
+  };
 
   const getGeolocationErrorMessage = (code: number): string => {
     switch (code) {
       case 1:
-        return "Permission denied. Please allow location access."
+        return "Permission denied. Please allow location access.";
       case 2:
-        return "Position unavailable. The network is down or satellites cannot be reached."
+        return "Position unavailable. The network is down or satellites cannot be reached.";
       case 3:
-        return "Timeout. The request to get user location timed out."
+        return "Timeout. The request to get user location timed out.";
       default:
-        return "An unknown error occurred."
+        return "An unknown error occurred.";
     }
-  }
+  };
 
   useEffect(() => {
     // Clean up watch on unmount
     return () => {
       if (watchId !== null) {
-        navigator.geolocation.clearWatch(watchId)
+        navigator.geolocation.clearWatch(watchId);
       }
-    }
-  }, [watchId])
+    };
+  }, [watchId]);
 
   if (!isSupported) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Not Supported</AlertTitle>
-        <AlertDescription>Geolocation is not supported in your browser.</AlertDescription>
+        <AlertDescription>
+          Geolocation is not supported in your browser.
+        </AlertDescription>
       </Alert>
-    )
+    );
   }
 
   return (
@@ -141,7 +143,11 @@ export default function GeolocationDisplay() {
         </Button>
 
         {!isWatching ? (
-          <Button onClick={startWatchingLocation} variant="outline" disabled={loading}>
+          <Button
+            onClick={startWatchingLocation}
+            variant="outline"
+            disabled={loading}
+          >
             <RefreshCw className="mr-2 h-4 w-4" />
             Watch Location
           </Button>
@@ -171,15 +177,21 @@ export default function GeolocationDisplay() {
               <div className="space-y-1 text-sm">
                 <p>
                   <span className="text-muted-foreground">Latitude:</span>{" "}
-                  <span className="font-mono">{position.coords.latitude.toFixed(6)}</span>
+                  <span className="font-mono">
+                    {position.coords.latitude.toFixed(6)}
+                  </span>
                 </p>
                 <p>
                   <span className="text-muted-foreground">Longitude:</span>{" "}
-                  <span className="font-mono">{position.coords.longitude.toFixed(6)}</span>
+                  <span className="font-mono">
+                    {position.coords.longitude.toFixed(6)}
+                  </span>
                 </p>
                 <p>
                   <span className="text-muted-foreground">Accuracy:</span>{" "}
-                  <span className="font-mono">{position.coords.accuracy.toFixed(2)} meters</span>
+                  <span className="font-mono">
+                    {position.coords.accuracy.toFixed(2)} meters
+                  </span>
                 </p>
               </div>
             </CardContent>
@@ -200,13 +212,17 @@ export default function GeolocationDisplay() {
                 <p>
                   <span className="text-muted-foreground">Heading:</span>{" "}
                   <span className="font-mono">
-                    {position.coords.heading !== null ? `${position.coords.heading.toFixed(2)}°` : "Not available"}
+                    {position.coords.heading !== null
+                      ? `${position.coords.heading.toFixed(2)}°`
+                      : "Not available"}
                   </span>
                 </p>
                 <p>
                   <span className="text-muted-foreground">Speed:</span>{" "}
                   <span className="font-mono">
-                    {position.coords.speed !== null ? `${position.coords.speed.toFixed(2)} m/s` : "Not available"}
+                    {position.coords.speed !== null
+                      ? `${position.coords.speed.toFixed(2)} m/s`
+                      : "Not available"}
                   </span>
                 </p>
               </div>
@@ -227,6 +243,5 @@ export default function GeolocationDisplay() {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
-

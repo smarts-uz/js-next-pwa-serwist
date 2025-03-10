@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { WifiOff } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { WifiOff } from "lucide-react";
+import Link from "next/link";
 
 export default function OfflinePage() {
   return (
@@ -13,8 +13,8 @@ export default function OfflinePage() {
         </CardHeader>
         <CardContent className="space-y-4 text-center">
           <p>
-            You appear to be offline. Don't worry - you can still access cached content and use many features of the
-            app.
+            You appear to be offline. Don't worry - you can still access cached
+            content and use many features of the app.
           </p>
           <Button asChild>
             <Link href="/">Go to Homepage</Link>
@@ -22,6 +22,5 @@ export default function OfflinePage() {
         </CardContent>
       </Card>
     </main>
-  )
+  );
 }
-

@@ -1,5 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import NetworkInfo from "@/components/NetworkInfo"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import NetworkInfo from "@/components/NetworkInfo";
 
 export default function NetworkInfoPage() {
   return (
@@ -9,7 +15,9 @@ export default function NetworkInfoPage() {
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Connection Status</CardTitle>
-          <CardDescription>Monitor your device's network connection type and status</CardDescription>
+          <CardDescription>
+            Monitor your device's network connection type and status
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <NetworkInfo />
@@ -22,8 +30,9 @@ export default function NetworkInfoPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p>
-            The Network Information API allows web applications to access information about the network connection the
-            user is using. This enables adaptive experiences based on network quality.
+            The Network Information API allows web applications to access
+            information about the network connection the user is using. This
+            enables adaptive experiences based on network quality.
           </p>
 
           <div className="bg-muted p-4 rounded-md">
@@ -38,12 +47,13 @@ export default function NetworkInfoPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Note: The Network Information API has varying levels of support across browsers. Basic online/offline
-            detection is widely supported, while detailed connection information may not be available in all browsers.
+            Note: The Network Information API has varying levels of support
+            across browsers. Basic online/offline detection is widely supported,
+            while detailed connection information may not be available in all
+            browsers.
           </p>
         </CardContent>
       </Card>
     </main>
-  )
+  );
 }
-

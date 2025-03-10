@@ -1,40 +1,41 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { RefreshCw, AlertCircle } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { getPendingSyncRequests } from "@/lib/db"
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { RefreshCw, AlertCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { getPendingSyncRequests } from "@/lib/db";
 
 export default function SyncStatus() {
-  const [pendingItems, setPendingItems] = useState(0)
-  const [syncSupported, setSyncSupported] = useState(true)
+  const [pendingItems, setPendingItems] = useState(0);
+  const [syncSupported, setSyncSupported] = useState(true);
 
   useEffect(() => {
     // Check if background sync is supported
-    const isSyncSupported = "serviceWorker" in navigator && "SyncManager" in window
-    setSyncSupported(isSyncSupported)
+    const isSyncSupported =
+      "serviceWorker" in navigator && "SyncManager" in window;
+    setSyncSupported(isSyncSupported);
 
     // Get initial pending items count
     const updatePendingCount = async () => {
-      const count = await getPendingSyncRequests()
-      setPendingItems(count)
-    }
+      const count = await getPendingSyncRequests();
+      setPendingItems(count);
+    };
 
-    updatePendingCount()
+    updatePendingCount();
 
     // Set up listener for changes in IndexedDB
-    const channel = new BroadcastChannel("sync-updates")
+    const channel = new BroadcastChannel("sync-updates");
     channel.onmessage = (event) => {
       if (event.data.type === "sync-updated") {
-        updatePendingCount()
+        updatePendingCount();
       }
-    }
+    };
 
     return () => {
-      channel.close()
-    }
-  }, [])
+      channel.close();
+    };
+  }, []);
 
   return (
     <Card>
@@ -45,7 +46,10 @@ export default function SyncStatus() {
             <span>Background Sync</span>
           </div>
           {pendingItems > 0 && (
-            <Badge variant="outline" className="ml-2 bg-amber-100 text-amber-800 border-amber-200">
+            <Badge
+              variant="outline"
+              className="ml-2 bg-amber-100 text-amber-800 border-amber-200"
+            >
               {pendingItems} pending
             </Badge>
           )}
@@ -55,7 +59,9 @@ export default function SyncStatus() {
         {!syncSupported ? (
           <div className="flex items-center text-amber-600">
             <AlertCircle className="mr-2 h-4 w-4" />
-            <p className="text-sm">Background sync is not supported in your browser.</p>
+            <p className="text-sm">
+              Background sync is not supported in your browser.
+            </p>
           </div>
         ) : (
           <p className="text-sm text-muted-foreground">
@@ -66,6 +72,5 @@ export default function SyncStatus() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
-
