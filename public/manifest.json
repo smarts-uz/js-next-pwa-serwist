@@ -1,22 +1,54 @@
 {
-  "name": "My Awesome PWA app",
-  "short_name": "PWA App",
+  "name": "Next.js PWA Example",
+  "short_name": "Next PWA",
+  "description": "A comprehensive Progressive Web App built with Next.js",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "/icons/android-chrome-192x192.png",
+      "src": "/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-512x512.png",
+      "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
-  "start_url": "/",
-  "display": "standalone",
-  "orientation": "portrait"
+  "shortcuts": [
+    {
+      "name": "File Handling",
+      "short_name": "Files",
+      "description": "Open and save files directly from the web app",
+      "url": "/features/file-handling",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Push Notifications",
+      "short_name": "Notifications",
+      "description": "Manage push notifications",
+      "url": "/features/push-notifications",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+pwa",
+      "url": "/features/protocol-handler?url=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/features/file-handling",
+      "accept": {
+        "text/*": [".txt", ".md"]
+      }
+    }
+  ]
 }
+

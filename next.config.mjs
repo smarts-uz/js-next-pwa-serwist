@@ -1,21 +1,58 @@
-// @ts-check
 import withSerwistInit from "@serwist/next";
 
-// You may want to use a more robust revision to cache
-// files more efficiently.
-// A viable option is `git rev-parse HEAD`.
-const revision = crypto.randomUUID();
-
 const withSerwist = withSerwistInit({
-  cacheOnNavigation: true,
-  swSrc: "app/sw.ts",
+  // Service worker configuration
+  swSrc: "sw.ts",
   swDest: "public/sw.js",
-  additionalPrecacheEntries: [{ url: "/~offline", revision }],
+  disable: process.env.NODE_ENV === "development",
 });
 
-/** @type {import("next").NextConfig} */
+let userConfig = undefined
+try {
+  userConfig = await import('./v0-user-next.config')
+} catch (e) {
+  // ignore error
+}
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-};
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  images: {
+    unoptimized: true,
+  },
+  experimental: {
+    webpackBuildWorker: true,
+    parallelServerBuildTraces: true,
+    parallelServerCompiles: true,
+  },
+}
+
+mergeConfig(nextConfig, userConfig)
+
+function mergeConfig(nextConfig, userConfig) {
+  if (!userConfig) {
+    return
+  }
+
+  for (const key in userConfig) {
+    if (
+      typeof nextConfig[key] === 'object' &&
+      !Array.isArray(nextConfig[key])
+    ) {
+      nextConfig[key] = {
+        ...nextConfig[key],
+        ...userConfig[key],
+      }
+    } else {
+      nextConfig[key] = userConfig[key]
+    }
+  }
+}
 
 export default withSerwist(nextConfig);
+

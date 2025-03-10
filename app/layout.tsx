@@ -1,52 +1,49 @@
-import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
+import type React from "react"
+import type { Metadata, Viewport } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
+import PWASetup from "@/components/PWASetup"
 
-const APP_NAME = "NJS App";
-const APP_DESCRIPTION = "Next.js + Serwist PWA";
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  applicationName: APP_NAME,
-  title: {
-    default: APP_NAME,
-    template: "%s - NJS App",
-  },
-  description: APP_DESCRIPTION,
+  title: "Next.js PWA",
+  description: "A comprehensive PWA built with Next.js",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: APP_NAME,
+    title: "Next.js PWA",
   },
   formatDetection: {
     telephone: false,
   },
-  icons: {
-    shortcut: "/favicon.ico",
-    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
-  },
-};
+}
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
-};
-
-export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en" dir="ltr">
-      <head>
-        <style>{`
-            html, body, #__next {
-              height: 100%;
-            }
-            #__next {
-              margin: 0 auto;
-            }
-            h1 {
-              text-align: center;
-            }
-            `}</style>
-      </head>
-      <body>{children}</body>
-    </html>
-  );
+  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <PWASetup />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
+
