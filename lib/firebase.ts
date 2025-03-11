@@ -13,14 +13,29 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "",
 };
 
+function validateFirebaseConfig() {
+  const { apiKey, authDomain, projectId, measurementId, storageBucket, appId } =
+    firebaseConfig;
+
+  if (
+    !apiKey ||
+    !authDomain ||
+    !projectId ||
+    !measurementId ||
+    !storageBucket ||
+    !appId
+  ) {
+    alert(`Missing Firebase config values`);
+    throw new Error(`Missing Firebase config values`);
+  }
+}
+
 let messaging: any = null;
 
 // Initialize Firebase
 export async function initializeFirebase() {
   if (typeof window === "undefined") return;
-  if (Object.keys(firebaseConfig).map((key) => key === "")) {
-    return alert("Firebase configuration is not set");
-  }
+  validateFirebaseConfig();
   try {
     const app = initializeApp(firebaseConfig);
     messaging = getMessaging(app);
@@ -54,10 +69,8 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
   if (!("Notification" in window)) {
     throw new Error("This browser does not support notifications");
   }
-  if (Object.keys(firebaseConfig).map((key) => key === "")) {
-    alert("Firebase configuration is not set");
-    return "denied";
-  }
+
+  validateFirebaseConfig();
 
   if (Notification.permission === "granted") {
     return "granted";
@@ -69,19 +82,19 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
 
 // Subscribe to a topic
 export async function subscribeToTopic(topic: string) {
-  if (Object.keys(firebaseConfig).map((key) => key === "")) {
-    alert("Firebase configuration is not set");
-    return;
-  }
+  validateFirebaseConfig();
+
   if (!messaging) {
     return alert("Firebase configuration is not set");
   }
 
   try {
-    // Get the FCM token
+    if (!process?.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY) {
+      return alert("No vapid key is found");
+    }
+
     const currentToken = await getToken(messaging, {
-      vapidKey:
-        "BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuBkr3qBUYIHBQFLXYp5Nksh8U",
+      vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
     });
 
     if (!currentToken) {

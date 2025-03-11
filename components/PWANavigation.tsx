@@ -114,7 +114,7 @@ export function PWANavigation() {
             "flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors",
             pathname === item.href
               ? "bg-primary/10 text-primary"
-              : "hover:bg-accent hover:text-accent-foreground",
+              : "hover:bg-accent hover:text-accent-foreground"
           )}
         >
           {item.icon}
@@ -178,7 +178,7 @@ export function PWANavigation() {
                 "flex items-center px-3 py-3 rounded-md text-base transition-colors",
                 pathname === item.href
                   ? "bg-primary/10 text-primary font-medium"
-                  : "hover:bg-accent hover:text-accent-foreground",
+                  : "hover:bg-accent hover:text-accent-foreground"
               )}
               onClick={() => setIsOpen(false)}
             >
@@ -205,7 +205,7 @@ export function PWANavigation() {
                 "flex items-center px-3 py-3 rounded-md text-base transition-colors",
                 pathname === "/offline"
                   ? "bg-primary/10 text-primary font-medium"
-                  : "hover:bg-accent hover:text-accent-foreground",
+                  : "hover:bg-accent hover:text-accent-foreground"
               )}
               onClick={() => setIsOpen(false)}
             >
