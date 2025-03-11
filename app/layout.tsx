@@ -10,13 +10,13 @@ import { LayoutWrapper } from "./layout-wrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next.js PWA",
+  title: "Smarts Next.js PWA",
   description: "A comprehensive PWA built with Next.js",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Next.js PWA",
+    title: "Smarts PWA",
   },
   formatDetection: {
     telephone: false,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#121212",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -38,7 +38,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
       <body className={inter.className + " dark"} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"

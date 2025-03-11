@@ -1,26 +1,22 @@
-
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 // Initialize the Firebase app in the service worker by passing in the messagingSenderId.
-firebase.initializeApp({
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-});
-
-
+const firebaseConfig = {
+  apiKey: "AIzaSyAGn5FGNu5vV8yTc_sMgp61wK86gtQXRTc",
+  authDomain: "smarts-next-pwa.firebaseapp.co",
+  projectId: "smarts-next-pwa",
+  storageBucket: "smarts-next-pwa.firebasestorage.app",
+  messagingSenderId: "545017091933",
+  appId: "1:545017091933:web:6ec64e6cf90f7853e7bab4",
+  measurementId: "G-NNJ214WV5M",
+};
 // Retrieve an instance of Firebase Messaging so that it can handle background messages.
 const messaging = firebase.messaging();
 
 // Optional: Add event listener for 'push' events
 self.addEventListener('push', function (event) {
   if (event.data) {
-    console.log(event)
     const notificationData = event.data.json();
     const notificationTitle = notificationData.notification.title;
     const notificationOptions = {
