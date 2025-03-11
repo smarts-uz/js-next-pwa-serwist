@@ -77,7 +77,6 @@ export default function Home() {
               icon={<Link className="h-6 w-6" />}
               href="/features/protocol-handler"
             />
-
             <FeatureCard
               title="Push Notifications"
               description="Receive notifications even when app is closed"
