@@ -70,7 +70,7 @@ const navItems: NavItem[] = [
   },
   {
     title: "Push Notifications",
-    href: "/features/push-notification",
+    href: "/features/push-notifications",
     icon: <Bell className="h-5 w-5" />,
   },
 ];
