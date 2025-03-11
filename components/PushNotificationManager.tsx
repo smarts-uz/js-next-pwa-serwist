@@ -12,7 +12,9 @@ import {
   requestNotificationPermission,
   getFirebaseToken,
   sendPushNotification,
+  sendNotificationToTopic,
 } from "@/lib/firebase";
+import { NotificationTopicManager } from "./NotificationTopicManager";
 
 export default function PushNotificationManager() {
   const [permission, setPermission] =
@@ -20,6 +22,7 @@ export default function PushNotificationManager() {
   const [token, setToken] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -76,14 +79,18 @@ export default function PushNotificationManager() {
     setSuccess(null);
 
     try {
-      if (!token) {
-        throw new Error("No FCM token available");
+      if (topic) {
+        await sendNotificationToTopic(topic, title, body);
+        setSuccess(`Notification sent to topic: ${topic}`);
+      } else if (token) {
+        await sendPushNotification(token, title, body);
+        setSuccess("Notification sent successfully!");
+      } else {
+        throw new Error("No token or topic specified");
       }
-
-      await sendPushNotification(token, title, body);
-      setSuccess("Notification sent successfully!");
       setTitle("");
       setBody("");
+      setTopic("");
     } catch (error) {
       console.error("Error sending notification:", error);
       setError("Failed to send notification. Please try again.");
@@ -125,30 +132,40 @@ export default function PushNotificationManager() {
         )}
 
         {permission === "granted" && token && (
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Input
-                placeholder="Notification Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
+          <>
+            <NotificationTopicManager token={token} />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Input
+                  placeholder="Notification Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Textarea
+                  placeholder="Notification Body"
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)}
+                  rows={3}
+                />
+              </div>
+              <div className="space-y-2">
+                <Input
+                  placeholder="Topic (optional)"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                />
+              </div>
+              <Button
+                onClick={handleSendNotification}
+                disabled={loading || !title || !body}
+              >
+                <Send className="mr-2 h-4 w-4" />
+                Send Notification
+              </Button>
             </div>
-            <div className="space-y-2">
-              <Textarea
-                placeholder="Notification Body"
-                value={body}
-                onChange={(e) => setBody(e.target.value)}
-                rows={3}
-              />
-            </div>
-            <Button
-              onClick={handleSendNotification}
-              disabled={loading || !title || !body}
-            >
-              <Send className="mr-2 h-4 w-4" />
-              Send Notification
-            </Button>
-          </div>
+          </>
         )}
       </CardContent>
     </Card>

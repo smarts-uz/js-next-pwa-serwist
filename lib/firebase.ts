@@ -87,7 +87,6 @@ export async function getFirebaseToken(): Promise<string | null> {
 
 function displayNotification(payload: any) {
   if ("Notification" in window && Notification.permission === "granted") {
-    console.log('payload',payload)
     const notificationTitle = payload.notification?.title || "New Notification";
     const notificationOptions = {
       body: payload.notification?.body || "You have a new notification",
@@ -118,7 +117,7 @@ export async function sendPushNotification(
   data?: any
 ) {
   try {
-    const response = await fetch("/api/push-notifications", {
+    const response = await fetch("/api/push-notifications/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,6 +132,74 @@ export async function sendPushNotification(
     return await response.json();
   } catch (error) {
     console.error("Error sending push notification:", error);
+    throw error;
+  }
+}
+
+export async function subscribeToTopic(token: string, topic: string) {
+  try {
+    const response = await fetch("/api/push-notifications/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token, topic }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to subscribe to topic");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error subscribing to topic:", error);
+    throw error;
+  }
+}
+
+export async function unsubscribeFromTopic(token: string, topic: string) {
+  try {
+    const response = await fetch("/api/push-notifications/unsubscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token, topic }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to unsubscribe from topic");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error unsubscribing from topic:", error);
+    throw error;
+  }
+}
+
+export async function sendNotificationToTopic(
+  topic: string,
+  title: string,
+  body: string,
+  data?: any
+) {
+  try {
+    const response = await fetch("/api/push-notifications/send-to-topic", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ topic, title, body, data }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send notification to topic");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error sending notification to topic:", error);
     throw error;
   }
 }
