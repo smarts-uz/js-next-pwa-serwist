@@ -62,7 +62,7 @@ export default function PushNotificationManager() {
         setSuccess("Notification permission granted!");
       } else {
         setError(
-          "Permission denied. Please enable notifications in your browser settings."
+          "Permission denied. Please enable notifications in your browser settings.",
         );
       }
     } catch (error) {

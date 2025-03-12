@@ -24,7 +24,6 @@ import {
   LinkIcon,
   Bell,
   Info,
-  Settings,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -86,7 +85,6 @@ export function PWANavigation() {
     setIsOpen(false);
   }, [pathname]);
 
-  // Check if app is installed and online status
   useEffect(() => {
     setInstalled(isAppInstalled());
     setIsOnline(navigator.onLine);
@@ -103,7 +101,6 @@ export function PWANavigation() {
     };
   }, []);
 
-  // Desktop Navigation
   const DesktopNav = () => (
     <div className="hidden md:flex items-center space-x-1 px-0">
       {navItems.map((item) => (
@@ -132,7 +129,6 @@ export function PWANavigation() {
     </div>
   );
 
-  // Mobile Navigation
   const MobileNav = () => (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
@@ -140,7 +136,7 @@ export function PWANavigation() {
           variant="ghost"
           size="icon"
           className="md:hidden"
-          aria-label="Open main menu"
+          // aria-label="Open main menu"
         >
           <Menu className="h-6 w-6" />
         </Button>

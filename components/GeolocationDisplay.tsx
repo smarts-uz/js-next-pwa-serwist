@@ -53,7 +53,7 @@ export default function GeolocationDisplay() {
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
-      }
+      },
     );
   };
 
@@ -78,7 +78,7 @@ export default function GeolocationDisplay() {
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
-      }
+      },
     );
 
     setWatchId(id);

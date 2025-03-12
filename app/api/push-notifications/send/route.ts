@@ -4,14 +4,12 @@ import { getMessaging } from "firebase-admin/messaging";
 
 // Initialize Firebase Admin SDK
 const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT_KEY || "{}"
+  process.env.FIREBASE_SERVICE_ACCOUNT_KEY || "{}",
 ) as ServiceAccount;
+
 initializeApp({
   credential: cert(serviceAccount),
 });
-// if (!initializeApp.length) {
-// }
-console.log(cert(serviceAccount));
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,7 +18,7 @@ export async function POST(request: NextRequest) {
     if (!token) {
       return NextResponse.json(
         { success: false, message: "FCM token is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -50,7 +48,7 @@ export async function POST(request: NextRequest) {
             ? error.message
             : "An error occurred sending notification",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

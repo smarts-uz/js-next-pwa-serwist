@@ -73,7 +73,7 @@ export async function getFirebaseToken(): Promise<string | null> {
 
     if (!currentToken) {
       console.log(
-        "No registration token available. Request permission to generate one."
+        "No registration token available. Request permission to generate one.",
       );
       return null;
     }
@@ -96,7 +96,7 @@ function displayNotification(payload: any) {
 
     const notification = new Notification(
       notificationTitle,
-      notificationOptions
+      notificationOptions,
     );
 
     notification.onclick = () => {
@@ -114,7 +114,7 @@ export async function sendPushNotification(
   token: string,
   title: string,
   body: string,
-  data?: any
+  data?: any,
 ) {
   try {
     const response = await fetch("/api/push-notifications/send", {
@@ -182,7 +182,7 @@ export async function sendNotificationToTopic(
   topic: string,
   title: string,
   body: string,
-  data?: any
+  data?: any,
 ) {
   try {
     const response = await fetch("/api/push-notifications/send-to-topic", {
