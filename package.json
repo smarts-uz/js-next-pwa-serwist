@@ -1,13 +1,13 @@
 {
-  "name": "Next.js PWA Serwist Example",
+  "name": "Smarts Next.js PWA Serwist Example",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next dev -p",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start -p",
+    "start": "next start -p 3001",
     "lint": "next lint"
   },
   "dependencies": {
