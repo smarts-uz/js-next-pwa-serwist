@@ -70,7 +70,7 @@ export default function DataForm() {
       {status === "success" && (
         <Alert
           variant="success"
-          className="bg-green-50 text-green-800 border-green-200"
+          className="bg-green-950 text-green-200 border-green-200"
         >
           <CheckCircle className="h-4 w-4 text-green-500" />
           <AlertTitle>Success</AlertTitle>

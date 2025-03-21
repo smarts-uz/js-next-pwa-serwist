@@ -36,6 +36,7 @@ export default function PushNotificationManager() {
 
         if (currentPermission === "granted") {
           const fcmToken = await getFirebaseToken();
+          console.log('client-Token',fcmToken)
           setToken(fcmToken);
         }
       } catch (error) {
@@ -48,6 +49,8 @@ export default function PushNotificationManager() {
     initializeNotifications();
   }, []);
 
+// fKyAJhTos0o4nO2OJE0xEk:APA91bE9KiofkH01MbATZArunUc7fkmm791FEpN3m7nMMiB1Fan6FOP-qPWG0G4z8d69IbZsofXSFoSqn-5DpweY8g0F1lAEaoxuZVTUwYFpXgjvp1g4kv0
+// fKyAJhTos0o4nO2OJE0xEk:APA91bE9KiofkH01MbATZArunUc7fkmm791FEpN3m7nMMiB1Fan6FOP-qPWG0G4z8d69IbZsofXSFoSqn-5DpweY8g0F1lAEaoxuZVTUwYFpXgjvp1g4kv0
   const handleRequestPermission = async () => {
     setLoading(true);
     setError(null);
@@ -117,7 +120,7 @@ export default function PushNotificationManager() {
         {success && (
           <Alert
             variant="success"
-            className="bg-green-50 text-green-800 border-green-200"
+            className="bg-green-950 text-green-200 border-green-200"
           >
             <AlertCircle className="h-4 w-4 text-green-500" />
             <AlertTitle>Success</AlertTitle>

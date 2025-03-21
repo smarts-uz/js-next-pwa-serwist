@@ -4,10 +4,12 @@ const serviceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY || "{}"
 ) as ServiceAccount;
 
-if (!getApps().length) {
-  initializeApp({
-    credential: cert(serviceAccount),
-  });
+function initializeFirebaseAdmin() {
+  if (!getApps().length) {
+    initializeApp({
+      credential: cert(serviceAccount),
+    });
+  }
 }
 
-export default initializeApp;
+export { initializeFirebaseAdmin };

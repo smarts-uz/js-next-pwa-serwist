@@ -1,24 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { initializeApp, cert, type ServiceAccount } from "firebase-admin/app";
 import { getMessaging } from "firebase-admin/messaging";
+import { initializeFirebaseAdmin } from "@/lib/firebase-admin";
 
-// Initialize Firebase Admin SDK
-const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT_KEY || "{}",
-) as ServiceAccount;
-
-initializeApp({
-  credential: cert(serviceAccount),
-});
+initializeFirebaseAdmin();
 
 export async function POST(request: NextRequest) {
   try {
     const { token, title, body, data } = await request.json();
-
+    console.log("token-api", token);
     if (!token) {
       return NextResponse.json(
         { success: false, message: "FCM token is required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -30,8 +23,9 @@ export async function POST(request: NextRequest) {
       },
       data: data || {},
     };
-
+    console.log('message',message)
     const response = await getMessaging().send(message);
+    console.log("response", response);
 
     return NextResponse.json({
       success: true,
@@ -39,7 +33,8 @@ export async function POST(request: NextRequest) {
       messageId: response,
     });
   } catch (error) {
-    console.error("Error sending push notification:", error);
+    // console.error("Error sending push notification:", error);
+    console.log(error)
     return NextResponse.json(
       {
         success: false,
@@ -48,7 +43,7 @@ export async function POST(request: NextRequest) {
             ? error.message
             : "An error occurred sending notification",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

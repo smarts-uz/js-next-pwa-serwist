@@ -79,7 +79,7 @@ export async function getFirebaseToken(): Promise<string | null> {
     const currentToken = await getToken(messaging, {
       vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
     });
-    console.log("token", currentToken)
+    console.log('currentToken', currentToken)
     if (!currentToken) {
       console.log(
         "No registration token available. Request permission to generate one."
