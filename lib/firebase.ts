@@ -2,18 +2,27 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 export const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "",
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "",
 };
 
 function validateFirebaseConfig() {
   const { apiKey, authDomain, projectId, measurementId, storageBucket, appId } =
     firebaseConfig;
+
+  console.log(
+    apiKey,
+    authDomain,
+    projectId,
+    measurementId,
+    storageBucket,
+    appId
+  );
 
   if (
     !apiKey ||
@@ -70,10 +79,10 @@ export async function getFirebaseToken(): Promise<string | null> {
     const currentToken = await getToken(messaging, {
       vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
     });
-
+    console.log("token", currentToken)
     if (!currentToken) {
       console.log(
-        "No registration token available. Request permission to generate one.",
+        "No registration token available. Request permission to generate one."
       );
       return null;
     }
@@ -96,7 +105,7 @@ function displayNotification(payload: any) {
 
     const notification = new Notification(
       notificationTitle,
-      notificationOptions,
+      notificationOptions
     );
 
     notification.onclick = () => {
@@ -114,7 +123,7 @@ export async function sendPushNotification(
   token: string,
   title: string,
   body: string,
-  data?: any,
+  data?: any
 ) {
   try {
     const response = await fetch("/api/push-notifications/send", {
@@ -182,7 +191,7 @@ export async function sendNotificationToTopic(
   topic: string,
   title: string,
   body: string,
-  data?: any,
+  data?: any
 ) {
   try {
     const response = await fetch("/api/push-notifications/send-to-topic", {

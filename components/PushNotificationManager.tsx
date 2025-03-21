@@ -39,6 +39,7 @@ export default function PushNotificationManager() {
           setToken(fcmToken);
         }
       } catch (error) {
+        console.log(error)
         console.error("Error initializing notifications:", error);
         setError("Failed to initialize notifications. Please try again.");
       }

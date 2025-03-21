@@ -15,6 +15,10 @@ const firebaseConfig = {
   appId: "1:545017091933:web:6ec64e6cf90f7853e7bab4",
   measurementId: "G-NNJ214WV5M",
 };
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 // Retrieve an instance of Firebase Messaging so that it can handle background messages.
 const messaging = firebase.messaging();
 
