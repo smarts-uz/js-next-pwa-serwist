@@ -25,6 +25,7 @@ import {
   Bell,
   Info,
   ArrowRightLeft,
+  Camera,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -67,6 +68,11 @@ const navItems: NavItem[] = [
     title: "Protocol Handler",
     href: "/features/protocol-handler",
     icon: <LinkIcon className="h-5 w-5" />,
+  },
+  {
+    title: "Media Capture",
+    href: "/features/media-capture",
+    icon: <Camera className="h-5 w-5" />,
   },
   {
     title: "View Transitions",
