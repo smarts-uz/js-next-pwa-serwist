@@ -38,7 +38,7 @@ export default function ProtocolHandler() {
       if ("registerProtocolHandler" in navigator) {
         navigator.registerProtocolHandler(
           "web+pwa",
-          `${window.location.origin}/features/protocol-handler?url=%s`,
+          `${window.location.origin}/features/protocol-handler?url=%s`
           // "Next.js PWA",
         );
         setIsRegistered(true);
@@ -52,17 +52,19 @@ export default function ProtocolHandler() {
     try {
       navigator.registerProtocolHandler(
         "web+pwa",
-        `${window.location.origin}/features/protocol-handler?url=%s`,
+        `${window.location.origin}/features/protocol-handler?url=%s`
         // "Next.js PWA",
       );
       setIsRegistered(true);
       alert(
-        "Protocol handler registered successfully. You may need to approve it in your browser settings.",
+        "Protocol handler registered successfully. You may need to approve it in your browser settings."
       );
     } catch (error) {
       console.error("Failed to register protocol handler:", error);
       alert(
-        `Failed to register protocol handler: ${error instanceof Error ? error.message : "Unknown error"}`,
+        `Failed to register protocol handler: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
       );
     }
   };
@@ -87,17 +89,17 @@ export default function ProtocolHandler() {
   return (
     <div className="space-y-6">
       {receivedUrl && (
-        <Card className="border-green-200 bg-green-50">
+        <Card className="border-green-200 bg-green-950">
           <CardHeader className="pb-2">
-            <CardTitle className="text-green-800">
+            <CardTitle className="text-green-200">
               Protocol URL Received!
             </CardTitle>
-            <CardDescription className="text-green-700">
+            <CardDescription className="text-green-100">
               The application successfully handled a custom protocol URL
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="font-mono text-sm bg-white p-2 rounded border border-green-200 break-all">
+            <p className="font-mono text-sm bg-neutral-800 p-2 rounded border border-green-200 break-all">
               {receivedUrl}
             </p>
           </CardContent>
