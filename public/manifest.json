@@ -457,7 +457,7 @@
       "sizes": "1024x1024"
     }
   ],
-  "shortcuts": [
+  "shortcuts": [ 
     {
       "name": "File Handling",
       "short_name": "Files",
@@ -466,10 +466,10 @@
       "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Push Notifications",
-      "short_name": "Notifications",
-      "description": "Manage push notifications",
-      "url": "/features/push-notifications",
+      "name": "Local",
+      "short_name": "Local",
+      "description": "Manage",
+      "url": "/features/local-storage",
       "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
     }
   ],

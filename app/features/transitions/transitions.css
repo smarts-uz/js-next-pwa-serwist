@@ -1,0 +1,74 @@
+.transition-container {
+  padding: 2rem;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-old(root) {
+  animation-name: slide-out;
+}
+
+::view-transition-new(root) {
+  animation-name: slide-in;
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.transition-content {
+  transition: all 0.5s ease;
+}
+
+.slide {
+  transform: translateX(0);
+}
+
+.fade {
+  opacity: 1;
+}
+
+.flip {
+  transform: rotateY(0);
+}
+
+.slide-out {
+  transform: translateX(-100%);
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.flip-out {
+  transform: rotateY(180deg);
+}
+
+.slide-in {
+  transform: translateX(100%);
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.flip-in {
+  transform: rotateY(0);
+}

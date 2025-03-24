@@ -24,6 +24,7 @@ import {
   LinkIcon,
   Bell,
   Info,
+  ArrowRightLeft,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -66,6 +67,11 @@ const navItems: NavItem[] = [
     title: "Protocol Handler",
     href: "/features/protocol-handler",
     icon: <LinkIcon className="h-5 w-5" />,
+  },
+  {
+    title: "View Transitions",
+    href: "/features/transitions",
+    icon: <ArrowRightLeft className="h-5 w-5" />,
   },
 ];
 
