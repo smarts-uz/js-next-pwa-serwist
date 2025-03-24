@@ -67,11 +67,6 @@ const navItems: NavItem[] = [
     href: "/features/protocol-handler",
     icon: <LinkIcon className="h-5 w-5" />,
   },
-  {
-    title: "Push Notifications",
-    href: "/features/push-notifications",
-    icon: <Bell className="h-5 w-5" />,
-  },
 ];
 
 export function PWANavigation() {

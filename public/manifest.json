@@ -1,6 +1,6 @@
 {
-  "name": "Next.js PWA Example",
-  "short_name": "Next PWA",
+  "name": "Smarts Next.js PWA",
+  "short_name": "Smarts Next PWA",
   "description": "A comprehensive Progressive Web App built with Next.js",
   "start_url": "/",
   "display": "standalone",
