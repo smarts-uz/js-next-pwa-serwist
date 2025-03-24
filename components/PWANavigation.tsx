@@ -27,6 +27,7 @@ import {
   ArrowRightLeft,
   Camera,
   Lock,
+  Share,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -38,52 +39,57 @@ interface NavItem {
   badge?: string;
 }
 
-// Navigation items based on the PWA project structure
+// Navigation items based on the PWA project structure with additional links
 const navItems: NavItem[] = [
   {
     title: "Home",
     href: "/",
-    icon: <Home className="h-5 w-5" />,
+    icon: <Home className="h-4 w-4" />,
   },
   {
     title: "File Handling",
     href: "/features/file-handling",
-    icon: <FileText className="h-5 w-5" />,
+    icon: <FileText className="h-4 w-4" />,
   },
   {
     title: "Geolocation",
     href: "/features/geolocation",
-    icon: <MapPin className="h-5 w-5" />,
+    icon: <MapPin className="h-4 w-4" />,
   },
   {
     title: "Local Storage",
     href: "/features/local-storage",
-    icon: <Database className="h-5 w-5" />,
+    icon: <Database className="h-4 w-4" />,
   },
   {
     title: "Network Info",
     href: "/features/network-info",
-    icon: <Wifi className="h-5 w-5" />,
+    icon: <Wifi className="h-4 w-4" />,
   },
   {
     title: "Protocol Handler",
     href: "/features/protocol-handler",
-    icon: <LinkIcon className="h-5 w-5" />,
+    icon: <LinkIcon className="h-4 w-4" />,
   },
   {
     title: "Media Capture",
     href: "/features/media-capture",
-    icon: <Camera className="h-5 w-5" />,
+    icon: <Camera className="h-4 w-4" />,
   },
   {
     title: "View Transitions",
     href: "/features/transitions",
-    icon: <ArrowRightLeft className="h-5 w-5" />,
+    icon: <ArrowRightLeft className="h-4 w-4" />,
   },
   {
-    title: "Web Authentication",
+    title: "Web Auth",
     href: "/features/web-authentication",
-    icon: <Lock className="h-5 w-5" />,
+    icon: <Lock className="h-4 w-4" />,
+  },
+  {
+    title: "Web Share API",
+    href: "/features/web-share",
+    icon: <Share className="h-4 w-4" />,
   },
 ];
 
@@ -114,34 +120,6 @@ export function PWANavigation() {
     };
   }, []);
 
-  const DesktopNav = () => (
-    <div className="hidden md:flex justify-center space-x-4">
-      {navItems.map((item) => (
-        <Link
-          key={item.title}
-          href={item.href}
-          className={cn(
-            "flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors",
-            pathname === item.href
-              ? "bg-primary/10 text-primary"
-              : "hover:bg-accent hover:text-accent-foreground"
-          )}
-        >
-          {item.icon}
-          <span className="ml-2">{item.title}</span>
-          {item.badge && (
-            <Badge
-              variant="outline"
-              className="ml-2 bg-primary/20 text-primary border-primary/30"
-            >
-              {item.badge}
-            </Badge>
-          )}
-        </Link>
-      ))}
-    </div>
-  );
-
   const MobileNav = () => (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
@@ -149,12 +127,15 @@ export function PWANavigation() {
           variant="ghost"
           size="icon"
           className="md:hidden"
-          // aria-label="Open main menu"
+          aria-label="Open main menu"
         >
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[280px] sm:w-[350px]">
+      <SheetContent
+        side="left"
+        className="w-[280px] sm:w-[350px] overflow-y-auto"
+      >
         <SheetHeader className="border-b pb-4 mb-4">
           <SheetTitle className="text-left flex items-center">
             <span className="font-bold inline-block bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 text-transparent bg-clip-text">
@@ -184,7 +165,7 @@ export function PWANavigation() {
               key={item.title}
               href={item.href}
               className={cn(
-                "flex items-center px-3 py-3 rounded-md text-base transition-colors",
+                "flex items-center px-3 py-1.5 rounded-md text-sm transition-colors",
                 pathname === item.href
                   ? "bg-primary/10 text-primary font-medium"
                   : "hover:bg-accent hover:text-accent-foreground"
@@ -192,11 +173,11 @@ export function PWANavigation() {
               onClick={() => setIsOpen(false)}
             >
               {item.icon}
-              <span className="ml-3">{item.title}</span>
+              <span className="ml-2">{item.title}</span>
               {item.badge && (
                 <Badge
                   variant="outline"
-                  className="ml-auto bg-primary/20 text-primary border-primary/30"
+                  className="ml-auto bg-primary/20 text-primary border-primary/30 text-xs"
                 >
                   {item.badge}
                 </Badge>
@@ -205,21 +186,21 @@ export function PWANavigation() {
           ))}
 
           <div className="pt-4 mt-4 border-t border-border">
-            <div className="px-3 py-2 text-sm font-medium text-muted-foreground">
+            <div className="px-3 py-2 text-xs font-medium text-muted-foreground">
               More
             </div>
             <Link
               href="/offline"
               className={cn(
-                "flex items-center px-3 py-3 rounded-md text-base transition-colors",
+                "flex items-center px-3 py-2 rounded-md text-sm transition-colors",
                 pathname === "/offline"
                   ? "bg-primary/10 text-primary font-medium"
                   : "hover:bg-accent hover:text-accent-foreground"
               )}
               onClick={() => setIsOpen(false)}
             >
-              <Info className="h-5 w-5" />
-              <span className="ml-3">Offline Page</span>
+              <Info className="h-4 w-4" />
+              <span className="ml-2">Offline Page</span>
             </Link>
           </div>
         </nav>
@@ -229,7 +210,7 @@ export function PWANavigation() {
 
   return (
     <div className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-14 items-center">
+      <div className="container mx-auto flex  justify-between h-20 items-center">
         <MobileNav />
 
         <Link
@@ -239,45 +220,31 @@ export function PWANavigation() {
           Smarts PWA
         </Link>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="flex justify-center space-x-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className={cn(
-                  "flex items-center p-1 px-2 rounded-md text-sm font-medium transition-colors",
-                  pathname === item.href
-                    ? "bg-primary/10 text-primary"
-                    : "hover:bg-accent hover:text-accent-foreground"
-                )}
-              >
-                {item.icon}
-                <span className="ml-2">{item.title}</span>
-                {item.badge && (
-                  <Badge
-                    variant="outline"
-                    className="ml-2 bg-primary/20 text-primary border-primary/30"
-                  >
-                    {item.badge}
-                  </Badge>
-                )}
-              </Link>
-            ))}
-          </div>
-
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {!isOnline && (
-              <div className="hidden md:flex items-center mr-2">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex md:flex-wrap md:gap-1 justify-start">
+          {navItems.map((item) => (
+            <Link
+              key={item.title}
+              href={item.href}
+              className={cn(
+                "flex items-center p-2 gap-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap",
+                pathname === item.href
+                  ? "bg-primary/10 text-primary"
+                  : "hover:bg-accent hover:text-accent-foreground"
+              )}
+            >
+              {item.icon}
+              <span className=" max-w-24 truncate">{item.title}</span>
+              {item.badge && (
                 <Badge
                   variant="outline"
-                  className="bg-amber-100 text-amber-800 border-amber-200"
+                  className="ml-0.5 bg-primary/20 text-primary border-primary/30 text-[10px] px-1 py-0"
                 >
-                  Offline
+                  {item.badge}
                 </Badge>
-              </div>
-            )}
-          </div>
+              )}
+            </Link>
+          ))}
         </div>
       </div>
     </div>
