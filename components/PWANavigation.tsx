@@ -26,6 +26,7 @@ import {
   Info,
   ArrowRightLeft,
   Camera,
+  Lock,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -79,6 +80,11 @@ const navItems: NavItem[] = [
     href: "/features/transitions",
     icon: <ArrowRightLeft className="h-5 w-5" />,
   },
+  {
+    title: "Web Authentication",
+    href: "/features/web-authentication",
+    icon: <Lock className="h-5 w-5" />,
+  },
 ];
 
 export function PWANavigation() {
@@ -109,7 +115,7 @@ export function PWANavigation() {
   }, []);
 
   const DesktopNav = () => (
-    <div className="hidden md:flex items-center space-x-1 px-0">
+    <div className="hidden md:flex justify-center space-x-4">
       {navItems.map((item) => (
         <Link
           key={item.title}
@@ -223,27 +229,42 @@ export function PWANavigation() {
 
   return (
     <div className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container mx-auto flex h-14 items-center">
         <MobileNav />
 
-        <div className="mx-4 flex">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="font-bold inline-block bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 text-transparent bg-clip-text">
-              Smarts PWA
-            </span>
-            {installed && (
-              <Badge
-                variant="outline"
-                className="hidden md:inline-flex bg-green-100 text-green-800 border-green-200"
-              >
-                Installed
-              </Badge>
-            )}
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="font-bold inline-block bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 text-transparent bg-clip-text"
+        >
+          Smarts PWA
+        </Link>
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <DesktopNav />
+          <div className="flex justify-center space-x-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className={cn(
+                  "flex items-center p-1 px-2 rounded-md text-sm font-medium transition-colors",
+                  pathname === item.href
+                    ? "bg-primary/10 text-primary"
+                    : "hover:bg-accent hover:text-accent-foreground"
+                )}
+              >
+                {item.icon}
+                <span className="ml-2">{item.title}</span>
+                {item.badge && (
+                  <Badge
+                    variant="outline"
+                    className="ml-2 bg-primary/20 text-primary border-primary/30"
+                  >
+                    {item.badge}
+                  </Badge>
+                )}
+              </Link>
+            ))}
+          </div>
 
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {!isOnline && (
