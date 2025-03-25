@@ -30,6 +30,7 @@ import {
   Vibrate,
   AudioLines,
   CloudCog,
+  Package
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -108,6 +109,11 @@ const navItems: NavItem[] = [
     href: "/features/background-fetch",
     icon: <CloudCog className="size-4" />,
   },
+  {
+    title: "Storage",
+    href:"/features/storage",
+    icon: <Package className="size-4" />
+  }
 ];
 
 export function PWANavigation() {
