@@ -28,7 +28,8 @@ import {
   Lock,
   Share,
   Vibrate,
-  AudioLines
+  AudioLines,
+  CloudCog,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -101,6 +102,11 @@ const navItems: NavItem[] = [
     title: "Audio Player",
     href: "/features/audio",
     icon: <AudioLines className="size-4" />,
+  },
+  {
+    title: "Back Fetch",
+    href: "/features/background-fetch",
+    icon: <CloudCog className="size-4" />,
   },
 ];
 
@@ -226,7 +232,7 @@ export function PWANavigation() {
 
         <Link
           href="/"
-          className="font-bold inline-block bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 text-transparent bg-clip-text"
+          className="font-bold inline-block min-w-28 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 text-transparent bg-clip-text"
         >
           Smarts PWA
         </Link>
