@@ -22,12 +22,12 @@ import {
   Database,
   Wifi,
   LinkIcon,
-  Bell,
   Info,
   ArrowRightLeft,
   Camera,
   Lock,
   Share,
+  Vibrate,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -90,6 +90,11 @@ const navItems: NavItem[] = [
     title: "Web Share API",
     href: "/features/web-share",
     icon: <Share className="h-4 w-4" />,
+  },
+  {
+    title: "Vibration",
+    href: "/features/vibration",
+    icon: <Vibrate className="h-4 w-4" />,
   },
 ];
 
