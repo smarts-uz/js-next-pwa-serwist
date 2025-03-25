@@ -30,89 +30,121 @@ import {
   Vibrate,
   AudioLines,
   CloudCog,
-  Package
+  Package,
+  Bluetooth,
+  ChevronDown
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 interface NavItem {
   title: string;
   href: string;
   icon: React.ReactNode;
   badge?: string;
+  category?: string;
 }
 
-// Navigation items based on the PWA project structure with additional links
+// Navigation items organized by category
 const navItems: NavItem[] = [
   {
     title: "Home",
     href: "/",
     icon: <Home className="h-4 w-4" />,
   },
+  // Device Features
   {
-    title: "File Handling",
-    href: "/features/file-handling",
-    icon: <FileText className="h-4 w-4" />,
-  },
-  {
-    title: "Geolocation",
-    href: "/features/geolocation",
-    icon: <MapPin className="h-4 w-4" />,
-  },
-  {
-    title: "Local Storage",
-    href: "/features/local-storage",
-    icon: <Database className="h-4 w-4" />,
-  },
-  {
-    title: "Network Info",
-    href: "/features/network-info",
-    icon: <Wifi className="h-4 w-4" />,
-  },
-  {
-    title: "Protocol Handler",
-    href: "/features/protocol-handler",
-    icon: <LinkIcon className="h-4 w-4" />,
+    title: "Web Bluetooth",
+    href: "/features/web-bluetooth",
+    icon: <Bluetooth className="size-4" />,
+    category: "Device Features"
   },
   {
     title: "Media Capture",
     href: "/features/media-capture",
     icon: <Camera className="h-4 w-4" />,
+    category: "Device Features"
   },
   {
-    title: "View Transitions",
-    href: "/features/transitions",
-    icon: <ArrowRightLeft className="h-4 w-4" />,
-  },
-  {
-    title: "Web Auth",
-    href: "/features/web-authentication",
-    icon: <Lock className="h-4 w-4" />,
-  },
-  {
-    title: "Web Share API",
-    href: "/features/web-share",
-    icon: <Share className="h-4 w-4" />,
+    title: "Geolocation",
+    href: "/features/geolocation",
+    icon: <MapPin className="h-4 w-4" />,
+    category: "Device Features"
   },
   {
     title: "Vibration",
     href: "/features/vibration",
     icon: <Vibrate className="h-4 w-4" />,
+    category: "Device Features"
   },
+  // Storage & Data
+  {
+    title: "Local Storage",
+    href: "/features/local-storage",
+    icon: <Database className="h-4 w-4" />,
+    category: "Storage & Data"
+  },
+  {
+    title: "Storage",
+    href: "/features/storage",
+    icon: <Package className="size-4" />,
+    category: "Storage & Data"
+  },
+  {
+    title: "File Handling",
+    href: "/features/file-handling",
+    icon: <FileText className="h-4 w-4" />,
+    category: "Storage & Data"
+  },
+  // Network & Sync
+  {
+    title: "Network Info",
+    href: "/features/network-info",
+    icon: <Wifi className="h-4 w-4" />,
+    category: "Network & Sync"
+  },
+  {
+    title: "Protocol Handler",
+    href: "/features/protocol-handler",
+    icon: <LinkIcon className="h-4 w-4" />,
+    category: "Network & Sync"
+  },
+  {
+    title: "Background Fetch",
+    href: "/features/background-fetch",
+    icon: <CloudCog className="size-4" />,
+    category: "Network & Sync"
+  },
+  // Media & UI
   {
     title: "Audio Player",
     href: "/features/audio",
     icon: <AudioLines className="size-4" />,
+    category: "Media & UI"
   },
   {
-    title: "Back Fetch",
-    href: "/features/background-fetch",
-    icon: <CloudCog className="size-4" />,
+    title: "View Transitions",
+    href: "/features/transitions",
+    icon: <ArrowRightLeft className="h-4 w-4" />,
+    category: "Media & UI"
+  },
+  // Security & Auth
+  {
+    title: "Web Auth",
+    href: "/features/web-authentication",
+    icon: <Lock className="h-4 w-4" />,
+    category: "Security & Auth"
   },
   {
-    title: "Storage",
-    href:"/features/storage",
-    icon: <Package className="size-4" />
+    title: "Web Share API",
+    href: "/features/web-share",
+    icon: <Share className="h-4 w-4" />,
+    category: "Security & Auth"
   }
 ];
 
@@ -121,6 +153,7 @@ export function PWANavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [installed, setInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  const [openCategories, setOpenCategories] = useState<string[]>([]);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -233,7 +266,7 @@ export function PWANavigation() {
 
   return (
     <div className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex  justify-between h-20 items-center">
+      <div className="container mx-auto flex md:justify-between h-20 items-center">
         <MobileNav />
 
         <Link
@@ -257,7 +290,7 @@ export function PWANavigation() {
               )}
             >
               {item.icon}
-              <span className=" max-w-24 truncate">{item.title}</span>
+              <span className="max-w-24 truncate">{item.title}</span>
               {item.badge && (
                 <Badge
                   variant="outline"
