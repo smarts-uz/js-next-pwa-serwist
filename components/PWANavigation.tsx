@@ -28,6 +28,7 @@ import {
   Lock,
   Share,
   Vibrate,
+  AudioLines
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -95,6 +96,11 @@ const navItems: NavItem[] = [
     title: "Vibration",
     href: "/features/vibration",
     icon: <Vibrate className="h-4 w-4" />,
+  },
+  {
+    title: "Audio Player",
+    href: "/features/audio",
+    icon: <AudioLines className="size-4" />,
   },
 ];
 
