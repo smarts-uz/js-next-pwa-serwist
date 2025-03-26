@@ -38,6 +38,7 @@ import {
   Zap,
   Smartphone,
   Activity,
+  Mic,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -149,6 +150,12 @@ const navItems: NavItem[] = [
     title: "View Transitions",
     href: "/features/transitions",
     icon: <ArrowRightLeft className="h-4 w-4" />,
+    category: "Media & UI"
+  },
+  {
+    title: "Speech Synthesis",
+    href: "/features/speech-synthesis",
+    icon: <Mic className="h-4 w-4" />,
     category: "Media & UI"
   },
   // Security & Auth
