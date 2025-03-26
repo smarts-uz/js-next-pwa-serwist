@@ -32,15 +32,11 @@ import {
   CloudCog,
   Package,
   Bluetooth,
-  ChevronDown
+  ChevronDown,
+  CreditCard
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 
 interface NavItem {
   title: string;
@@ -145,6 +141,13 @@ const navItems: NavItem[] = [
     href: "/features/web-share",
     icon: <Share className="h-4 w-4" />,
     category: "Security & Auth"
+  },
+  // Payment
+  {
+    title: "Payment Request",
+    href: "/features/payment-request",
+    icon: <CreditCard className="h-4 w-4" />,
+    category: "Payment"
   }
 ];
 
