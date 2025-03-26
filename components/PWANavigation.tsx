@@ -39,6 +39,7 @@ import {
   Smartphone,
   Activity,
   Mic,
+  MicOff,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -156,6 +157,12 @@ const navItems: NavItem[] = [
     title: "Speech Synthesis",
     href: "/features/speech-synthesis",
     icon: <Mic className="h-4 w-4" />,
+    category: "Media & UI"
+  },
+  {
+    title: "Speech Recognition",
+    href: "/features/speech-recognition",
+    icon: <MicOff className="h-4 w-4" />,
     category: "Media & UI"
   },
   // Security & Auth
