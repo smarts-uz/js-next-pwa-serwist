@@ -37,6 +37,7 @@ import {
   Power,
   Zap,
   Smartphone,
+  Activity,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -73,6 +74,12 @@ const navItems: NavItem[] = [
     title: "Device Orientation",
     href: "/features/device-orientation",
     icon: <Smartphone className="size-4" />,
+    category: "Device Features"
+  },
+  {
+    title: "Device Motion",
+    href: "/features/device-motion",
+    icon: <Activity className="size-4" />,
     category: "Device Features"
   },
   {
