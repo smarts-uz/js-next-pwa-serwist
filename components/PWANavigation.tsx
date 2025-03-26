@@ -35,7 +35,8 @@ import {
   ChevronDown,
   CreditCard,
   Power,
-  Zap
+  Zap,
+  Smartphone,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -69,21 +70,27 @@ const navItems: NavItem[] = [
     category: "Device Features"
   },
   {
-    title: "Media Capture",
-    href: "/features/media-capture",
-    icon: <Camera className="h-4 w-4" />,
-    category: "Device Features"
-  },
-  {
-    title: "Geolocation",
-    href: "/features/geolocation",
-    icon: <MapPin className="h-4 w-4" />,
+    title: "Device Orientation",
+    href: "/features/device-orientation",
+    icon: <Smartphone className="size-4" />,
     category: "Device Features"
   },
   {
     title: "Vibration",
     href: "/features/vibration",
-    icon: <Vibrate className="h-4 w-4" />,
+    icon: <Zap className="size-4" />,
+    category: "Device Features"
+  },
+  {
+    title: "Geolocation",
+    href: "/features/geolocation",
+    icon: <MapPin className="size-4" />,
+    category: "Device Features"
+  },
+  {
+    title: "Media Capture",
+    href: "/features/media-capture",
+    icon: <Camera className="h-4 w-4" />,
     category: "Device Features"
   },
   // Storage & Data
