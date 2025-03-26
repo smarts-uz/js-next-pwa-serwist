@@ -169,117 +169,67 @@ const PaymentRequestPage = () => {
         </Alert>
       )}
 
-      <Tabs defaultValue="demo" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="demo">Demo Mode</TabsTrigger>
-          <TabsTrigger value="live">Live Mode</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="demo" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Test Cards</CardTitle>
-              <CardDescription>Select a test card to simulate different payment scenarios</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid gap-4">
-                {Object.entries(TEST_CARDS).map(([key, number]) => (
-                  <div
-                    key={key}
-                    className={`p-4 rounded-lg border cursor-pointer transition-colors ${
-                      selectedCard === key
-                        ? "border-primary bg-primary/5"
-                        : "border-border hover:border-primary/50"
-                    }`}
-                    onClick={() => setSelectedCard(key)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium">{key.replace(/_/g, ' ')}</p>
-                        <p className="text-sm text-muted-foreground">{number}</p>
-                      </div>
-                      <CreditCard className="h-5 w-5" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Test Payment</CardTitle>
-              <CardDescription>Try the payment with the selected test card</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                This will open the browser's native payment sheet. Use the selected test card number.
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button 
-                onClick={() => handlePayment(PAYMENT_METHODS.CARD)}
-                disabled={!paymentSupported || isProcessing}
-                className="w-full"
+      <Card>
+        <CardHeader>
+          <CardTitle>Test Cards</CardTitle>
+          <CardDescription>Select a test card to simulate different payment scenarios</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-4">
+            {Object.entries(TEST_CARDS).map(([key, number]) => (
+              <div
+                key={key}
+                className={`p-4 rounded-lg border cursor-pointer transition-colors ${
+                  selectedCard === key
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50"
+                }`}
+                onClick={() => setSelectedCard(key)}
               >
-                <CreditCard className="mr-2 h-4 w-4" />
-                Test Payment
-              </Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="live" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Credit/Debit Card</CardTitle>
-                <CardDescription>Pay with your credit or debit card</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Secure payment using the Payment Request API. Your card details are never stored on our servers.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button 
-                  onClick={() => handlePayment(PAYMENT_METHODS.CARD)}
-                  disabled={!paymentSupported || isProcessing}
-                  className="w-full"
-                >
-                  <CreditCard className="mr-2 h-4 w-4" />
-                  Pay $10.00
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>Apple Pay</CardTitle>
-                <CardDescription>Quick and secure payment with Apple Pay</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {applePaySupported 
-                    ? "Apple Pay is available on this device." 
-                    : "Apple Pay is not available on this device or browser."}
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button 
-                  onClick={() => handlePayment(PAYMENT_METHODS.APPLE_PAY)}
-                  disabled={!applePaySupported || isProcessing}
-                  variant="outline"
-                  className="w-full bg-black text-white hover:bg-gray-800"
-                >
-                  <Apple className="mr-2 h-4 w-4" />
-                  Pay with Apple Pay
-                </Button>
-              </CardFooter>
-            </Card>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">{key.replace(/_/g, ' ')}</p>
+                    <p className="text-sm text-muted-foreground">{number}</p>
+                  </div>
+                  <CreditCard className="h-5 w-5" />
+                </div>
+              </div>
+            ))}
           </div>
-        </TabsContent>
-      </Tabs>
+        </CardContent>
+        <CardFooter>
+          <Button 
+            onClick={() => handlePayment(PAYMENT_METHODS.CARD)}
+            disabled={!paymentSupported || isProcessing}
+            className="w-full"
+          >
+            <CreditCard className="mr-2 h-4 w-4" />
+            Test Payment
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Apple Pay</CardTitle>
+          <CardDescription>Test Apple Pay integration (Safari only)</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground mb-4">
+            Apple Pay is only available in Safari on macOS and iOS devices.
+          </p>
+        </CardContent>
+        <CardFooter>
+          <Button 
+            onClick={() => handlePayment(PAYMENT_METHODS.APPLE_PAY)}
+            disabled={!applePaySupported || isProcessing}
+            className="w-full"
+          >
+            <Apple className="mr-2 h-4 w-4" />
+            Test Apple Pay
+          </Button>
+        </CardFooter>
+      </Card>
 
       <Card className="mt-8">
         <CardHeader>

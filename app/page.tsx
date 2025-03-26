@@ -31,6 +31,9 @@ import {
   Server,
   Power,
   CreditCard,
+  Hand,
+  Mic,
+  Volume2,
 } from "lucide-react";
 
 // Feature categories and items
@@ -67,6 +70,24 @@ const featureCategories = [
         description: "Provide haptic feedback",
         icon: Vibrate,
         href: "/features/vibration",
+      },
+      {
+        title: "Touch Events",
+        description: "Multi-touch gestures and interactions",
+        icon: Hand,
+        href: "/features/touch-events",
+      },
+      {
+        title: "Speech Recognition",
+        description: "Convert speech to text in real-time",
+        icon: Mic,
+        href: "/features/speech-recognition",
+      },
+      {
+        title: "Speech Synthesis",
+        description: "Text-to-speech capabilities",
+        icon: Volume2,
+        href: "/features/speech-synthesis",
       },
     ],
   },
