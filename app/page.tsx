@@ -29,7 +29,167 @@ import {
   Zap,
   Shield,
   Server,
+  Power,
+  CreditCard,
 } from "lucide-react";
+
+// Feature categories and items
+const featureCategories = [
+  {
+    title: "Device Features",
+    features: [
+      {
+        title: "Web Bluetooth",
+        description: "Connect and interact with Bluetooth devices directly from your browser",
+        icon: Bluetooth,
+        href: "/features/web-bluetooth",
+      },
+      {
+        title: "Screen Wake Lock",
+        description: "Keep your screen awake and monitor power usage",
+        icon: Power,
+        href: "/features/screen-wake-lock",
+      },
+      {
+        title: "Media Capture",
+        description: "Access device camera and media features",
+        icon: Camera,
+        href: "/features/media-capture",
+      },
+      {
+        title: "Geolocation",
+        description: "Access and use device location information",
+        icon: MapPin,
+        href: "/features/geolocation",
+      },
+      {
+        title: "Vibration",
+        description: "Provide haptic feedback",
+        icon: Vibrate,
+        href: "/features/vibration",
+      },
+    ],
+  },
+  {
+    title: "Storage & Data",
+    features: [
+      {
+        title: "Local Storage",
+        description: "Interactive data persistence in the browser",
+        icon: Database,
+        href: "/features/local-storage",
+      },
+      {
+        title: "Storage",
+        description: "Advanced storage solutions",
+        icon: Package,
+        href: "/features/storage",
+      },
+      {
+        title: "File Handling",
+        description: "Open and save files directly from the web app",
+        icon: FileText,
+        href: "/features/file-handling",
+      },
+    ],
+  },
+  {
+    title: "Network & Sync",
+    features: [
+      {
+        title: "Network Info",
+        description: "Monitor network connection status and type",
+        icon: Wifi,
+        href: "/features/network-info",
+      },
+      {
+        title: "Protocol Handler",
+        description: "Register as a handler for custom protocols",
+        icon: Link,
+        href: "/features/protocol-handler",
+      },
+      {
+        title: "Background Fetch",
+        description: "Download resources in the background",
+        icon: CloudCog,
+        href: "/features/background-fetch",
+      },
+    ],
+  },
+  {
+    title: "Media & UI",
+    features: [
+      {
+        title: "Audio Player",
+        description: "Play and control audio content",
+        icon: AudioLines,
+        href: "/features/audio",
+      },
+      {
+        title: "View Transitions",
+        description: "Smooth page transitions and animations",
+        icon: ArrowRightLeft,
+        href: "/features/transitions",
+      },
+    ],
+  },
+  {
+    title: "Security & Payment",
+    features: [
+      {
+        title: "Web Auth",
+        description: "Secure authentication with biometrics",
+        icon: Lock,
+        href: "/features/web-authentication",
+      },
+      {
+        title: "Payment Request",
+        description: "Process payments using various payment methods",
+        icon: CreditCard,
+        href: "/features/payment-request",
+      },
+      {
+        title: "Web Share API",
+        description: "Share content with other apps",
+        icon: Share,
+        href: "/features/web-share",
+      },
+    ],
+  },
+];
+
+const benefits = [
+  {
+    title: "App-like Experience",
+    description: "PWAs provide a full-screen experience, can be installed on the home screen, and work offline like native apps.",
+    icon: Smartphone,
+  },
+  {
+    title: "Network Independence",
+    description: "PWAs work offline or on low-quality networks, ensuring a consistent user experience.",
+    icon: Wifi,
+  },
+  {
+    title: "Engagement",
+    description: "Push notifications help re-engage users with timely, relevant content.",
+    icon: Bell,
+  },
+  {
+    title: "Performance",
+    description: "Fast loading times and smooth interactions with service workers and caching.",
+    icon: Zap,
+  },
+  {
+    title: "Security",
+    description: "HTTPS by default and secure data handling with modern web standards.",
+    icon: Shield,
+  },
+  {
+    title: "Cross-Platform",
+    description: "One codebase that works across all devices and platforms.",
+    icon: Server,
+  },
+];
 
 export default function Home() {
   return (
@@ -52,97 +212,23 @@ export default function Home() {
           <CardDescription>Complete list of PWA capabilities</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <FeatureCard
-              title="Web Bluetooth"
-              description="Connect and interact with Bluetooth devices"
-              icon={<Bluetooth className="h-6 w-6" />}
-              href="/features/web-bluetooth"
-            />
-            <FeatureCard
-              title="Media Capture"
-              description="Access device camera and media features"
-              icon={<Camera className="h-6 w-6" />}
-              href="/features/media-capture"
-            />
-            <FeatureCard
-              title="Web Auth"
-              description="Secure authentication with biometrics"
-              icon={<Lock className="h-6 w-6" />}
-              href="/features/web-authentication"
-            />
-            <FeatureCard
-              title="File Handling"
-              description="Open and save files directly from the web app"
-              icon={<FileText className="h-6 w-6" />}
-              href="/features/file-handling"
-            />
-            <FeatureCard
-              title="Geolocation"
-              description="Access and use device location information"
-              icon={<MapPin className="h-6 w-6" />}
-              href="/features/geolocation"
-            />
-            <FeatureCard
-              title="Local Storage"
-              description="Interactive data persistence in the browser"
-              icon={<Database className="h-6 w-6" />}
-              href="/features/local-storage"
-            />
-            <FeatureCard
-              title="Network Info"
-              description="Monitor network connection status and type"
-              icon={<Wifi className="h-6 w-6" />}
-              href="/features/network-info"
-            />
-            <FeatureCard
-              title="Protocol Handler"
-              description="Register as a handler for custom protocols"
-              icon={<Link className="h-6 w-6" />}
-              href="/features/protocol-handler"
-            />
-            <FeatureCard
-              title="Push Notifications"
-              description="Receive notifications even when app is closed"
-              icon={<Bell className="h-6 w-6" />}
-              href="/features/push-notifications"
-            />
-            <FeatureCard
-              title="View Transitions"
-              description="Smooth page transitions and animations"
-              icon={<ArrowRightLeft className="h-6 w-6" />}
-              href="/features/transitions"
-            />
-            <FeatureCard
-              title="Web Share API"
-              description="Share content with other apps"
-              icon={<Share className="h-6 w-6" />}
-              href="/features/web-share"
-            />
-            <FeatureCard
-              title="Vibration"
-              description="Provide haptic feedback"
-              icon={<Vibrate className="h-6 w-6" />}
-              href="/features/vibration"
-            />
-            <FeatureCard
-              title="Audio Player"
-              description="Play and control audio content"
-              icon={<AudioLines className="h-6 w-6" />}
-              href="/features/audio"
-            />
-            <FeatureCard
-              title="Background Fetch"
-              description="Download resources in the background"
-              icon={<CloudCog className="h-6 w-6" />}
-              href="/features/background-fetch"
-            />
-            <FeatureCard
-              title="Storage"
-              description="Advanced storage solutions"
-              icon={<Package className="h-6 w-6" />}
-              href="/features/storage"
-            />
+          <div className="space-y-8">
+            {featureCategories.map((category) => (
+              <div key={category.title}>
+                <h2 className="text-lg font-semibold mb-4">{category.title}</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {category.features.map((feature) => (
+                    <FeatureCard
+                      key={feature.title}
+                      title={feature.title}
+                      description={feature.description}
+                      icon={<feature.icon className="h-6 w-6" />}
+                      href={feature.href}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -150,75 +236,18 @@ export default function Home() {
       <Card>
         <CardHeader>
           <CardTitle>PWA Benefits</CardTitle>
-          <CardDescription>
-            Why Progressive Web Apps are the future
-          </CardDescription>
+          <CardDescription>Why Progressive Web Apps are the future</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-start space-x-4">
-            <Smartphone className="h-6 w-6 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-medium">App-like Experience</h3>
-              <p className="text-sm text-muted-foreground">
-                PWAs provide a full-screen experience, can be installed on the
-                home screen, and work offline like native apps.
-              </p>
+          {benefits.map((benefit) => (
+            <div key={benefit.title} className="flex items-start space-x-4">
+              <benefit.icon className="h-6 w-6 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="font-medium">{benefit.title}</h3>
+                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+              </div>
             </div>
-          </div>
-
-          <div className="flex items-start space-x-4">
-            <Wifi className="h-6 w-6 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-medium">Network Independence</h3>
-              <p className="text-sm text-muted-foreground">
-                PWAs work offline or on low-quality networks, ensuring a
-                consistent user experience.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start space-x-4">
-            <Bell className="h-6 w-6 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-medium">Engagement</h3>
-              <p className="text-sm text-muted-foreground">
-                Push notifications help re-engage users with timely, relevant
-                content.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start space-x-4">
-            <Zap className="h-6 w-6 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-medium">Performance</h3>
-              <p className="text-sm text-muted-foreground">
-                Fast loading times and smooth interactions with service workers
-                and caching.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start space-x-4">
-            <Shield className="h-6 w-6 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-medium">Security</h3>
-              <p className="text-sm text-muted-foreground">
-                HTTPS by default and secure data handling with modern web
-                standards.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start space-x-4">
-            <Server className="h-6 w-6 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-medium">Cross-Platform</h3>
-              <p className="text-sm text-muted-foreground">
-                One codebase that works across all devices and platforms.
-              </p>
-            </div>
-          </div>
+          ))}
         </CardContent>
       </Card>
     </main>

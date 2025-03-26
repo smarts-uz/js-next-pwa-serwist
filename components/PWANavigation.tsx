@@ -33,7 +33,9 @@ import {
   Package,
   Bluetooth,
   ChevronDown,
-  CreditCard
+  CreditCard,
+  Power,
+  Zap
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
@@ -58,6 +60,12 @@ const navItems: NavItem[] = [
     title: "Web Bluetooth",
     href: "/features/web-bluetooth",
     icon: <Bluetooth className="size-4" />,
+    category: "Device Features"
+  },
+  {
+    title: "Screen Wake Lock",
+    href: "/features/screen-wake-lock",
+    icon: <Power className="size-4" />,
     category: "Device Features"
   },
   {
@@ -144,7 +152,7 @@ const navItems: NavItem[] = [
   },
   // Payment
   {
-    title: "Payment Request",
+    title: "Payment",
     href: "/features/payment-request",
     icon: <CreditCard className="h-4 w-4" />,
     category: "Payment"

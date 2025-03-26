@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/card";
 import NetworkStatus from "@/components/NetworkStatus";
 import SyncStatus from "@/components/SyncStatus";
-import NotificationToggle from "@/components/NotificationToggle";
 import DataForm from "@/components/DataForm";
 import CacheStatus from "@/components/CacheStatus";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -79,20 +78,6 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <DataForm />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="notifications">
-          <Card>
-            <CardHeader>
-              <CardTitle>Push Notifications</CardTitle>
-              <CardDescription>
-                Subscribe to receive timely updates
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <NotificationToggle />
             </CardContent>
           </Card>
         </TabsContent>
