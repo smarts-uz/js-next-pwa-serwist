@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import PWASetup from "@/components/PWASetup";
-import { PWANavigation } from "@/components/PWANavigation";
 import { LayoutWrapper } from "./layout-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
