@@ -15,6 +15,10 @@ declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    navigateFallbackAllowlist: [/^\/.*$/],
+    cleanupOutdatedCaches: true,
+  },
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
@@ -25,6 +29,12 @@ const serwist = new Serwist({
         url: "/offline",
         matcher({ request }) {
           return request.destination === "document";
+        },
+      },
+      {
+        url: "/offline",
+        matcher({ request }) {
+          return request.mode === "navigate";
         },
       },
     ],
