@@ -2,73 +2,137 @@
   padding: 2rem;
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.5s;
+/* Pokemon Grid to Detail View Transition */
+::view-transition-old(pokemon-card),
+::view-transition-new(pokemon-card) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-::view-transition-old(root) {
+::view-transition-old(pokemon-card) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(pokemon-card) {
+  animation-name: fade-in;
+}
+
+/* Pokemon Image Transition */
+::view-transition-old(pokemon-image),
+::view-transition-new(pokemon-image) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(pokemon-image) {
+  animation-name: scale-out;
+}
+
+::view-transition-new(pokemon-image) {
+  animation-name: scale-in;
+}
+
+/* Pokemon Info Transition */
+::view-transition-old(pokemon-info),
+::view-transition-new(pokemon-info) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(pokemon-info) {
   animation-name: slide-out;
 }
 
-::view-transition-new(root) {
+::view-transition-new(pokemon-info) {
   animation-name: slide-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-out {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.8);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 @keyframes slide-out {
   from {
     transform: translateX(0);
+    opacity: 1;
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-20px);
+    opacity: 0;
   }
 }
 
 @keyframes slide-in {
   from {
-    transform: translateX(100%);
+    transform: translateX(20px);
+    opacity: 0;
   }
   to {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
-.transition-content {
-  transition: all 0.5s ease;
+/* Pokemon Card Styles */
+.pokemon-card {
+  view-transition-name: pokemon-card;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.slide {
-  transform: translateX(0);
+.pokemon-card:hover {
+  transform: translateY(-4px);
 }
 
-.fade {
-  opacity: 1;
+.pokemon-image {
+  view-transition-name: pokemon-image;
 }
 
-.flip {
-  transform: rotateY(0);
+.pokemon-info {
+  view-transition-name: pokemon-info;
 }
 
-.slide-out {
-  transform: translateX(-100%);
+/* Detail View Styles */
+.pokemon-detail {
+  view-transition-name: pokemon-card;
 }
 
-.fade-out {
-  opacity: 0;
+.pokemon-detail-image {
+  view-transition-name: pokemon-image;
 }
 
-.flip-out {
-  transform: rotateY(180deg);
-}
-
-.slide-in {
-  transform: translateX(100%);
-}
-
-.fade-in {
-  opacity: 1;
-}
-
-.flip-in {
-  transform: rotateY(0);
+.pokemon-detail-info {
+  view-transition-name: pokemon-info;
 }
