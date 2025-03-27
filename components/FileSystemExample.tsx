@@ -4,6 +4,28 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { FolderOpen, Save, FileText, AlertCircle, Trash2, Download, Upload } from "lucide-react"
 
+declare global {
+  interface Window {
+    showOpenFilePicker: (options?: OpenFilePickerOptions) => Promise<FileSystemFileHandle[]>;
+    showSaveFilePicker: (options?: SaveFilePickerOptions) => Promise<FileSystemFileHandle | null>;
+  }
+}
+
+interface OpenFilePickerOptions {
+  types?: FilePickerAcceptType[];
+  multiple?: boolean;
+}
+
+interface SaveFilePickerOptions {
+  suggestedName?: string;
+  types?: FilePickerAcceptType[];
+}
+
+interface FilePickerAcceptType {
+  description: string;
+  accept: Record<string, string[]>;
+}
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -186,6 +208,7 @@ export function FileSystemExample() {
             },
           ],
         })
+        if (!fileHandle) return;
         setJsonFileHandle(fileHandle)
         setJsonFileName(fileHandle.name || jsonFileName)
       }
@@ -267,10 +290,10 @@ export function FileSystemExample() {
   if (!fsSupported) {
     return (
       <div className="space-y-6">
-        <Alert variant="warning" className="bg-yellow-50 border-yellow-200">
-          <AlertCircle className="h-4 w-4 text-yellow-800" />
-          <AlertTitle className="text-yellow-800">File System Access API Not Supported</AlertTitle>
-          <AlertDescription className="text-yellow-800">
+        <Alert variant="default" className="bg-yellow-950 border-yellow-200">
+          <AlertCircle className="h-4 w-4 text-yellow-200" />
+          <AlertTitle className="text-yellow-100">File System Access API Not Supported</AlertTitle>
+          <AlertDescription className="text-yellow-200">
             Your browser doesn't support the File System Access API. We'll use a fallback method instead.
           </AlertDescription>
         </Alert>

@@ -11,7 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Info } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const WebSharePage: React.FC = () => {
+export default function WebSharePage() {
   return (
     <div className="container mx-auto py-8 space-y-8">
       <div className="space-y-4">
@@ -199,6 +199,4 @@ await navigator.share({
       </div>
     </div>
   );
-};
-
-export default WebSharePage;
+}

@@ -288,7 +288,7 @@ export function CacheAPIExample() {
           </Badge>
 
           {cacheStatus === "uncached" ? (
-            <Button onClick={cacheArticles} disabled={cacheStatus === "caching"} className="flex items-center">
+            <Button onClick={cacheArticles} className="flex items-center">
               <Download className="mr-2 h-4 w-4" />
               Cache for Offline
             </Button>

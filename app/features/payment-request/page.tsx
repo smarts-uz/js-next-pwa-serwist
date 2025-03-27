@@ -95,7 +95,7 @@ const PaymentRequestPage = () => {
       };
 
       // Create payment request with the method
-      const paymentRequest = new PaymentRequest([method], paymentDetails, options);
+      const paymentRequest = new PaymentRequest([method], paymentDetails);
       
       // Check if payment can be made
       const canMakePayment = await paymentRequest.canMakePayment();

@@ -14,11 +14,11 @@ const WebAuthnPage = () => {
         displayName: 'User Name',
       },
       pubKeyCredParams: [{
-        type: 'public-key',
+        type: 'public-key' as const,
         alg: -7 // ECDSA with SHA-256
       }],
       timeout: 60000,
-      attestation: 'direct',
+      attestation: 'direct' as AttestationConveyancePreference,
     };
 
     try {
@@ -35,7 +35,7 @@ const WebAuthnPage = () => {
       challenge: new Uint8Array(32), // Replace with a secure random challenge
       allowCredentials: [{
         id: credential?.rawId as ArrayBuffer,
-        type: 'public-key',
+        type: 'public-key' as const,
       }],
       timeout: 60000,
     };

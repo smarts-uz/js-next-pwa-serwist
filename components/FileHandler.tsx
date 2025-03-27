@@ -126,6 +126,8 @@ export default function FileHandler() {
         ],
       });
 
+      if (!handle) return;
+
       // Create a writable stream
       const writable = await handle.createWritable();
 

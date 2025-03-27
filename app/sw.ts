@@ -31,12 +31,6 @@ const serwist = new Serwist({
           return request.destination === "document";
         },
       },
-      {
-        url: "/offline",
-        matcher({ request }) {
-          return request.mode === "navigate";
-        },
-      },
     ],
   },
 });
