@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function OfflinePage() {
   return (
-    <main className="container mx-auto p-4 flex items-center justify-center min-h-screen">
+    <main className="container mx-auto p-4 flex items-center justify-center min-h-[50vh]">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <WifiOff className="mx-auto h-12 w-12 text-muted-foreground mb-2" />
