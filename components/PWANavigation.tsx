@@ -14,181 +14,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Menu,
-  Home,
-  FileText,
-  MapPin,
-  Database,
-  Wifi,
-  LinkIcon,
-  Info,
-  ArrowRightLeft,
-  Camera,
-  Lock,
-  Share,
-  Vibrate,
-  AudioLines,
-  CloudCog,
-  Package,
-  Bluetooth,
-  ChevronDown,
-  CreditCard,
-  Power,
-  Zap,
-  Smartphone,
-  Activity,
-  Mic,
-  MicOff,
-} from "lucide-react";
+import { Menu, Wifi, Info, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
-
-interface NavItem {
-  title: string;
-  href: string;
-  icon: React.ReactNode;
-  badge?: string;
-  category?: string;
-}
-
-// Navigation items organized by category
-const navItems: NavItem[] = [
-  {
-    title: "Home",
-    href: "/",
-    icon: <Home className="h-4 w-4" />,
-  },
-  // Device & Media
-  {
-    title: "Web Bluetooth",
-    href: "/features/web-bluetooth",
-    icon: <Bluetooth className="size-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Screen Wake Lock",
-    href: "/features/screen-wake-lock",
-    icon: <Power className="size-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Device Orientation",
-    href: "/features/device-orientation",
-    icon: <Smartphone className="size-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Device Motion",
-    href: "/features/device-motion",
-    icon: <Activity className="size-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Vibration",
-    href: "/features/vibration",
-    icon: <Zap className="size-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Geolocation",
-    href: "/features/geolocation",
-    icon: <MapPin className="size-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Media Capture",
-    href: "/features/media-capture",
-    icon: <Camera className="h-4 w-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Audio Player",
-    href: "/features/audio",
-    icon: <AudioLines className="size-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Speech Synthesis",
-    href: "/features/speech-synthesis",
-    icon: <Mic className="h-4 w-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Speech Recognition",
-    href: "/features/speech-recognition",
-    icon: <MicOff className="h-4 w-4" />,
-    category: "Device & Media"
-  },
-  {
-    title: "Touch Events",
-    href: "/features/touch-events",
-    icon: <Smartphone className="h-4 w-4" />,
-    category: "Device & Media"
-  },
-  // Storage & Network
-  {
-    title: "Local Storage",
-    href: "/features/local-storage",
-    icon: <Database className="h-4 w-4" />,
-    category: "Storage & Network"
-  },
-  {
-    title: "Storage",
-    href: "/features/storage",
-    icon: <Package className="size-4" />,
-    category: "Storage & Network"
-  },
-  {
-    title: "File Handling",
-    href: "/features/file-handling",
-    icon: <FileText className="h-4 w-4" />,
-    category: "Storage & Network"
-  },
-  {
-    title: "Network Info",
-    href: "/features/network-info",
-    icon: <Wifi className="h-4 w-4" />,
-    category: "Storage & Network"
-  },
-  {
-    title: "Protocol Handler",
-    href: "/features/protocol-handler",
-    icon: <LinkIcon className="h-4 w-4" />,
-    category: "Storage & Network"
-  },
-  {
-    title: "Background Fetch",
-    href: "/features/background-fetch",
-    icon: <CloudCog className="size-4" />,
-    category: "Storage & Network"
-  },
-  // UI & Security
-  {
-    title: "View Transitions",
-    href: "/features/transitions",
-    icon: <ArrowRightLeft className="h-4 w-4" />,
-    category: "UI & Security"
-  },
-  {
-    title: "Web Auth",
-    href: "/features/web-authentication",
-    icon: <Lock className="h-4 w-4" />,
-    category: "UI & Security"
-  },
-  {
-    title: "Web Share API",
-    href: "/features/web-share",
-    icon: <Share className="h-4 w-4" />,
-    category: "UI & Security"
-  },
-  // Payment
-  {
-    title: "Payment",
-    href: "/features/payment-request",
-    icon: <CreditCard className="h-4 w-4" />,
-  }
-];
+import { navItems } from "@/lib/navLinks-utils";
 
 export function PWANavigation() {
   const pathname = usePathname();
@@ -320,7 +149,7 @@ export function PWANavigation() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex md:items-center xl:gap-2">
           {navItems
-            .filter(item => !item.category)
+            .filter((item) => !item.category)
             .map((item) => (
               <Link
                 key={item.title}
@@ -337,7 +166,9 @@ export function PWANavigation() {
               </Link>
             ))}
 
-          {Array.from(new Set(navItems.map(item => item.category).filter(Boolean))).map(category => (
+          {Array.from(
+            new Set(navItems.map((item) => item.category).filter(Boolean))
+          ).map((category) => (
             <div key={category} className="relative group">
               <button
                 className={cn(
@@ -351,7 +182,7 @@ export function PWANavigation() {
               <div className="absolute top-full left-0 mt-1 w-48 rounded-md shadow-lg bg-background border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="py-1">
                   {navItems
-                    .filter(item => item.category === category)
+                    .filter((item) => item.category === category)
                     .map((item) => (
                       <Link
                         key={item.title}
