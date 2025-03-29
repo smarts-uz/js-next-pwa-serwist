@@ -23,6 +23,7 @@ import {
   Radio,
   Clock,
   CheckCircle2,
+  Copy,
 } from "lucide-react";
 
 interface NavItem {
@@ -166,6 +167,12 @@ export const navItems: NavItem[] = [
     title: "Cacheable Response",
     href: "/features/cacheable-response",
     icon: <CheckCircle2 className="h-4 w-4" />,
+    category: "Storage & Network",
+  },
+  {
+    title: "Copy Response",
+    href: "/features/copy-response",
+    icon: <Copy className="h-4 w-4" />,
     category: "Storage & Network",
   },
   // UI & Security

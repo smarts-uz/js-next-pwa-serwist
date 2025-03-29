@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <main className="container mx-auto p-4 max-w-5xl">
       <div className="flex flex-col items-center justify-center mb-8 text-center">
-        <h1 className="text-4xl font-bold mb-2">Next.js PWA</h1>
+        <h1 className="text-4xl font-bold mb-2">Next.js Serwist PWA</h1>
         <p className="text-muted-foreground mb-4">
           A comprehensive Progressive Web App with advanced features
         </p>

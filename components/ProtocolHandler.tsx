@@ -39,7 +39,6 @@ export default function ProtocolHandler() {
         navigator.registerProtocolHandler(
           "web+pwa",
           `${window.location.origin}/features/protocol-handler?url=%s`
-          // "Next.js PWA",
         );
         setIsRegistered(true);
       }
@@ -53,7 +52,6 @@ export default function ProtocolHandler() {
       navigator.registerProtocolHandler(
         "web+pwa",
         `${window.location.origin}/features/protocol-handler?url=%s`
-        // "Next.js PWA",
       );
       setIsRegistered(true);
       alert(

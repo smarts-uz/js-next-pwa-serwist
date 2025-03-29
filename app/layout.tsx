@@ -9,7 +9,7 @@ import { LayoutWrapper } from "./layout-wrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Smarts Next.js PWA",
+  title: "Smarts Next.js Serwist PWA",
   description: "A comprehensive PWA built with Next.js",
   manifest: "/manifest.json",
   appleWebApp: {
