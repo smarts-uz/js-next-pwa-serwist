@@ -22,6 +22,7 @@ import {
   Share2,
   Radio,
   Clock,
+  CheckCircle2,
 } from "lucide-react";
 
 interface NavItem {
@@ -159,6 +160,12 @@ export const navItems: NavItem[] = [
     title: "Cache Expiration",
     href: "/features/cache-expiration",
     icon: <Clock className="h-4 w-4" />,
+    category: "Storage & Network",
+  },
+  {
+    title: "Cacheable Response",
+    href: "/features/cacheable-response",
+    icon: <CheckCircle2 className="h-4 w-4" />,
     category: "Storage & Network",
   },
   // UI & Security
