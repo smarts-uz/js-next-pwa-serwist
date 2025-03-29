@@ -41,36 +41,3 @@ const serwist = new Serwist({
   }
 });
 
-// Handle navigation preload
-self.addEventListener('fetch', (event) => {
-  if (event.preloadResponse) {
-    event.respondWith(
-      event.preloadResponse.then((preloadResponse) => {
-        if (preloadResponse) {
-          return preloadResponse;
-        }
-        return fetch(event.request);
-      })
-    );
-  }
-});
-
-// Ensure all pages are precached during installation
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    Promise.all([
-      self.skipWaiting(),
-      serwist.handleInstall(event),
-    ])
-  );
-});
-
-// Handle service worker activation
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    Promise.all([
-      self.clients.claim(),
-      serwist.handleActivate(event),
-    ])
-  );
-});
