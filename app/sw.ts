@@ -1,6 +1,10 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist, BackgroundSyncQueue } from "serwist";
+import {
+  Serwist,
+  BroadcastCacheUpdate,
+  BROADCAST_UPDATE_DEFAULT_HEADERS,
+} from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -22,7 +26,6 @@ const serwist = new Serwist({
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  // runtimeCaching: defaultCache,
   runtimeCaching: defaultCache,
   fallbacks: {
     entries: [
@@ -36,53 +39,44 @@ const serwist = new Serwist({
   },
 });
 
-// Create a background sync queue for file uploads
-const uploadQueue = new BackgroundSyncQueue("uploadQueue", {
-  onSync: async ({ queue }) => {
-    let entry;
-    while ((entry = await queue.shiftRequest())) {
-      try {
-        const response = await fetch(entry.request);
-        if (!response.ok) throw new Error("Upload failed");
-        
-        // Notify clients about successful upload
-        const clients = await self.clients.matchAll();
-        const uploadData = await entry.request.json();
-        clients.forEach((client) => {
-          client.postMessage({
-            type: "UPLOAD_COMPLETE",
-            fileId: uploadData.fileId,
-            fileName: uploadData.fileName,
-          });
-        });
-      } catch (error) {
-        // Put the request back in the queue if it fails
-        await queue.unshiftRequest(entry);
-        throw error;
-      }
-    }
-  },
+// Set up broadcast cache updates
+const broadcastUpdate = new BroadcastCacheUpdate({
+  headersToCheck: [...BROADCAST_UPDATE_DEFAULT_HEADERS, "X-My-Custom-Header"],
 });
 
-// Handle fetch events for file uploads
+// Handle fetch events for cache updates
 self.addEventListener("fetch", (event) => {
-  if (event.request.url.includes("/api/upload")) {
+  // Handle cache updates for API requests
+  if (event.request.url.includes("/api/")) {
     event.respondWith(
       (async () => {
-        try {
-          const response = await fetch(event.request.clone());
-          return response;
-        } catch (error) {
-          // Queue the upload for background sync
-          await uploadQueue.pushRequest({ request: event.request });
-          return new Response(JSON.stringify({ queued: true }), {
-            status: 202,
-            headers: { "Content-Type": "application/json" },
-          });
-        }
+        const cacheName = "api-cache";
+        const cache = await caches.open(cacheName);
+        const oldResponse = await cache.match(event.request);
+        const newResponse = await fetch(event.request.clone());
+
+        // Check and broadcast if the response has changed
+        await broadcastUpdate.notifyIfUpdated({
+          cacheName,
+          oldResponse,
+          newResponse,
+          request: event.request,
+          event,
+        });
+
+        // Cache the new response
+        await cache.put(event.request, newResponse.clone());
+        return newResponse;
       })()
     );
   }
 });
 
-serwist.addEventListeners()
+// Listen for messages from clients
+self.addEventListener("message", (event) => {
+  if (event.data?.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
+serwist.addEventListeners();

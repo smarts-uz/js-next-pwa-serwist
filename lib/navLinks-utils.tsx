@@ -21,6 +21,7 @@ import {
   Shield,
   Share2,
   Wallet,
+  Radio,
 } from "lucide-react";
 
 interface NavItem {
@@ -146,6 +147,12 @@ export const navItems: NavItem[] = [
     title: "Background Sync",
     href: "/features/background-sync",
     icon: <RefreshCw className="h-4 w-4" />,
+    category: "Storage & Network",
+  },
+  {
+    title: "Broadcast Updates",
+    href: "/features/broadcast",
+    icon: <Radio className="h-4 w-4" />,
     category: "Storage & Network",
   },
   // UI & Security
