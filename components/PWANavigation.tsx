@@ -322,7 +322,7 @@ export function PWANavigation() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex md:items-center md:gap-2">
+        <div className="hidden md:flex md:items-center xl:gap-2">
           {navItems
             .filter(item => !item.category)
             .map((item) => (

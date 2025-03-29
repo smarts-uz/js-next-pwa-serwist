@@ -11,7 +11,7 @@ export async function registerSW() {
         }
       }
 
-      // Register new service worker
+      // Register new service worker with Serwist
       const registration = await window.serwist.register();
       if (!registration) throw new Error("Service Worker registration failed");
 
@@ -26,21 +26,6 @@ export async function registerSW() {
           });
         }
       });
-
-      // Set up background sync if supported
-      if ("SyncManager" in window) {
-        navigator.serviceWorker.ready.then((registration) => {
-          // Register a sync event
-          registration.sync
-            .register("sync-data")
-            .then(() => {
-              console.log("Background sync registered");
-            })
-            .catch((err) => {
-              console.error("Background sync registration failed:", err);
-            });
-        });
-      }
 
       return registration;
     } catch (error) {

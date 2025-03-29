@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function StorageAPIPage() {
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-8 sm:py-12 lg:py-16">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="space-y-4">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Web Storage APIs</h1>
@@ -37,7 +37,7 @@ export default function StorageAPIPage() {
         </div>
       </div>
 
-      <div className="mt-12 grid gap-8">
+      <div className="mt-8 sm:mt-12 lg:mt-16 grid gap-8">
         <section className="space-y-6">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold tracking-tight">Introduction to Web Storage</h2>
@@ -48,8 +48,8 @@ export default function StorageAPIPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <Card className="h-full">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <HardDrive className="h-5 w-5 text-primary" />
@@ -58,7 +58,7 @@ export default function StorageAPIPage() {
                 <CardDescription>Persistent key-value storage that survives browser restarts</CardDescription>
               </CardHeader>
             </Card>
-            <Card>
+            <Card className="h-full">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-primary" />
@@ -67,7 +67,7 @@ export default function StorageAPIPage() {
                 <CardDescription>Temporary storage that lasts for the duration of the page session</CardDescription>
               </CardHeader>
             </Card>
-            <Card>
+            <Card className="h-full">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Database className="h-5 w-5 text-primary" />
@@ -78,7 +78,7 @@ export default function StorageAPIPage() {
                 </CardDescription>
               </CardHeader>
             </Card>
-            <Card>
+            <Card className="h-full">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Server className="h-5 w-5 text-primary" />
@@ -92,7 +92,7 @@ export default function StorageAPIPage() {
           </div>
         </section>
 
-        <section className="space-y-6 pt-8">
+        <section className="space-y-6">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold tracking-tight">Storage API Comparison</h2>
             <p className="text-muted-foreground">
@@ -104,7 +104,7 @@ export default function StorageAPIPage() {
           <StorageComparison />
         </section>
 
-        <section className="space-y-6 pt-8">
+        <section className="space-y-6">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold tracking-tight">Implementation Examples</h2>
             <p className="text-muted-foreground">
@@ -113,7 +113,7 @@ export default function StorageAPIPage() {
           </div>
 
           <Tabs defaultValue="local-storage" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
               <TabsTrigger value="local-storage">localStorage</TabsTrigger>
               <TabsTrigger value="indexed-db">IndexedDB</TabsTrigger>
               <TabsTrigger value="cache-api">Cache API</TabsTrigger>
@@ -168,7 +168,7 @@ export default function StorageAPIPage() {
           </Tabs>
         </section>
 
-        <section className="space-y-6 pt-8">
+        <section className="space-y-6">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold tracking-tight">Best Practices</h2>
             <p className="text-muted-foreground">
@@ -176,8 +176,8 @@ export default function StorageAPIPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <Card>
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+            <Card className="h-full">
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Zap className="h-5 w-5 text-primary" />
@@ -195,7 +195,7 @@ export default function StorageAPIPage() {
                 </ul>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="h-full">
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-primary" />
@@ -220,7 +220,7 @@ export default function StorageAPIPage() {
               <CardTitle>Error Handling and Edge Cases</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
                 <div>
                   <h3 className="text-lg font-medium mb-2">Common Errors</h3>
                   <ul className="list-disc pl-5 space-y-1">
@@ -239,38 +239,6 @@ export default function StorageAPIPage() {
                     <li>Provide fallback mechanisms when storage is unavailable</li>
                     <li>Implement data versioning for schema migrations</li>
                     <li>Use feature detection instead of browser detection</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section className="space-y-6 pt-8">
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight">Browser Support</h2>
-            <p className="text-muted-foreground">
-              Storage APIs have varying levels of support across browsers. Here's what you need to know.
-            </p>
-          </div>
-
-          <Card>
-            <CardContent className="pt-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <h3 className="text-lg font-medium mb-2">Widely Supported</h3>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>localStorage and sessionStorage (all modern browsers)</li>
-                    <li>IndexedDB (all modern browsers)</li>
-                    <li>Cache API (all modern browsers)</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium mb-2">Limited Support</h3>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>File System Access API (Chrome, Edge, Opera)</li>
-                    <li>Storage Manager API (Chrome, Firefox, Edge)</li>
-                    <li>Persistent Storage (varies by browser)</li>
                   </ul>
                 </div>
               </div>
