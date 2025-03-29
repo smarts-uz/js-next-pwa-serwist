@@ -59,137 +59,134 @@ const navItems: NavItem[] = [
     href: "/",
     icon: <Home className="h-4 w-4" />,
   },
-  // Device Features
+  // Device & Media
   {
     title: "Web Bluetooth",
     href: "/features/web-bluetooth",
     icon: <Bluetooth className="size-4" />,
-    category: "Device Features"
+    category: "Device & Media"
   },
   {
     title: "Screen Wake Lock",
     href: "/features/screen-wake-lock",
     icon: <Power className="size-4" />,
-    category: "Device Features"
+    category: "Device & Media"
   },
   {
     title: "Device Orientation",
     href: "/features/device-orientation",
     icon: <Smartphone className="size-4" />,
-    category: "Device Features"
+    category: "Device & Media"
   },
   {
     title: "Device Motion",
     href: "/features/device-motion",
     icon: <Activity className="size-4" />,
-    category: "Device Features"
+    category: "Device & Media"
   },
   {
     title: "Vibration",
     href: "/features/vibration",
     icon: <Zap className="size-4" />,
-    category: "Device Features"
+    category: "Device & Media"
   },
   {
     title: "Geolocation",
     href: "/features/geolocation",
     icon: <MapPin className="size-4" />,
-    category: "Device Features"
+    category: "Device & Media"
   },
   {
     title: "Media Capture",
     href: "/features/media-capture",
     icon: <Camera className="h-4 w-4" />,
-    category: "Device Features"
+    category: "Device & Media"
   },
-  // Storage & Data
-  {
-    title: "Local Storage",
-    href: "/features/local-storage",
-    icon: <Database className="h-4 w-4" />,
-    category: "Storage & Data"
-  },
-  {
-    title: "Storage",
-    href: "/features/storage",
-    icon: <Package className="size-4" />,
-    category: "Storage & Data"
-  },
-  {
-    title: "File Handling",
-    href: "/features/file-handling",
-    icon: <FileText className="h-4 w-4" />,
-    category: "Storage & Data"
-  },
-  // Network & Sync
-  {
-    title: "Network Info",
-    href: "/features/network-info",
-    icon: <Wifi className="h-4 w-4" />,
-    category: "Network & Sync"
-  },
-  {
-    title: "Protocol Handler",
-    href: "/features/protocol-handler",
-    icon: <LinkIcon className="h-4 w-4" />,
-    category: "Network & Sync"
-  },
-  {
-    title: "Background Fetch",
-    href: "/features/background-fetch",
-    icon: <CloudCog className="size-4" />,
-    category: "Network & Sync"
-  },
-  // Media & UI
   {
     title: "Audio Player",
     href: "/features/audio",
     icon: <AudioLines className="size-4" />,
-    category: "Media & UI"
-  },
-  {
-    title: "View Transitions",
-    href: "/features/transitions",
-    icon: <ArrowRightLeft className="h-4 w-4" />,
-    category: "Media & UI"
+    category: "Device & Media"
   },
   {
     title: "Speech Synthesis",
     href: "/features/speech-synthesis",
     icon: <Mic className="h-4 w-4" />,
-    category: "Media & UI"
+    category: "Device & Media"
   },
   {
     title: "Speech Recognition",
     href: "/features/speech-recognition",
     icon: <MicOff className="h-4 w-4" />,
-    category: "Media & UI"
+    category: "Device & Media"
   },
   {
     title: "Touch Events",
     href: "/features/touch-events",
     icon: <Smartphone className="h-4 w-4" />,
-    category: "Media & UI"
+    category: "Device & Media"
   },
-  // Security & Auth
+  // Storage & Network
+  {
+    title: "Local Storage",
+    href: "/features/local-storage",
+    icon: <Database className="h-4 w-4" />,
+    category: "Storage & Network"
+  },
+  {
+    title: "Storage",
+    href: "/features/storage",
+    icon: <Package className="size-4" />,
+    category: "Storage & Network"
+  },
+  {
+    title: "File Handling",
+    href: "/features/file-handling",
+    icon: <FileText className="h-4 w-4" />,
+    category: "Storage & Network"
+  },
+  {
+    title: "Network Info",
+    href: "/features/network-info",
+    icon: <Wifi className="h-4 w-4" />,
+    category: "Storage & Network"
+  },
+  {
+    title: "Protocol Handler",
+    href: "/features/protocol-handler",
+    icon: <LinkIcon className="h-4 w-4" />,
+    category: "Storage & Network"
+  },
+  {
+    title: "Background Fetch",
+    href: "/features/background-fetch",
+    icon: <CloudCog className="size-4" />,
+    category: "Storage & Network"
+  },
+  // UI & Security
+  {
+    title: "View Transitions",
+    href: "/features/transitions",
+    icon: <ArrowRightLeft className="h-4 w-4" />,
+    category: "UI & Security"
+  },
   {
     title: "Web Auth",
     href: "/features/web-authentication",
     icon: <Lock className="h-4 w-4" />,
-    category: "Security & Auth"
+    category: "UI & Security"
   },
   {
     title: "Web Share API",
     href: "/features/web-share",
     icon: <Share className="h-4 w-4" />,
-    category: "Security & Auth"
+    category: "UI & Security"
   },
   // Payment
   {
     title: "Payment",
     href: "/features/payment-request",
     icon: <CreditCard className="h-4 w-4" />,
-    category: "Payment"
   }
 ];
 
@@ -198,7 +195,6 @@ export function PWANavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [installed, setInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
-  const [openCategories, setOpenCategories] = useState<string[]>([]);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -337,7 +333,7 @@ export function PWANavigation() {
                 )}
               >
                 {item.icon}
-                <span className="max-w-24 truncate">{item.title}</span>
+                <span className="max-w-28 truncate">{item.title}</span>
               </Link>
             ))}
 
@@ -349,7 +345,7 @@ export function PWANavigation() {
                   "hover:bg-accent hover:text-accent-foreground"
                 )}
               >
-                <span className="max-w-24 truncate">{category}</span>
+                <span className="max-w-28 truncate">{category}</span>
                 <ChevronDown className="h-4 w-4" />
               </button>
               <div className="absolute top-full left-0 mt-1 w-48 rounded-md shadow-lg bg-background border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">

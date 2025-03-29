@@ -49,7 +49,7 @@ export default function StorageAPIPage() {
           </div>
 
           <div className="flex flex-wrap gap-4 sm:gap-6">
-            <Card className="h-full flex-1 min-w-[250px]">
+            <Card className="h-full flex-1 min-w-72">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <HardDrive className="h-5 w-5 text-primary" />
@@ -58,7 +58,7 @@ export default function StorageAPIPage() {
                 <CardDescription>Persistent key-value storage that survives browser restarts</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="h-full flex-1 min-w-[250px]">
+            <Card className="h-full flex-1 min-w-72">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-primary" />
@@ -67,7 +67,7 @@ export default function StorageAPIPage() {
                 <CardDescription>Temporary storage that lasts for the duration of the page session</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="h-full flex-1 min-w-[250px]">
+            <Card className="h-full flex-1 min-w-72">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Database className="h-5 w-5 text-primary" />
@@ -78,7 +78,7 @@ export default function StorageAPIPage() {
                 </CardDescription>
               </CardHeader>
             </Card>
-            <Card className="h-full flex-1 min-w-[250px]">
+            <Card className="h-full flex-1 min-w-72">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Server className="h-5 w-5 text-primary" />
@@ -177,7 +177,7 @@ export default function StorageAPIPage() {
           </div>
 
           <div className="flex flex-wrap gap-4 sm:gap-6">
-            <Card className="h-full flex-1 min-w-[280px] max-w-full">
+            <Card className="h-full flex-1 min-w-72 max-w-full">
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Zap className="h-5 w-5 text-primary" />
@@ -195,7 +195,7 @@ export default function StorageAPIPage() {
                 </ul>
               </CardContent>
             </Card>
-            <Card className="h-full flex-1 min-w-[280px] max-w-full">
+            <Card className="h-full flex-1 min-w-72 max-w-full">
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-primary" />
@@ -221,7 +221,7 @@ export default function StorageAPIPage() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-4 sm:gap-6">
-                <div className="flex-1 min-w-[280px] max-w-full">
+                <div className="flex-1 min-w-72 max-w-full">
                   <h3 className="text-base sm:text-lg font-medium mb-2">Common Errors</h3>
                   <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
                     <li>Storage quota exceeded</li>
@@ -231,7 +231,7 @@ export default function StorageAPIPage() {
                     <li>Data corruption or schema migration issues</li>
                   </ul>
                 </div>
-                <div className="flex-1 min-w-[280px] max-w-full">
+                <div className="flex-1 min-w-72 max-w-full">
                   <h3 className="text-base sm:text-lg font-medium mb-2">Handling Strategies</h3>
                   <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
                     <li>Implement try/catch blocks around storage operations</li>
