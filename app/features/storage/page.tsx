@@ -19,16 +19,16 @@ export const metadata: Metadata = {
 
 export default function StorageAPIPage() {
   return (
-    <div className="container mx-auto px-4 py-8 sm:py-12 lg:py-16">
+    <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 lg:py-12 max-w-[1400px]">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-        <div className="space-y-4">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Web Storage APIs</h1>
-          <p className="max-w-[700px] text-muted-foreground md:text-xl">
+        <div className="space-y-4 w-full md:w-auto">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">Web Storage APIs</h1>
+          <p className="max-w-[700px] text-sm sm:text-base text-muted-foreground">
             A comprehensive guide to storing and managing data in web applications
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button asChild>
+        <div className="flex items-center gap-2 w-full md:w-auto">
+          <Button asChild className="text-sm sm:text-base w-full md:w-auto">
             <Link href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" target="_blank">
               MDN Documentation
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -37,19 +37,19 @@ export default function StorageAPIPage() {
         </div>
       </div>
 
-      <div className="mt-8 sm:mt-12 lg:mt-16 grid gap-8">
-        <section className="space-y-6">
+      <div className="mt-6 sm:mt-8 lg:mt-12 space-y-4 sm:space-y-6 lg:space-y-8">
+        <section className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight">Introduction to Web Storage</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Introduction to Web Storage</h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Web Storage APIs provide mechanisms for storing data in the browser, enabling web applications to work
               offline, improve performance, and enhance user experience. This guide covers the main storage options
               available to web developers.
             </p>
           </div>
 
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="h-full">
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <Card className="h-full flex-1 min-w-[250px]">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <HardDrive className="h-5 w-5 text-primary" />
@@ -58,7 +58,7 @@ export default function StorageAPIPage() {
                 <CardDescription>Persistent key-value storage that survives browser restarts</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="h-full">
+            <Card className="h-full flex-1 min-w-[250px]">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-primary" />
@@ -67,7 +67,7 @@ export default function StorageAPIPage() {
                 <CardDescription>Temporary storage that lasts for the duration of the page session</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="h-full">
+            <Card className="h-full flex-1 min-w-[250px]">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Database className="h-5 w-5 text-primary" />
@@ -78,7 +78,7 @@ export default function StorageAPIPage() {
                 </CardDescription>
               </CardHeader>
             </Card>
-            <Card className="h-full">
+            <Card className="h-full flex-1 min-w-[250px]">
               <CardHeader className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Server className="h-5 w-5 text-primary" />
@@ -104,20 +104,20 @@ export default function StorageAPIPage() {
           <StorageComparison />
         </section>
 
-        <section className="space-y-6">
+        <section className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight">Implementation Examples</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Implementation Examples</h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Explore practical examples of how to use different storage APIs in real-world scenarios.
             </p>
           </div>
 
           <Tabs defaultValue="local-storage" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
-              <TabsTrigger value="local-storage">localStorage</TabsTrigger>
-              <TabsTrigger value="indexed-db">IndexedDB</TabsTrigger>
-              <TabsTrigger value="cache-api">Cache API</TabsTrigger>
-              <TabsTrigger value="file-system">File System</TabsTrigger>
+            <TabsList className="flex flex-wrap w-full text-sm sm:text-base">
+              <TabsTrigger value="local-storage" className="flex-1 min-w-[120px]">localStorage</TabsTrigger>
+              <TabsTrigger value="indexed-db" className="flex-1 min-w-[120px]">IndexedDB</TabsTrigger>
+              <TabsTrigger value="cache-api" className="flex-1 min-w-[120px]">Cache API</TabsTrigger>
+              <TabsTrigger value="file-system" className="flex-1 min-w-[120px]">File System</TabsTrigger>
             </TabsList>
             <TabsContent value="local-storage" className="mt-6">
               <Card>
@@ -168,24 +168,24 @@ export default function StorageAPIPage() {
           </Tabs>
         </section>
 
-        <section className="space-y-6">
+        <section className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight">Best Practices</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Best Practices</h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Follow these guidelines to implement storage effectively in your applications.
             </p>
           </div>
 
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-            <Card className="h-full">
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <Card className="h-full flex-1 min-w-[280px] max-w-full">
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Zap className="h-5 w-5 text-primary" />
-                  <CardTitle>Performance Optimization</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">Performance Optimization</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc pl-5 space-y-2">
+                <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base">
                   <li>Store only what you need; avoid storing large objects in localStorage</li>
                   <li>Use IndexedDB for large datasets instead of localStorage</li>
                   <li>Implement pagination when retrieving large datasets from IndexedDB</li>
@@ -195,15 +195,15 @@ export default function StorageAPIPage() {
                 </ul>
               </CardContent>
             </Card>
-            <Card className="h-full">
+            <Card className="h-full flex-1 min-w-[280px] max-w-full">
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-primary" />
-                  <CardTitle>Security Considerations</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">Security Considerations</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="list-disc pl-5 space-y-2">
+                <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base">
                   <li>Never store sensitive information like passwords or tokens in localStorage</li>
                   <li>Be aware that all client-side storage is accessible to JavaScript on your domain</li>
                   <li>Implement proper input validation to prevent XSS attacks</li>
@@ -215,15 +215,15 @@ export default function StorageAPIPage() {
             </Card>
           </div>
 
-          <Card>
+          <Card className="w-full">
             <CardHeader>
-              <CardTitle>Error Handling and Edge Cases</CardTitle>
+              <CardTitle className="text-lg sm:text-xl">Error Handling and Edge Cases</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-                <div>
-                  <h3 className="text-lg font-medium mb-2">Common Errors</h3>
-                  <ul className="list-disc pl-5 space-y-1">
+              <div className="flex flex-wrap gap-4 sm:gap-6">
+                <div className="flex-1 min-w-[280px] max-w-full">
+                  <h3 className="text-base sm:text-lg font-medium mb-2">Common Errors</h3>
+                  <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
                     <li>Storage quota exceeded</li>
                     <li>Private browsing mode limitations</li>
                     <li>Concurrent access issues</li>
@@ -231,9 +231,9 @@ export default function StorageAPIPage() {
                     <li>Data corruption or schema migration issues</li>
                   </ul>
                 </div>
-                <div>
-                  <h3 className="text-lg font-medium mb-2">Handling Strategies</h3>
-                  <ul className="list-disc pl-5 space-y-1">
+                <div className="flex-1 min-w-[280px] max-w-full">
+                  <h3 className="text-base sm:text-lg font-medium mb-2">Handling Strategies</h3>
+                  <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
                     <li>Implement try/catch blocks around storage operations</li>
                     <li>Check for storage availability before using it</li>
                     <li>Provide fallback mechanisms when storage is unavailable</li>

@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist, CacheFirst } from "serwist";
+import { Serwist, CacheOnly } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -25,8 +25,8 @@ const serwist = new Serwist({
   // runtimeCaching: defaultCache,
   runtimeCaching: [
     {
-      matcher: ({ request }) => request.destination === "style",
-      handler: new CacheFirst(),
+      matcher: ({ url }) => url.pathname.startsWith("/features/"),
+      handler: new CacheOnly(),
     },
   ],
   fallbacks: {
@@ -38,6 +38,7 @@ const serwist = new Serwist({
         },
       },
     ],
-  }
+  },
 });
 
+export default serwist;
