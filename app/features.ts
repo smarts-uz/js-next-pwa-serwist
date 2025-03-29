@@ -32,7 +32,8 @@ export const featureCategories = [
     features: [
       {
         title: "Web Bluetooth",
-        description: "Connect and interact with Bluetooth devices directly from your browser",
+        description:
+          "Connect and interact with Bluetooth devices directly from your browser",
         icon: Bluetooth,
         href: "/features/web-bluetooth",
       },
@@ -144,19 +145,13 @@ export const featureCategories = [
     ],
   },
   {
-    title: "Security & Payment",
+    title: "Security",
     features: [
       {
         title: "Web Auth",
         description: "Secure authentication with biometrics",
         icon: Lock,
         href: "/features/web-authentication",
-      },
-      {
-        title: "Payment Request",
-        description: "Process payments using various payment methods",
-        icon: CreditCard,
-        href: "/features/payment-request",
       },
       {
         title: "Web Share API",
@@ -171,27 +166,32 @@ export const featureCategories = [
 export const benefits = [
   {
     title: "App-like Experience",
-    description: "PWAs provide a full-screen experience, can be installed on the home screen, and work offline like native apps.",
+    description:
+      "PWAs provide a full-screen experience, can be installed on the home screen, and work offline like native apps.",
     icon: Smartphone,
   },
   {
     title: "Network Independence",
-    description: "PWAs work offline or on low-quality networks, ensuring a consistent user experience.",
+    description:
+      "PWAs work offline or on low-quality networks, ensuring a consistent user experience.",
     icon: Wifi,
   },
   {
     title: "Engagement",
-    description: "Push notifications help re-engage users with timely, relevant content.",
+    description:
+      "Push notifications help re-engage users with timely, relevant content.",
     icon: Bell,
   },
   {
     title: "Performance",
-    description: "Fast loading times and smooth interactions with service workers and caching.",
+    description:
+      "Fast loading times and smooth interactions with service workers and caching.",
     icon: Zap,
   },
   {
     title: "Security",
-    description: "HTTPS by default and secure data handling with modern web standards.",
+    description:
+      "HTTPS by default and secure data handling with modern web standards.",
     icon: Shield,
   },
   {

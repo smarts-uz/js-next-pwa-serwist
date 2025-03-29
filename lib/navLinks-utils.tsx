@@ -20,8 +20,8 @@ import {
   RefreshCw,
   Shield,
   Share2,
-  Wallet,
   Radio,
+  Clock,
 } from "lucide-react";
 
 interface NavItem {
@@ -155,6 +155,12 @@ export const navItems: NavItem[] = [
     icon: <Radio className="h-4 w-4" />,
     category: "Storage & Network",
   },
+  {
+    title: "Cache Expiration",
+    href: "/features/cache-expiration",
+    icon: <Clock className="h-4 w-4" />,
+    category: "Storage & Network",
+  },
   // UI & Security
   {
     title: "View Transitions",
@@ -173,11 +179,5 @@ export const navItems: NavItem[] = [
     href: "/features/web-share",
     icon: <Share2 className="h-4 w-4" />,
     category: "UI & Security",
-  },
-  // Payment
-  {
-    title: "Payment",
-    href: "/features/payment-request",
-    icon: <Wallet className="h-4 w-4" />,
   },
 ];
