@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
+import { Serwist, disableDevLogs } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -35,30 +35,6 @@ const serwist = new Serwist({
   },
 });
 
-// Handle fetch events with response copying
-self.addEventListener("fetch", (event) => {
-  if (event.request.url.includes("/api/test-copy")) {
-    event.respondWith(
-      (async () => {
-        try {
-          // Fetch the original response
-          const originalResponse = await fetch(event.request.clone());
-          
-          // Create a new response with modified headers
-          const modifiedResponse = new Response(originalResponse.body, originalResponse);
-          
-          // Modify headers
-          modifiedResponse.headers.set('x-cache', 'MISS');
-          modifiedResponse.headers.set('x-modified-header', 'modified-value');
-          modifiedResponse.headers.set('x-custom-header', 'modified-custom-value');
-          
-          return modifiedResponse;
-        } catch (error) {
-          throw error;
-        }
-      })()
-    );
-  }
-});
+disableDevLogs();
 
 serwist.addEventListeners();
