@@ -457,7 +457,7 @@
       "sizes": "1024x1024"
     }
   ],
-  "shortcuts": [ 
+  "shortcuts": [
     {
       "name": "File Handling",
       "short_name": "Files",
@@ -482,9 +482,12 @@
   "file_handlers": [
     {
       "action": "/features/file-handling",
-      "accept": {
-        "text/*": [".txt", ".md"]
-      }
+      "accept": [
+        {
+          "text/plain": [".txt"],
+          "text/markdown": [".md"]
+        }
+      ]
     }
   ]
 }

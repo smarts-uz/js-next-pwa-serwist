@@ -77,14 +77,12 @@ export function PWANavigation() {
             )}
           </SheetTitle>
         </SheetHeader>
-
         {!isOnline && (
           <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-md text-amber-800 text-sm flex items-center">
             <Wifi className="h-4 w-4 mr-2 text-amber-500" />
             You're currently offline
           </div>
         )}
-
         <nav className="flex flex-col space-y-1">
           {navItems.map((item) => (
             <Link
@@ -110,25 +108,6 @@ export function PWANavigation() {
               )}
             </Link>
           ))}
-
-          <div className="pt-4 mt-4 border-t border-border">
-            <div className="px-3 py-2 text-xs font-medium text-muted-foreground">
-              More
-            </div>
-            <Link
-              href="/offline"
-              className={cn(
-                "flex items-center px-3 py-2 rounded-md text-sm transition-colors",
-                pathname === "/offline"
-                  ? "bg-primary/10 text-primary font-medium"
-                  : "hover:bg-accent hover:text-accent-foreground"
-              )}
-              onClick={() => setIsOpen(false)}
-            >
-              <Info className="h-4 w-4" />
-              <span className="ml-2">Offline Page</span>
-            </Link>
-          </div>
         </nav>
       </SheetContent>
     </Sheet>
