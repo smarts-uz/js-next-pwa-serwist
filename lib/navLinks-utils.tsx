@@ -24,6 +24,7 @@ import {
   Clock,
   CheckCircle2,
   Copy,
+  Zap,
 } from "lucide-react";
 
 interface NavItem {
@@ -173,6 +174,12 @@ export const navItems: NavItem[] = [
     title: "Copy Response",
     href: "/features/copy-response",
     icon: <Copy className="h-4 w-4" />,
+    category: "Storage & Network",
+  },
+  {
+    title: "Navigation Preload",
+    href: "/features/navigation-preload",
+    icon: <Zap className="h-4 w-4" />,
     category: "Storage & Network",
   },
   // UI & Security
