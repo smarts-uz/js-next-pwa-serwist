@@ -38,44 +38,49 @@ const serwist = new Serwist({
   },
 });
 
-self.addEventListener("message", async (event) => {
-  if (event.data?.type === "COMPARE_RESPONSES") {
-    const { original, modified } = event.data.urls;
+// Example: Compare cached and fresh responses from API
+const cacheName = "test-copy-cache";
+const request = new Request("/api/test-copy");
+console.log("request", request);
+// Try to get cached response
+const cache = await caches.open(cacheName);
+const cachedResponse = await cache.match(request);
 
-    try {
-      const [originalResponse, modifiedResponse] = await Promise.all([
-        fetch(original),
-        fetch(modified),
-      ]);
+// Fetch fresh response
+const freshResponse = await fetch(request);
 
-      const areEqual = responsesAreSame(
-        originalResponse,
-        modifiedResponse,
-        BROADCAST_UPDATE_DEFAULT_HEADERS
-      );
+console.log(
+  'fresh',freshResponse)
 
-      const windows = await self.clients.matchAll({ type: "window" });
-      for (const win of windows) {
-        win.postMessage({
-          type: "RESPONSE_COMPARISON",
-          responsesEqual: areEqual,
-          message: areEqual
-            ? "Responses match exactly"
-            : "Responses differ - headers or body content do not match",
-        });
-      }
-    } catch (error) {
-      console.error("Error comparing responses:", error);
-      const windows = await self.clients.matchAll({ type: "window" });
-      for (const win of windows) {
-        win.postMessage({
-          type: "RESPONSE_COMPARISON",
-          responsesEqual: false,
-          message: "Error comparing responses",
-        });
-      }
+// Store fresh response in cache
+await cache.put(request, freshResponse.clone());
+
+// Compare cached and fresh responses if we have both
+if (cachedResponse) {
+  const responsesMatch = responsesAreSame(
+    cachedResponse,
+    freshResponse,
+    BROADCAST_UPDATE_DEFAULT_HEADERS
+  );
+
+  if (!responsesMatch) {
+    // Notify all window clients about the update
+    const windows = await self.clients.matchAll({ type: "window" });
+    for (const win of windows) {
+      win.postMessage({
+        type: "CACHE_UPDATED",
+        message: "API response has been updated",
+        url: request.url,
+        timestamp: new Date().toISOString(),
+        // Add header comparison details
+        headers: {
+          cachedHeaders: Object.fromEntries(cachedResponse.headers.entries()),
+          freshHeaders: Object.fromEntries(freshResponse.headers.entries()),
+          comparedHeaders: BROADCAST_UPDATE_DEFAULT_HEADERS,
+        },
+      });
     }
   }
-});
+}
 
 serwist.addEventListeners();
