@@ -19,14 +19,11 @@ export function CacheableResponseDemo() {
   const [responseData, setResponseData] = useState<ResponseData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log("responseData", responseData);
-
   const fetchData = async (status: number) => {
     setIsLoading(true);
     try {
       const apiResponse = await fetch(`/api/test-response?status=${status}`);
       const data = await apiResponse.json();
-
       const isCached = apiResponse.headers.get("x-cache") === "HIT";
 
       setResponseData({

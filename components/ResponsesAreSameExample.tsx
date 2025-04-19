@@ -11,6 +11,7 @@ const ResponsesAreSameExample = () => {
   useEffect(() => {
     // Handle service worker messages
     const handleMessage = (event: MessageEvent) => {
+      console.log(event);
       if (event.data.type === "CACHE_UPDATED") {
         setUpdateMessage({
           message: event.data.message,
@@ -21,24 +22,30 @@ const ResponsesAreSameExample = () => {
       }
     };
 
-    // Add message listener
     navigator.serviceWorker?.addEventListener("message", handleMessage);
 
-    // Trigger the comparison in service worker
-    const triggerComparison = async () => {
-      const registration = await navigator.serviceWorker.ready;
-      registration.active?.postMessage({
-        type: "CACHE_UPDATED",
-        url: "/api/test-copy",
-      });
-    };
-
-    // Call comparison when component mounts
-    triggerComparison().catch(console.error);
-
-    // Cleanup listener
     return () => {
       navigator.serviceWorker?.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleServiceWorkerMessage = (event: MessageEvent) => {
+      if (event.data?.type === "CACHE_UPDATED") {
+        alert(event.data.message); // Replace with your preferred notification method
+      }
+    };
+
+    navigator.serviceWorker.addEventListener(
+      "message",
+      handleServiceWorkerMessage
+    );
+
+    return () => {
+      navigator.serviceWorker.removeEventListener(
+        "message",
+        handleServiceWorkerMessage
+      );
     };
   }, []);
 
