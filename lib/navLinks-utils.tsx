@@ -25,6 +25,7 @@ import {
   CheckCircle2,
   Copy,
   Zap,
+  FileCheck,
 } from "lucide-react";
 
 interface NavItem {
@@ -180,6 +181,12 @@ export const navItems: NavItem[] = [
     title: "Navigation Preload",
     href: "/features/navigation-preload",
     icon: <Zap className="h-4 w-4" />,
+    category: "Storage & Network",
+  },
+  {
+    title: "Same Response",
+    href: "/features/same-response",
+    icon: <FileCheck className="h-4 w-4" />,
     category: "Storage & Network",
   },
   // UI & Security

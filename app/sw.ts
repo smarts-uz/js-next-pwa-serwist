@@ -38,4 +38,44 @@ const serwist = new Serwist({
   },
 });
 
+self.addEventListener("message", async (event) => {
+  if (event.data?.type === "COMPARE_RESPONSES") {
+    const { original, modified } = event.data.urls;
+
+    try {
+      const [originalResponse, modifiedResponse] = await Promise.all([
+        fetch(original),
+        fetch(modified),
+      ]);
+
+      const areEqual = responsesAreSame(
+        originalResponse,
+        modifiedResponse,
+        BROADCAST_UPDATE_DEFAULT_HEADERS
+      );
+
+      const windows = await self.clients.matchAll({ type: "window" });
+      for (const win of windows) {
+        win.postMessage({
+          type: "RESPONSE_COMPARISON",
+          responsesEqual: areEqual,
+          message: areEqual
+            ? "Responses match exactly"
+            : "Responses differ - headers or body content do not match",
+        });
+      }
+    } catch (error) {
+      console.error("Error comparing responses:", error);
+      const windows = await self.clients.matchAll({ type: "window" });
+      for (const win of windows) {
+        win.postMessage({
+          type: "RESPONSE_COMPARISON",
+          responsesEqual: false,
+          message: "Error comparing responses",
+        });
+      }
+    }
+  }
+});
+
 serwist.addEventListeners();
