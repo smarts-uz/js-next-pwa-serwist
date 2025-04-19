@@ -14,10 +14,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // In a real app, you would:
-    // 1. Validate file type and size
-    // 2. Upload to cloud storage (S3, etc.)
-    // 3. Save metadata to database
     console.log("File received:", {
       id: fileId,
       name: fileName,
@@ -25,7 +21,6 @@ export async function POST(request: Request) {
       type: file.type,
     });
 
-    // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return NextResponse.json({
@@ -38,10 +33,9 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    console.error("Upload error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to process upload" },
       { status: 500 }
     );
   }
-} 
+}

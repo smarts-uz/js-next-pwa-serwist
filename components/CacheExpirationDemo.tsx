@@ -16,7 +16,7 @@ interface CacheStatus {
 interface ApiKeyData {
   key: string;
   lastRefresh: Date;
-  status: 'valid' | 'expired';
+  status: "valid" | "expired";
 }
 
 export function CacheExpirationDemo() {
@@ -32,25 +32,25 @@ export function CacheExpirationDemo() {
     setIsLoading(true);
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
       const newKey = generateApiKey();
       const now = Date.now();
-      const expiresAt = now + (60 * 1000); // 1 minute
-      
+      const expiresAt = now + 60 * 1000; // 1 minute
+
       setApiKeyData({
         key: newKey,
         lastRefresh: new Date(),
-        status: 'valid'
+        status: "valid",
       });
-      
+
       setCacheStatus({
         timestamp: now,
         expiresAt,
-        isExpired: false
+        isExpired: false,
       });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
@@ -66,19 +66,27 @@ export function CacheExpirationDemo() {
     const timer = setInterval(() => {
       const now = Date.now();
       const isExpired = now >= cacheStatus.expiresAt;
-      
+
       if (isExpired && !cacheStatus.isExpired) {
-        setApiKeyData(prev => prev ? {
-          ...prev,
-          status: 'expired'
-        } : null);
+        setApiKeyData((prev) =>
+          prev
+            ? {
+                ...prev,
+                status: "expired",
+              }
+            : null
+        );
         fetchData();
       }
-      
-      setCacheStatus(prev => prev ? {
-        ...prev,
-        isExpired
-      } : null);
+
+      setCacheStatus((prev) =>
+        prev
+          ? {
+              ...prev,
+              isExpired,
+            }
+          : null
+      );
     }, 1000);
 
     return () => clearInterval(timer);
@@ -113,12 +121,12 @@ export function CacheExpirationDemo() {
             API key expires after 1 minute
           </p>
         </div>
-        <Button 
-          onClick={fetchData} 
+        <Button
+          onClick={fetchData}
           disabled={isLoading}
           className="flex items-center gap-2"
         >
-          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
           Refresh Key
         </Button>
       </div>
@@ -157,7 +165,7 @@ export function CacheExpirationDemo() {
             </code>
           </div>
 
-          {apiKeyData.status === 'expired' && (
+          {apiKeyData.status === "expired" && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
@@ -169,4 +177,4 @@ export function CacheExpirationDemo() {
       )}
     </div>
   );
-} 
+}

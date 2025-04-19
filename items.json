@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Coca-Cola Zero",
+    "category": "Beverages",
+    "price": 1500,
+    "quantity": 10,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Coca_Cola_Flasche_-_Original_Taste.jpg/250px-Coca_Cola_Flasche_-_Original_Taste.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Pepsi Max",
+    "category": "Beverages",
+    "price": 1500,
+    "quantity": 8,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/2019-04-21_21_38_17_A_20_ounce_bottle_of_Pepsi_in_the_Franklin_Farm_section_of_Oak_Hill%2C_Fairfax_County%2C_Virginia.jpg/250px-2019-04-21_21_38_17_A_20_ounce_bottle_of_Pepsi_in_the_Franklin_Farm_section_of_Oak_Hill%2C_Fairfax_County%2C_Virginia.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Lays Chips",
+    "category": "Snacks",
+    "price": 2000,
+    "quantity": 5,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Lay%27s_logo_2019.svg/250px-Lay%27s_logo_2019.svg.png"
+  },
+  {
+    "id": 4,
+    "name": "Snickers Bar",
+    "category": "Confectionery",
+    "price": 1200,
+    "quantity": 12,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Snickers-broken.png/250px-Snickers-broken.png"
+  },
+  {
+    "id": 5,
+    "name": "Red Bull",
+    "category": "Energy Drinks",
+    "price": 2500,
+    "quantity": 6,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8.4_floz_can_of_Red_Bull_Energy_Drink.jpg/250px-8.4_floz_can_of_Red_Bull_Energy_Drink.jpg"
+  }
+]

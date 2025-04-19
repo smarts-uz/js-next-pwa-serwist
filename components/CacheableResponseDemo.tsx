@@ -26,13 +26,12 @@ export function CacheableResponseDemo() {
     try {
       const apiResponse = await fetch(`/api/test-response?status=${status}`);
       const data = await apiResponse.json();
-      
-      // Check if response came from cache by looking at the response headers
-      const isCached = apiResponse.headers.get('x-cache') === 'HIT';
-      
+
+      const isCached = apiResponse.headers.get("x-cache") === "HIT";
+
       setResponseData({
         ...data,
-        cached: isCached
+        cached: isCached,
       });
     } catch (error) {
       console.error("Error:", error);
@@ -89,12 +88,18 @@ export function CacheableResponseDemo() {
                   Status: {responseData.status}
                 </Badge>
                 {responseData.cached ? (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     <CheckCircle2 className="h-3 w-3" />
                     Cached
                   </Badge>
                 ) : (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     <XCircle className="h-3 w-3" />
                     Not Cached
                   </Badge>
@@ -126,8 +131,9 @@ export function CacheableResponseDemo() {
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                This response was not cached because it has a {responseData.status} status code.
-                Only successful responses (2xx) are cached.
+                This response was not cached because it has a{" "}
+                {responseData.status} status code. Only successful responses
+                (2xx) are cached.
               </AlertDescription>
             </Alert>
           )}

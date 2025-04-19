@@ -1,20 +1,33 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Download, RefreshCw, Wifi, WifiOff, CheckCircle, XCircle } from "lucide-react"
+import { useState, useEffect } from "react";
+import {
+  Download,
+  RefreshCw,
+  Wifi,
+  WifiOff,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
-// Mock articles for demonstration
 const articles = [
   {
     id: 1,
     title: "Understanding the Cache API",
-    summary: "The Cache API provides a mechanism for storing and retrieving network requests and responses...",
+    summary:
+      "The Cache API provides a mechanism for storing and retrieving network requests and responses...",
     content: `
       <h2>Understanding the Cache API</h2>
       <p>The Cache API provides a mechanism for storing and retrieving network requests and responses. It's designed to be used with Service Workers, allowing web applications to function offline.</p>
@@ -47,7 +60,8 @@ const articles = [
   {
     id: 2,
     title: "Service Workers and Offline Web Apps",
-    summary: "Service Workers act as proxy servers that sit between web applications, the browser, and the network...",
+    summary:
+      "Service Workers act as proxy servers that sit between web applications, the browser, and the network...",
     content: `
       <h2>Service Workers and Offline Web Apps</h2>
       <p>Service Workers act as proxy servers that sit between web applications, the browser, and the network. They enable the creation of effective offline experiences, intercept network requests, and take appropriate action based on whether the network is available.</p>
@@ -77,7 +91,8 @@ const articles = [
         <li><strong>Network Only</strong>: Serve only from network</li>
       </ul>
     `,
-    imageUrl: "/placeholder.svg?height=200&width=400&text=Service+Workers+Article",
+    imageUrl:
+      "/placeholder.svg?height=200&width=400&text=Service+Workers+Article",
   },
   {
     id: 3,
@@ -112,141 +127,131 @@ const articles = [
         <li>Event-based synchronization</li>
       </ul>
     `,
-    imageUrl: "/placeholder.svg?height=200&width=400&text=Offline+First+Article",
+    imageUrl:
+      "/placeholder.svg?height=200&width=400&text=Offline+First+Article",
   },
-]
+];
 
 export function CacheAPIExample() {
-  const [isOffline, setIsOffline] = useState(false)
-  const [cacheStatus, setCacheStatus] = useState<"uncached" | "caching" | "cached">("uncached")
-  const [cachingProgress, setCachingProgress] = useState(0)
-  const [selectedArticle, setSelectedArticle] = useState<number | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [serviceWorkerSupported, setServiceWorkerSupported] = useState(true)
-  const [cacheApiSupported, setCacheApiSupported] = useState(true)
+  const [isOffline, setIsOffline] = useState(false);
+  const [cacheStatus, setCacheStatus] = useState<
+    "uncached" | "caching" | "cached"
+  >("uncached");
+  const [cachingProgress, setCachingProgress] = useState(0);
+  const [selectedArticle, setSelectedArticle] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [serviceWorkerSupported, setServiceWorkerSupported] = useState(true);
+  const [cacheApiSupported, setCacheApiSupported] = useState(true);
 
-  // Check for Service Worker and Cache API support
   useEffect(() => {
-    setServiceWorkerSupported("serviceWorker" in navigator)
-    setCacheApiSupported("caches" in window)
+    setServiceWorkerSupported("serviceWorker" in navigator);
+    setCacheApiSupported("caches" in window);
 
-    // Set up online/offline detection
-    const handleOnline = () => setIsOffline(false)
-    const handleOffline = () => setIsOffline(true)
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
 
-    window.addEventListener("online", handleOnline)
-    window.addEventListener("offline", handleOffline)
-    setIsOffline(!navigator.onLine)
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    setIsOffline(!navigator.onLine);
 
-    // Check if content is already cached
-    checkCacheStatus()
+    checkCacheStatus();
 
     return () => {
-      window.removeEventListener("online", handleOnline)
-      window.removeEventListener("offline", handleOffline)
-    }
-  }, [])
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
-  // Check if articles are cached
   const checkCacheStatus = async () => {
-    if (!cacheApiSupported) return
+    if (!cacheApiSupported) return;
 
     try {
-      const cache = await caches.open("articles-cache")
-      const keys = await cache.keys()
+      const cache = await caches.open("articles-cache");
+      const keys = await cache.keys();
 
-      // Check if all article URLs are cached
-      const allCached = articles.every((article) => keys.some((key) => key.url.includes(`article-${article.id}`)))
+      const allCached = articles.every((article) =>
+        keys.some((key) => key.url.includes(`article-${article.id}`))
+      );
 
-      setCacheStatus(allCached ? "cached" : "uncached")
+      setCacheStatus(allCached ? "cached" : "uncached");
     } catch (err) {
-      console.error("Error checking cache status:", err)
-      setError("Failed to check cache status")
+      console.error("Error checking cache status:", err);
+      setError("Failed to check cache status");
     }
-  }
+  };
 
-  // Cache all articles
   const cacheArticles = async () => {
     if (!cacheApiSupported) {
-      setError("Cache API is not supported in your browser")
-      return
+      setError("Cache API is not supported in your browser");
+      return;
     }
 
-    setCacheStatus("caching")
-    setCachingProgress(0)
-    setError(null)
+    setCacheStatus("caching");
+    setCachingProgress(0);
+    setError(null);
 
     try {
-      const cache = await caches.open("articles-cache")
+      const cache = await caches.open("articles-cache");
 
       for (let i = 0; i < articles.length; i++) {
-        const article = articles[i]
+        const article = articles[i];
 
-        // Create a response object with the article content
         const response = new Response(JSON.stringify(article), {
           headers: { "Content-Type": "application/json" },
-        })
+        });
 
-        // Cache the article
-        await cache.put(`/api/article-${article.id}`, response)
+        await cache.put(`/api/article-${article.id}`, response);
 
-        // Cache the article image
         if (article.imageUrl) {
-          const imageResponse = await fetch(article.imageUrl)
-          await cache.put(article.imageUrl, imageResponse)
+          const imageResponse = await fetch(article.imageUrl);
+          await cache.put(article.imageUrl, imageResponse);
         }
 
-        // Update progress
-        setCachingProgress(Math.round(((i + 1) / articles.length) * 100))
+        setCachingProgress(Math.round(((i + 1) / articles.length) * 100));
       }
 
-      setCacheStatus("cached")
+      setCacheStatus("cached");
     } catch (err) {
-      console.error("Error caching articles:", err)
-      setError("Failed to cache articles")
-      setCacheStatus("uncached")
+      console.error("Error caching articles:", err);
+      setError("Failed to cache articles");
+      setCacheStatus("uncached");
     }
-  }
+  };
 
-  // Clear the cache
   const clearCache = async () => {
-    if (!cacheApiSupported) return
+    if (!cacheApiSupported) return;
 
     try {
-      await caches.delete("articles-cache")
-      setCacheStatus("uncached")
+      await caches.delete("articles-cache");
+      setCacheStatus("uncached");
     } catch (err) {
-      console.error("Error clearing cache:", err)
-      setError("Failed to clear cache")
+      console.error("Error clearing cache:", err);
+      setError("Failed to clear cache");
     }
-  }
+  };
 
-  // Get article from cache or memory
   const getArticle = async (id: number) => {
-    setSelectedArticle(id)
+    setSelectedArticle(id);
 
     if (!cacheApiSupported || cacheStatus !== "cached" || !isOffline) {
-      // If not using cache or online, just use the in-memory article
-      return
+      return;
     }
 
     try {
-      const cache = await caches.open("articles-cache")
-      const response = await cache.match(`/api/article-${id}`)
+      const cache = await caches.open("articles-cache");
+      const response = await cache.match(`/api/article-${id}`);
 
       if (!response) {
-        setError(`Article ${id} not found in cache`)
-        return
+        setError(`Article ${id} not found in cache`);
+        return;
       }
 
-      // No need to actually use the cached data in this demo
-      // In a real app, you would parse the response and update the UI
-      console.log("Retrieved article from cache:", await response.json())
+      console.log("Retrieved article from cache:", await response.json());
     } catch (err) {
-      console.error("Error retrieving article from cache:", err)
-      setError("Failed to retrieve article from cache")
+      console.error("Error retrieving article from cache:", err);
+      setError("Failed to retrieve article from cache");
     }
-  }
+  };
 
   if (!serviceWorkerSupported || !cacheApiSupported) {
     return (
@@ -257,7 +262,7 @@ export function CacheAPIExample() {
             : "Cache API is not supported in your browser. This example requires Cache API support."}
         </AlertDescription>
       </Alert>
-    )
+    );
   }
 
   return (
@@ -265,13 +270,17 @@ export function CacheAPIExample() {
       <div className="flex justify-between items-center">
         <div>
           <h3 className="font-medium">Offline Content with Cache API</h3>
-          <p className="text-sm text-muted-foreground">Cache content for offline access using the Cache API</p>
+          <p className="text-sm text-muted-foreground">
+            Cache content for offline access using the Cache API
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <Badge
             variant="outline"
             className={`${
-              isOffline ? "bg-red-50 text-red-700 border-red-200" : "bg-green-50 text-green-700 border-green-200"
+              isOffline
+                ? "bg-red-50 text-red-700 border-red-200"
+                : "bg-green-50 text-green-700 border-green-200"
             }`}
           >
             {isOffline ? (
@@ -293,7 +302,11 @@ export function CacheAPIExample() {
               Cache for Offline
             </Button>
           ) : cacheStatus === "cached" ? (
-            <Button onClick={clearCache} variant="outline" className="flex items-center">
+            <Button
+              onClick={clearCache}
+              variant="outline"
+              className="flex items-center"
+            >
               <RefreshCw className="mr-2 h-4 w-4" />
               Clear Cache
             </Button>
@@ -333,17 +346,25 @@ export function CacheAPIExample() {
                   <CardTitle className="text-base">{article.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 pt-0">
-                  <p className="text-sm text-muted-foreground">{article.summary}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {article.summary}
+                  </p>
                 </CardContent>
                 <CardFooter className="p-4 pt-0 flex justify-between">
                   <div className="flex items-center text-xs">
                     {isOffline && cacheStatus === "cached" ? (
-                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                      <Badge
+                        variant="outline"
+                        className="bg-green-50 text-green-700 border-green-200"
+                      >
                         <CheckCircle className="mr-1 h-3 w-3" />
                         Available Offline
                       </Badge>
                     ) : isOffline && cacheStatus !== "cached" ? (
-                      <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">
+                      <Badge
+                        variant="outline"
+                        className="bg-red-50 text-red-700 border-red-200"
+                      >
                         <XCircle className="mr-1 h-3 w-3" />
                         Not Available Offline
                       </Badge>
@@ -359,18 +380,25 @@ export function CacheAPIExample() {
           {selectedArticle ? (
             <Card>
               <CardHeader className="p-4 pb-2">
-                <CardTitle>{articles.find((a) => a.id === selectedArticle)?.title}</CardTitle>
+                <CardTitle>
+                  {articles.find((a) => a.id === selectedArticle)?.title}
+                </CardTitle>
               </CardHeader>
               <CardContent className="p-4">
                 <img
-                  src={articles.find((a) => a.id === selectedArticle)?.imageUrl || "/placeholder.svg"}
+                  src={
+                    articles.find((a) => a.id === selectedArticle)?.imageUrl ||
+                    "/placeholder.svg"
+                  }
                   alt={articles.find((a) => a.id === selectedArticle)?.title}
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
                 <div
                   className="prose max-w-none"
                   dangerouslySetInnerHTML={{
-                    __html: articles.find((a) => a.id === selectedArticle)?.content || "",
+                    __html:
+                      articles.find((a) => a.id === selectedArticle)?.content ||
+                      "",
                   }}
                 />
               </CardContent>
@@ -379,7 +407,9 @@ export function CacheAPIExample() {
             <div className="flex items-center justify-center h-full border rounded-md bg-muted/20 p-8">
               <div className="text-center">
                 <h3 className="font-medium mb-2">No Article Selected</h3>
-                <p className="text-sm text-muted-foreground">Select an article from the list to view its content</p>
+                <p className="text-sm text-muted-foreground">
+                  Select an article from the list to view its content
+                </p>
               </div>
             </div>
           )}
@@ -389,14 +419,17 @@ export function CacheAPIExample() {
       <div className="rounded-md bg-muted p-4">
         <h4 className="text-sm font-medium mb-2">How it works:</h4>
         <p className="text-sm text-muted-foreground">
-          This example demonstrates using the Cache API to store content for offline access. When you click "Cache for
-          Offline", the application stores article content and images in the browser's cache. When you go offline
-          (toggle the network status), you can still access the cached content.
+          This example demonstrates using the Cache API to store content for
+          offline access. When you click "Cache for Offline", the application
+          stores article content and images in the browser's cache. When you go
+          offline (toggle the network status), you can still access the cached
+          content.
         </p>
         <p className="text-sm text-muted-foreground mt-2">
-          In a real application, this would be implemented with Service Workers to intercept network requests and serve
-          cached responses when offline. The Cache API is specifically designed for storing HTTP requests and responses,
-          making it ideal for offline web applications.
+          In a real application, this would be implemented with Service Workers
+          to intercept network requests and serve cached responses when offline.
+          The Cache API is specifically designed for storing HTTP requests and
+          responses, making it ideal for offline web applications.
         </p>
         <pre className="bg-muted-foreground/10 p-2 rounded-md text-xs mt-2 overflow-x-auto">
           <code>{`// Service Worker code example
@@ -428,6 +461,5 @@ self.addEventListener('fetch', event => {
         </pre>
       </div>
     </div>
-  )
+  );
 }
-

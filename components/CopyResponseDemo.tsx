@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Copy, CheckCircle2, XCircle } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface ResponseData {
   status: number;
@@ -22,12 +21,12 @@ export function CopyResponseDemo() {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const apiResponse = await fetch('/api/test-copy');
+      const apiResponse = await fetch("/api/test-copy");
       const data = await apiResponse.json();
-      
+
       // Check if response came from cache
-      const isCached = apiResponse.headers.get('x-cache') === 'HIT';
-      
+      const isCached = apiResponse.headers.get("x-cache") === "HIT";
+
       // Get original headers
       const originalHeaders: Record<string, string> = {};
       apiResponse.headers.forEach((value, key) => {
@@ -36,16 +35,16 @@ export function CopyResponseDemo() {
 
       // Get modified headers (after service worker copy)
       const modifiedHeaders: Record<string, string> = {};
-      const modifiedResponse = await fetch('/api/test-copy-modified');
+      const modifiedResponse = await fetch("/api/test-copy-modified");
       modifiedResponse.headers.forEach((value, key) => {
         modifiedHeaders[key] = value;
       });
-      
+
       setResponseData({
         ...data,
         cached: isCached,
         originalHeaders,
-        modifiedHeaders
+        modifiedHeaders,
       });
     } catch (error) {
       console.error("Error:", error);
@@ -64,11 +63,7 @@ export function CopyResponseDemo() {
       </div>
 
       <div className="flex gap-2">
-        <Button
-          onClick={fetchData}
-          disabled={isLoading}
-          variant="outline"
-        >
+        <Button onClick={fetchData} disabled={isLoading} variant="outline">
           Test Response Copy
         </Button>
       </div>
@@ -78,16 +73,20 @@ export function CopyResponseDemo() {
           <div className="rounded-md bg-muted p-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <Badge variant="secondary">
-                  Status: {responseData.status}
-                </Badge>
+                <Badge variant="secondary">Status: {responseData.status}</Badge>
                 {responseData.cached ? (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     <CheckCircle2 className="h-3 w-3" />
                     Cached
                   </Badge>
                 ) : (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
                     <XCircle className="h-3 w-3" />
                     Not Cached
                   </Badge>
@@ -116,7 +115,10 @@ export function CopyResponseDemo() {
 
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Copy className="h-3 w-3" />
-                <span>Notice how the service worker copies and modifies the response headers</span>
+                <span>
+                  Notice how the service worker copies and modifies the response
+                  headers
+                </span>
               </div>
             </div>
           </div>
@@ -124,4 +126,4 @@ export function CopyResponseDemo() {
       )}
     </div>
   );
-} 
+}

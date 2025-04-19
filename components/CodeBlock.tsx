@@ -1,10 +1,10 @@
-import type { FC } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import type { FC } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface CodeBlockProps {
-  code: string
-  className?: string
+  code: string;
+  className?: string;
 }
 
 export const CodeBlock: FC<CodeBlockProps> = ({ code, className }) => {
@@ -16,6 +16,5 @@ export const CodeBlock: FC<CodeBlockProps> = ({ code, className }) => {
         </pre>
       </CardContent>
     </Card>
-  )
-}
-
+  );
+};
