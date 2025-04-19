@@ -14,7 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, Wifi, Info, ChevronDown } from "lucide-react";
+import { Menu, Wifi, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
 import { navItems } from "@/lib/navLinks-utils";

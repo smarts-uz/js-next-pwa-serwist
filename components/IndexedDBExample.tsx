@@ -55,7 +55,7 @@ export function IndexedDBExample() {
           }
         }
 
-        request.onsuccess = (event) => {
+        request.onsuccess = () => {
           setDbStatus("ready")
           loadNotes()
         }
@@ -115,7 +115,7 @@ export function IndexedDBExample() {
   const openDB = (): Promise<IDBDatabase> => {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open("NotesDatabase", 1)
-      request.onerror = (event) => reject(new Error("Failed to open database"))
+      request.onerror = () => reject(new Error("Failed to open database"))
       request.onsuccess = (event) => resolve((event.target as IDBOpenDBRequest).result)
     })
   }
@@ -135,7 +135,7 @@ export function IndexedDBExample() {
       const store = transaction.objectStore("notes")
       const request = store.add(newNote)
 
-      request.onsuccess = (event) => {
+      request.onsuccess = () => {
         const id = request.result as number
         const noteWithId = { ...newNote, id }
         setNotes((prev) => [noteWithId, ...prev])

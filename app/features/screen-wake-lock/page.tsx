@@ -1,9 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Info, Power, Timer, Battery, Moon, Sun } from "lucide-react";
+import { AlertCircle, Power, Timer, Battery, Moon, Sun } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -28,15 +35,15 @@ const ScreenWakeLockPage = () => {
 
   useEffect(() => {
     // Check if Wake Lock API is supported
-    if ('wakeLock' in navigator) {
+    if ("wakeLock" in navigator) {
       setIsSupported(true);
     }
 
     // Get battery information if available
-    if ('getBattery' in navigator) {
+    if ("getBattery" in navigator) {
       (navigator as any).getBattery().then((battery: any) => {
         setBatteryLevel(battery.level * 100);
-        battery.addEventListener('levelchange', () => {
+        battery.addEventListener("levelchange", () => {
           setBatteryLevel(battery.level * 100);
         });
       });
@@ -54,7 +61,7 @@ const ScreenWakeLockPage = () => {
     let timer: NodeJS.Timeout;
     if (isActive) {
       timer = setInterval(() => {
-        setElapsedTime(prev => prev + 1);
+        setElapsedTime((prev) => prev + 1);
       }, 1000);
     }
     return () => clearInterval(timer);
@@ -62,12 +69,12 @@ const ScreenWakeLockPage = () => {
 
   const requestWakeLock = async () => {
     try {
-      const sentinel = await navigator.wakeLock.request('screen');
+      const sentinel = await navigator.wakeLock.request("screen");
       setWakeLock(sentinel);
       setIsActive(true);
 
       // Handle wake lock release
-      sentinel.addEventListener('release', () => {
+      sentinel.addEventListener("release", () => {
         setIsActive(false);
         setElapsedTime(0);
       });
@@ -81,7 +88,7 @@ const ScreenWakeLockPage = () => {
         }, releaseTime * 60 * 1000);
       }
     } catch (error) {
-      console.error('Wake Lock error:', error);
+      console.error("Wake Lock error:", error);
     }
   };
 
@@ -96,7 +103,7 @@ const ScreenWakeLockPage = () => {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -113,7 +120,8 @@ const ScreenWakeLockPage = () => {
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Not Supported</AlertTitle>
           <AlertDescription>
-            The Screen Wake Lock API is not supported in your browser. Please try Chrome, Edge, or other modern browsers.
+            The Screen Wake Lock API is not supported in your browser. Please
+            try Chrome, Edge, or other modern browsers.
           </AlertDescription>
         </Alert>
       )}
@@ -130,10 +138,14 @@ const ScreenWakeLockPage = () => {
                 <Power className="h-5 w-5" />
                 <span className="font-medium">Status</span>
               </div>
-              <div className={`px-2 py-1 rounded-full text-xs ${
-                isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-              }`}>
-                {isActive ? 'Active' : 'Inactive'}
+              <div
+                className={`px-2 py-1 rounded-full text-xs ${
+                  isActive
+                    ? "bg-green-100 text-green-800"
+                    : "bg-gray-100 text-gray-800"
+                }`}
+              >
+                {isActive ? "Active" : "Inactive"}
               </div>
             </div>
 
@@ -182,7 +194,9 @@ const ScreenWakeLockPage = () => {
         <Card>
           <CardHeader>
             <CardTitle>Auto Release Settings</CardTitle>
-            <CardDescription>Configure automatic wake lock release</CardDescription>
+            <CardDescription>
+              Configure automatic wake lock release
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
@@ -218,14 +232,21 @@ const ScreenWakeLockPage = () => {
       <Card className="mt-8">
         <CardHeader>
           <CardTitle>Documentation</CardTitle>
-          <CardDescription>Understanding the Screen Wake Lock API</CardDescription>
+          <CardDescription>
+            Understanding the Screen Wake Lock API
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">What is the Screen Wake Lock API?</h3>
+              <h3 className="font-semibold mb-2">
+                What is the Screen Wake Lock API?
+              </h3>
               <p className="text-sm text-muted-foreground">
-                The Screen Wake Lock API provides a way to prevent the screen from turning off or dimming. This is useful for applications that need to keep the screen active, such as video players, presentations, or interactive experiences.
+                The Screen Wake Lock API provides a way to prevent the screen
+                from turning off or dimming. This is useful for applications
+                that need to keep the screen active, such as video players,
+                presentations, or interactive experiences.
               </p>
             </div>
 
@@ -243,7 +264,9 @@ const ScreenWakeLockPage = () => {
             <div>
               <h3 className="font-semibold mb-2">Browser Support</h3>
               <p className="text-sm text-muted-foreground">
-                The Screen Wake Lock API is supported in Chrome, Edge, and other Chromium-based browsers. It requires HTTPS or localhost for security reasons.
+                The Screen Wake Lock API is supported in Chrome, Edge, and other
+                Chromium-based browsers. It requires HTTPS or localhost for
+                security reasons.
               </p>
             </div>
 
@@ -275,4 +298,4 @@ const ScreenWakeLockPage = () => {
   );
 };
 
-export default ScreenWakeLockPage; 
+export default ScreenWakeLockPage;

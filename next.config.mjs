@@ -14,7 +14,6 @@ const withSerwist = withSerwistInit({
     '/**/*.{js,css,html,png,jpg,jpeg,gif,svg,ico,woff,woff2,ttf,eot}',
     '/**/*.{json,md}',
   ],
-
   additionalPrecacheEntries: [
     {
       url: '/offline',
@@ -23,4 +22,9 @@ const withSerwist = withSerwistInit({
   ],
 });
 
-export default withSerwist({});
+export default withSerwist({
+  eslint: {
+    dirs: ['.'],
+    ignoreDuringBuilds: false,
+  },
+});

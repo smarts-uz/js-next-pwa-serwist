@@ -19,7 +19,6 @@ import {
   Shield,
   Server,
   Power,
-  CreditCard,
   Hand,
   Mic,
   Volume2,

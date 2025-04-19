@@ -1,14 +1,26 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Mic, Volume2, Pause, Play, VolumeX } from "lucide-react";
+import { AlertCircle, Volume2, Pause, Play, VolumeX } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 
 interface Voice extends SpeechSynthesisVoice {
   voiceURI: string;
@@ -18,7 +30,9 @@ const SpeechSynthesisPage = () => {
   const [isSupported, setIsSupported] = useState(false);
   const [voices, setVoices] = useState<Voice[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<string>("");
-  const [text, setText] = useState("Hello! This is a demonstration of the Web Speech Synthesis API. You can type any text here and have it read aloud.");
+  const [text, setText] = useState(
+    "Hello! This is a demonstration of the Web Speech Synthesis API. You can type any text here and have it read aloud."
+  );
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [rate, setRate] = useState(1);
   const [pitch, setPitch] = useState(1);
@@ -27,7 +41,7 @@ const SpeechSynthesisPage = () => {
 
   useEffect(() => {
     // Check if Speech Synthesis is supported
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
       setIsSupported(true);
       loadVoices();
     }
@@ -53,8 +67,8 @@ const SpeechSynthesisPage = () => {
 
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    
-    const voice = voices.find(v => v.voiceURI === selectedVoice);
+
+    const voice = voices.find((v) => v.voiceURI === selectedVoice);
     if (voice) {
       utterance.voice = voice;
     }
@@ -108,7 +122,9 @@ const SpeechSynthesisPage = () => {
         <Card>
           <CardHeader>
             <CardTitle>Text to Speech</CardTitle>
-            <CardDescription>Enter text and customize speech settings</CardDescription>
+            <CardDescription>
+              Enter text and customize speech settings
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
@@ -182,7 +198,7 @@ const SpeechSynthesisPage = () => {
           </CardContent>
           <CardFooter className="flex justify-between gap-2">
             <Button
-              onClick={isPaused ? resume : (isSpeaking ? pause : speak)}
+              onClick={isPaused ? resume : isSpeaking ? pause : speak}
               disabled={!isSupported}
               className="flex-1"
             >
@@ -218,14 +234,21 @@ const SpeechSynthesisPage = () => {
         <Card>
           <CardHeader>
             <CardTitle>Documentation</CardTitle>
-            <CardDescription>Understanding the Speech Synthesis API</CardDescription>
+            <CardDescription>
+              Understanding the Speech Synthesis API
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-2">What is the Speech Synthesis API?</h3>
+                <h3 className="font-semibold mb-2">
+                  What is the Speech Synthesis API?
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  The Speech Synthesis API allows web applications to convert text to speech using the device's available voices. It provides control over speech rate, pitch, volume, and voice selection.
+                  The Speech Synthesis API allows web applications to convert
+                  text to speech using the device's available voices. It
+                  provides control over speech rate, pitch, volume, and voice
+                  selection.
                 </p>
               </div>
 
@@ -244,7 +267,9 @@ const SpeechSynthesisPage = () => {
               <div>
                 <h3 className="font-semibold mb-2">Browser Support</h3>
                 <p className="text-sm text-muted-foreground">
-                  The Speech Synthesis API is supported in most modern browsers. Available voices may vary depending on the operating system and browser.
+                  The Speech Synthesis API is supported in most modern browsers.
+                  Available voices may vary depending on the operating system
+                  and browser.
                 </p>
               </div>
 
@@ -277,4 +302,4 @@ const SpeechSynthesisPage = () => {
   );
 };
 
-export default SpeechSynthesisPage; 
+export default SpeechSynthesisPage;
