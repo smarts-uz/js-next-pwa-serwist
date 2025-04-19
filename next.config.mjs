@@ -14,6 +14,7 @@ const withSerwist = withSerwistInit({
     '/**/*.{js,css,html,png,jpg,jpeg,gif,svg,ico,woff,woff2,ttf,eot}',
     '/**/*.{json,md}',
   ],
+
   additionalPrecacheEntries: [
     {
       url: '/offline',

@@ -32,9 +32,9 @@ export async function POST(request: Request) {
         type: file.type,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { success: false, error: "Failed to process upload" },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }

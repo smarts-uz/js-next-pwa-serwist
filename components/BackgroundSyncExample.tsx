@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, XCircle, Clock, Upload } from "lucide-react";
 
@@ -17,7 +17,9 @@ interface UploadFile {
 export function BackgroundSyncExample() {
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [isOnline, setIsOnline] = useState(true);
-  const [uploadStatus, setUploadStatus] = useState<"idle" | "uploading" | "completed">("idle");
+  const [uploadStatus, setUploadStatus] = useState<
+    "idle" | "uploading" | "completed"
+  >("idle");
 
   useEffect(() => {
     setIsOnline(navigator.onLine);
@@ -32,7 +34,9 @@ export function BackgroundSyncExample() {
       if (event.data?.type === "UPLOAD_COMPLETE") {
         setFiles((prev) =>
           prev.map((file) =>
-            file.id === event.data.fileId ? { ...file, status: "completed" } : file
+            file.id === event.data.fileId
+              ? { ...file, status: "completed" }
+              : file
           )
         );
       }
@@ -47,7 +51,9 @@ export function BackgroundSyncExample() {
     };
   }, []);
 
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const selectedFiles = event.target.files;
     if (!selectedFiles) return;
 
@@ -166,8 +172,10 @@ export function BackgroundSyncExample() {
         <div className="text-sm text-muted-foreground">Uploading files...</div>
       )}
       {uploadStatus === "completed" && (
-        <div className="text-sm text-green-500">All files uploaded successfully!</div>
+        <div className="text-sm text-green-500">
+          All files uploaded successfully!
+        </div>
       )}
     </div>
   );
-} 
+}

@@ -22,7 +22,7 @@ interface NetworkInformation extends EventTarget {
     | "wimax"
     | "other"
     | "unknown";
-  onchange: ((this: NetworkInformation, ev: Event) => any) | null;
+  onchange: (() => string) | null;
 }
 
 declare global {
