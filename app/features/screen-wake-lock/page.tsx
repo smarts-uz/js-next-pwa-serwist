@@ -81,11 +81,14 @@ const ScreenWakeLockPage = () => {
 
       // Auto release after specified time
       if (autoRelease) {
-        setTimeout(async () => {
-          if (sentinel && !sentinel.released) {
-            await sentinel.release();
-          }
-        }, releaseTime * 60 * 1000);
+        setTimeout(
+          async () => {
+            if (sentinel && !sentinel.released) {
+              await sentinel.release();
+            }
+          },
+          releaseTime * 60 * 1000,
+        );
       }
     } catch (error) {
       console.error("Wake Lock error:", error);

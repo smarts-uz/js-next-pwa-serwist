@@ -2,7 +2,8 @@ export async function registerSW() {
   if ("serviceWorker" in navigator) {
     try {
       // Check if service worker is already registered
-      const existingRegistration = await navigator.serviceWorker.getRegistration();
+      const existingRegistration =
+        await navigator.serviceWorker.getRegistration();
       if (existingRegistration) {
         // If service worker is already active, reload to ensure precaching
         if (existingRegistration.active) {
@@ -20,7 +21,10 @@ export async function registerSW() {
         const newWorker = registration.installing;
         if (newWorker) {
           newWorker.addEventListener("statechange", () => {
-            if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+            if (
+              newWorker.state === "installed" &&
+              navigator.serviceWorker.controller
+            ) {
               window.location.reload();
             }
           });

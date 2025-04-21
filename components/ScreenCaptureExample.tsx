@@ -1,67 +1,70 @@
-'use client'
+"use client";
 
-import { useState, useRef } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 export function ScreenCaptureExample() {
-  const [stream, setStream] = useState<MediaStream | null>(null)
-  const [recording, setRecording] = useState<Blob | null>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const chunksRef = useRef<Blob[]>([])
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [recording, setRecording] = useState<Blob | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
 
   const startScreenCapture = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getDisplayMedia({
         video: true,
-        audio: true
-      })
-      setStream(mediaStream)
+        audio: true,
+      });
+      setStream(mediaStream);
       if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream
+        videoRef.current.srcObject = mediaStream;
       }
     } catch (error) {
-      console.error('Error accessing screen:', error)
+      console.error("Error accessing screen:", error);
     }
-  }
+  };
 
   const stopScreenCapture = () => {
     if (stream) {
-      stream.getTracks().forEach(track => track.stop())
-      setStream(null)
+      stream.getTracks().forEach((track) => track.stop());
+      setStream(null);
       if (videoRef.current) {
-        videoRef.current.srcObject = null
+        videoRef.current.srcObject = null;
       }
     }
-  }
+  };
 
   const startRecording = () => {
     if (stream) {
-      const mediaRecorder = new MediaRecorder(stream)
-      mediaRecorderRef.current = mediaRecorder
-      chunksRef.current = []
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      chunksRef.current = [];
 
       mediaRecorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
-          chunksRef.current.push(event.data)
+          chunksRef.current.push(event.data);
         }
-      }
+      };
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'video/webm' })
-        setRecording(blob)
-      }
+        const blob = new Blob(chunksRef.current, { type: "video/webm" });
+        setRecording(blob);
+      };
 
-      mediaRecorder.start()
+      mediaRecorder.start();
     }
-  }
+  };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-      mediaRecorderRef.current.stop()
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
+      mediaRecorderRef.current.stop();
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
@@ -100,5 +103,5 @@ export function ScreenCaptureExample() {
         )}
       </div>
     </div>
-  )
-} 
+  );
+}

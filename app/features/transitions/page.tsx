@@ -1,5 +1,5 @@
-'use client';
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, BookOpen } from "lucide-react";
@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import './transitions.css';
+import "./transitions.css";
 
 interface Pokemon {
   id: number;
@@ -28,130 +28,151 @@ interface Pokemon {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  Grass: 'bg-green-500/20 text-green-500',
-  Poison: 'bg-purple-500/20 text-purple-500',
-  Fire: 'bg-red-500/20 text-red-500',
-  Water: 'bg-blue-500/20 text-blue-500',
-  Electric: 'bg-yellow-500/20 text-yellow-500',
-  Psychic: 'bg-pink-500/20 text-pink-500',
-  Fighting: 'bg-orange-500/20 text-orange-500',
-  Rock: 'bg-amber-500/20 text-amber-500',
-  Ground: 'bg-yellow-700/20 text-yellow-700',
-  Flying: 'bg-indigo-500/20 text-indigo-500',
-  Bug: 'bg-lime-500/20 text-lime-500',
-  Ghost: 'bg-violet-500/20 text-violet-500',
-  Dragon: 'bg-purple-700/20 text-purple-700',
-  Dark: 'bg-gray-700/20 text-gray-700',
-  Steel: 'bg-gray-400/20 text-gray-400',
-  Fairy: 'bg-pink-300/20 text-pink-300',
-  Ice: 'bg-cyan-500/20 text-cyan-500',
-  Normal: 'bg-gray-500/20 text-gray-500'
+  Grass: "bg-green-500/20 text-green-500",
+  Poison: "bg-purple-500/20 text-purple-500",
+  Fire: "bg-red-500/20 text-red-500",
+  Water: "bg-blue-500/20 text-blue-500",
+  Electric: "bg-yellow-500/20 text-yellow-500",
+  Psychic: "bg-pink-500/20 text-pink-500",
+  Fighting: "bg-orange-500/20 text-orange-500",
+  Rock: "bg-amber-500/20 text-amber-500",
+  Ground: "bg-yellow-700/20 text-yellow-700",
+  Flying: "bg-indigo-500/20 text-indigo-500",
+  Bug: "bg-lime-500/20 text-lime-500",
+  Ghost: "bg-violet-500/20 text-violet-500",
+  Dragon: "bg-purple-700/20 text-purple-700",
+  Dark: "bg-gray-700/20 text-gray-700",
+  Steel: "bg-gray-400/20 text-gray-400",
+  Fairy: "bg-pink-300/20 text-pink-300",
+  Ice: "bg-cyan-500/20 text-cyan-500",
+  Normal: "bg-gray-500/20 text-gray-500",
 };
 
 const POKEMONS: Pokemon[] = [
   {
     id: 1,
     name: "Bulbasaur",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
     types: ["Grass", "Poison"],
-    stats: { hp: 45, attack: 49, defense: 49, speed: 45 }
+    stats: { hp: 45, attack: 49, defense: 49, speed: 45 },
   },
   {
     id: 4,
     name: "Charmander",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
     types: ["Fire"],
-    stats: { hp: 39, attack: 52, defense: 43, speed: 65 }
+    stats: { hp: 39, attack: 52, defense: 43, speed: 65 },
   },
   {
     id: 7,
     name: "Squirtle",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
     types: ["Water"],
-    stats: { hp: 44, attack: 48, defense: 65, speed: 43 }
+    stats: { hp: 44, attack: 48, defense: 65, speed: 43 },
   },
   {
     id: 25,
     name: "Pikachu",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
     types: ["Electric"],
-    stats: { hp: 35, attack: 55, defense: 40, speed: 90 }
+    stats: { hp: 35, attack: 55, defense: 40, speed: 90 },
   },
   {
     id: 35,
     name: "Clefairy",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
     types: ["Fairy"],
-    stats: { hp: 70, attack: 45, defense: 48, speed: 35 }
+    stats: { hp: 70, attack: 45, defense: 48, speed: 35 },
   },
   {
     id: 39,
     name: "Jigglypuff",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png",
     types: ["Normal", "Fairy"],
-    stats: { hp: 115, attack: 45, defense: 20, speed: 20 }
+    stats: { hp: 115, attack: 45, defense: 20, speed: 20 },
   },
   {
     id: 52,
     name: "Meowth",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png",
     types: ["Normal"],
-    stats: { hp: 40, attack: 45, defense: 35, speed: 90 }
+    stats: { hp: 40, attack: 45, defense: 35, speed: 90 },
   },
   {
     id: 63,
     name: "Abra",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png",
     types: ["Psychic"],
-    stats: { hp: 25, attack: 20, defense: 15, speed: 90 }
+    stats: { hp: 25, attack: 20, defense: 15, speed: 90 },
   },
   {
     id: 74,
     name: "Geodude",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
     types: ["Rock", "Ground"],
-    stats: { hp: 40, attack: 80, defense: 100, speed: 20 }
+    stats: { hp: 40, attack: 80, defense: 100, speed: 20 },
   },
   {
     id: 92,
     name: "Gastly",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png",
     types: ["Ghost", "Poison"],
-    stats: { hp: 30, attack: 35, defense: 30, speed: 80 }
+    stats: { hp: 30, attack: 35, defense: 30, speed: 80 },
   },
   {
     id: 95,
     name: "Onix",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
     types: ["Rock", "Ground"],
-    stats: { hp: 35, attack: 45, defense: 160, speed: 70 }
+    stats: { hp: 35, attack: 45, defense: 160, speed: 70 },
   },
   {
     id: 102,
     name: "Exeggcute",
-    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/102.png",
+    image:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/102.png",
     types: ["Grass", "Psychic"],
-    stats: { hp: 60, attack: 40, defense: 80, speed: 40 }
-  }
+    stats: { hp: 60, attack: 40, defense: 80, speed: 40 },
+  },
 ];
 
-const PokemonCard: React.FC<{ pokemon: Pokemon; onClick: () => void }> = ({ pokemon, onClick }) => {
+const PokemonCard: React.FC<{ pokemon: Pokemon; onClick: () => void }> = ({
+  pokemon,
+  onClick,
+}) => {
   const primaryType = pokemon.types[0];
-  const typeColor = TYPE_COLORS[primaryType] || 'bg-accent';
+  const typeColor = TYPE_COLORS[primaryType] || "bg-accent";
 
   return (
-    <Card className={`pokemon-card p-4 hover:bg-accent/50 transition-colors ${typeColor}`} onClick={onClick}>
+    <Card
+      className={`pokemon-card p-4 hover:bg-accent/50 transition-colors ${typeColor}`}
+      onClick={onClick}
+    >
       <CardContent className="flex flex-col items-center gap-4">
-        <img 
-          src={pokemon.image} 
+        <img
+          src={pokemon.image}
           alt={pokemon.name}
           className="pokemon-image w-32 h-32"
         />
         <div className="pokemon-info text-center">
           <h3 className="text-xl font-bold capitalize">{pokemon.name}</h3>
           <div className="flex gap-2 mt-2">
-            {pokemon.types.map(type => (
-              <span key={type} className={`px-2 py-1 rounded-full text-sm ${TYPE_COLORS[type]}`}>
+            {pokemon.types.map((type) => (
+              <span
+                key={type}
+                className={`px-2 py-1 rounded-full text-sm ${TYPE_COLORS[type]}`}
+              >
                 {type}
               </span>
             ))}
@@ -162,9 +183,12 @@ const PokemonCard: React.FC<{ pokemon: Pokemon; onClick: () => void }> = ({ poke
   );
 };
 
-const PokemonDetail: React.FC<{ pokemon: Pokemon; onBack: () => void }> = ({ pokemon, onBack }) => {
+const PokemonDetail: React.FC<{ pokemon: Pokemon; onBack: () => void }> = ({
+  pokemon,
+  onBack,
+}) => {
   const primaryType = pokemon.types[0];
-  const typeColor = TYPE_COLORS[primaryType] || 'bg-accent';
+  const typeColor = TYPE_COLORS[primaryType] || "bg-accent";
 
   return (
     <Card className={`pokemon-detail p-6 ${typeColor}`}>
@@ -173,34 +197,35 @@ const PokemonDetail: React.FC<{ pokemon: Pokemon; onBack: () => void }> = ({ pok
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
-        
+
         <div className="flex flex-col md:flex-row gap-8">
           <div className="pokemon-detail-image flex-1 flex justify-center">
-            <img 
-              src={pokemon.image} 
-              alt={pokemon.name}
-              className="w-48 h-48"
-            />
+            <img src={pokemon.image} alt={pokemon.name} className="w-48 h-48" />
           </div>
-          
+
           <div className="pokemon-detail-info flex-1 space-y-4">
             <h2 className="text-3xl font-bold capitalize">{pokemon.name}</h2>
             <div className="flex gap-2">
-              {pokemon.types.map(type => (
-                <span key={type} className={`px-3 py-1 rounded-full text-sm ${TYPE_COLORS[type]}`}>
+              {pokemon.types.map((type) => (
+                <span
+                  key={type}
+                  className={`px-3 py-1 rounded-full text-sm ${TYPE_COLORS[type]}`}
+                >
                   {type}
                 </span>
               ))}
             </div>
-            
+
             <div className="space-y-2">
               <h3 className="text-xl font-semibold">Stats</h3>
               <div className="grid grid-cols-2 gap-4">
                 {Object.entries(pokemon.stats).map(([stat, value]) => (
                   <div key={stat} className="space-y-1">
-                    <span className="text-sm text-muted-foreground capitalize">{stat}</span>
+                    <span className="text-sm text-muted-foreground capitalize">
+                      {stat}
+                    </span>
                     <div className="h-2 bg-accent rounded-full">
-                      <div 
+                      <div
                         className={`h-full rounded-full ${typeColor}`}
                         style={{ width: `${(value / 100) * 100}%` }}
                       />
@@ -246,10 +271,13 @@ const TransitionsPage: React.FC = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">View Transitions API</h1>
+            <h1 className="text-4xl font-bold tracking-tight">
+              View Transitions API
+            </h1>
             <p className="text-muted-foreground">
-              A native-feeling example of the View Transitions API using Pokemon cards. 
-              Click on any Pokemon to see smooth transitions between grid and detail views.
+              A native-feeling example of the View Transitions API using Pokemon
+              cards. Click on any Pokemon to see smooth transitions between grid
+              and detail views.
             </p>
           </div>
           <Dialog>
@@ -263,7 +291,8 @@ const TransitionsPage: React.FC = () => {
               <DialogHeader>
                 <DialogTitle>View Transitions API Reference</DialogTitle>
                 <DialogDescription>
-                  Comprehensive documentation of the View Transitions API features and usage.
+                  Comprehensive documentation of the View Transitions API
+                  features and usage.
                 </DialogDescription>
               </DialogHeader>
               <Tabs defaultValue="methods" className="w-full">
@@ -276,7 +305,8 @@ const TransitionsPage: React.FC = () => {
                   <div className="space-y-2">
                     <h4 className="font-medium">startViewTransition()</h4>
                     <p className="text-sm text-muted-foreground">
-                      Initiates a view transition and returns a ViewTransition object.
+                      Initiates a view transition and returns a ViewTransition
+                      object.
                     </p>
                     <pre className="bg-muted p-3 rounded-lg text-sm">
                       <code>{`const transition = document.startViewTransition(() => {
@@ -287,9 +317,18 @@ const TransitionsPage: React.FC = () => {
                   <div className="space-y-2">
                     <h4 className="font-medium">ViewTransition Object</h4>
                     <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
-                      <li>finished: Promise that resolves when the transition is complete</li>
-                      <li>ready: Promise that resolves when the transition is ready to start</li>
-                      <li>updateCallbackDone: Promise that resolves when the update callback is complete</li>
+                      <li>
+                        finished: Promise that resolves when the transition is
+                        complete
+                      </li>
+                      <li>
+                        ready: Promise that resolves when the transition is
+                        ready to start
+                      </li>
+                      <li>
+                        updateCallbackDone: Promise that resolves when the
+                        update callback is complete
+                      </li>
                       <li>skipTransition(): Skips the transition animation</li>
                     </ul>
                   </div>
@@ -298,7 +337,8 @@ const TransitionsPage: React.FC = () => {
                   <div className="space-y-2">
                     <h4 className="font-medium">view-transition-name</h4>
                     <p className="text-sm text-muted-foreground">
-                      Identifies shared elements between states for transition animation.
+                      Identifies shared elements between states for transition
+                      animation.
                     </p>
                     <pre className="bg-muted p-3 rounded-lg text-sm">
                       <code>{`.shared-element {
@@ -309,7 +349,8 @@ const TransitionsPage: React.FC = () => {
                   <div className="space-y-2">
                     <h4 className="font-medium">::view-transition-old()</h4>
                     <p className="text-sm text-muted-foreground">
-                      Pseudo-element representing the "old" state of a shared element.
+                      Pseudo-element representing the "old" state of a shared
+                      element.
                     </p>
                     <pre className="bg-muted p-3 rounded-lg text-sm">
                       <code>{`::view-transition-old(root) {
@@ -320,7 +361,8 @@ const TransitionsPage: React.FC = () => {
                   <div className="space-y-2">
                     <h4 className="font-medium">::view-transition-new()</h4>
                     <p className="text-sm text-muted-foreground">
-                      Pseudo-element representing the "new" state of a shared element.
+                      Pseudo-element representing the "new" state of a shared
+                      element.
                     </p>
                     <pre className="bg-muted p-3 rounded-lg text-sm">
                       <code>{`::view-transition-new(root) {
@@ -333,9 +375,14 @@ const TransitionsPage: React.FC = () => {
                   <div className="space-y-2">
                     <h4 className="font-medium">ViewTransition Events</h4>
                     <ul className="list-disc pl-6 space-y-1 text-sm text-muted-foreground">
-                      <li>viewtransitionstart: Fired when the transition starts</li>
+                      <li>
+                        viewtransitionstart: Fired when the transition starts
+                      </li>
                       <li>viewtransitionend: Fired when the transition ends</li>
-                      <li>viewtransitioncancel: Fired when the transition is cancelled</li>
+                      <li>
+                        viewtransitioncancel: Fired when the transition is
+                        cancelled
+                      </li>
                     </ul>
                     <pre className="bg-muted p-3 rounded-lg text-sm">
                       <code>{`document.addEventListener('viewtransitionstart', (e) => {
@@ -354,11 +401,11 @@ const TransitionsPage: React.FC = () => {
         <PokemonDetail pokemon={selectedPokemon} onBack={handleBack} />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {POKEMONS.map(pokemon => (
-            <PokemonCard 
-              key={pokemon.id} 
-              pokemon={pokemon} 
-              onClick={() => handlePokemonClick(pokemon)} 
+          {POKEMONS.map((pokemon) => (
+            <PokemonCard
+              key={pokemon.id}
+              pokemon={pokemon}
+              onClick={() => handlePokemonClick(pokemon)}
             />
           ))}
         </div>
@@ -371,8 +418,9 @@ const TransitionsPage: React.FC = () => {
             <CardContent className="pt-6">
               <h3 className="text-lg font-medium mb-2">What is it?</h3>
               <p className="text-muted-foreground">
-                The View Transitions API provides a way to create smooth transitions between different states of a page, 
-                making web apps feel more native and polished.
+                The View Transitions API provides a way to create smooth
+                transitions between different states of a page, making web apps
+                feel more native and polished.
               </p>
             </CardContent>
           </Card>
@@ -393,8 +441,9 @@ const TransitionsPage: React.FC = () => {
             <CardContent className="pt-6">
               <h3 className="text-lg font-medium mb-2">How it Works</h3>
               <p className="text-muted-foreground">
-                The API uses the <code>view-transition-name</code> CSS property to identify shared elements between states, 
-                then automatically animates them during transitions.
+                The API uses the <code>view-transition-name</code> CSS property
+                to identify shared elements between states, then automatically
+                animates them during transitions.
               </p>
             </CardContent>
           </Card>
@@ -403,7 +452,7 @@ const TransitionsPage: React.FC = () => {
             <CardContent className="pt-6">
               <h3 className="text-lg font-medium mb-2">Browser Support</h3>
               <p className="text-muted-foreground">
-                Currently supported in Chrome and other Chromium-based browsers. 
+                Currently supported in Chrome and other Chromium-based browsers.
                 The API gracefully degrades in unsupported browsers.
               </p>
             </CardContent>
@@ -434,15 +483,17 @@ document.startViewTransition(() => {
 
         <Card>
           <CardContent className="pt-6">
-            <h3 className="text-lg font-medium mb-2">Documentation & Resources</h3>
+            <h3 className="text-lg font-medium mb-2">
+              Documentation & Resources
+            </h3>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <h4 className="font-medium">Official Documentation</h4>
                 <ul className="space-y-2 text-muted-foreground">
                   <li>
-                    <a 
-                      href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API" 
-                      target="_blank" 
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
                     >
@@ -450,9 +501,9 @@ document.startViewTransition(() => {
                     </a>
                   </li>
                   <li>
-                    <a 
-                      href="https://web.dev/view-transitions/" 
-                      target="_blank" 
+                    <a
+                      href="https://web.dev/view-transitions/"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
                     >
@@ -465,9 +516,9 @@ document.startViewTransition(() => {
                 <h4 className="font-medium">Related Resources</h4>
                 <ul className="space-y-2 text-muted-foreground">
                   <li>
-                    <a 
-                      href="https://caniuse.com/view-transitions" 
-                      target="_blank" 
+                    <a
+                      href="https://caniuse.com/view-transitions"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
                     >
@@ -475,9 +526,9 @@ document.startViewTransition(() => {
                     </a>
                   </li>
                   <li>
-                    <a 
-                      href="https://github.com/WICG/view-transitions" 
-                      target="_blank" 
+                    <a
+                      href="https://github.com/WICG/view-transitions"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"
                     >

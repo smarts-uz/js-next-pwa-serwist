@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { CacheableResponseDemo } from "@/components/CacheableResponseDemo";
 
 export default function CacheableResponsePage() {
@@ -17,4 +23,4 @@ export default function CacheableResponsePage() {
       </Card>
     </div>
   );
-} 
+}

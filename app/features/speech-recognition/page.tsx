@@ -59,7 +59,7 @@ declare global {
 const SpeechRecognitionPage = () => {
   const [isSupported, setIsSupported] = useState(false);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
-    null
+    null,
   );
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");

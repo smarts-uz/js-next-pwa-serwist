@@ -1,4 +1,4 @@
-import './web-authentication.css';
+import "./web-authentication.css";
 
 export default function WebAuthnLayout({
   children,

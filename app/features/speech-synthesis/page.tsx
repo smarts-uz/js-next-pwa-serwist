@@ -31,7 +31,7 @@ const SpeechSynthesisPage = () => {
   const [voices, setVoices] = useState<Voice[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<string>("");
   const [text, setText] = useState(
-    "Hello! This is a demonstration of the Web Speech Synthesis API. You can type any text here and have it read aloud."
+    "Hello! This is a demonstration of the Web Speech Synthesis API. You can type any text here and have it read aloud.",
   );
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [rate, setRate] = useState(1);

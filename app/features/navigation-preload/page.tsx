@@ -6,4 +6,4 @@ export default function NavigationPreloadPage() {
       <NavigationPreloadDemo />
     </div>
   );
-} 
+}

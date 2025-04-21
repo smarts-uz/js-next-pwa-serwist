@@ -1,14 +1,24 @@
-import type { FC } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { CodeBlock } from "./CodeBlock"
+import type { FC } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { CodeBlock } from "./CodeBlock";
 
 interface ExampleCardProps {
-  title: string
-  description: string
-  code: string
+  title: string;
+  description: string;
+  code: string;
 }
 
-export const ExampleCard: FC<ExampleCardProps> = ({ title, description, code }) => {
+export const ExampleCard: FC<ExampleCardProps> = ({
+  title,
+  description,
+  code,
+}) => {
   return (
     <Card>
       <CardHeader>
@@ -19,6 +29,5 @@ export const ExampleCard: FC<ExampleCardProps> = ({ title, description, code }) 
         <CodeBlock code={code} />
       </CardContent>
     </Card>
-  )
-}
-
+  );
+};

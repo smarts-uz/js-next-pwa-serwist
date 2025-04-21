@@ -137,8 +137,8 @@ const ComparisonComponent = ({
             {header === "content-length"
               ? "Content-Length"
               : header === "last-modified"
-              ? "Last-Modified"
-              : "ETag"}
+                ? "Last-Modified"
+                : "ETag"}
           </div>
           <div>{cachedResponse.headers[header] || "N/A"}</div>
           <div
@@ -204,10 +204,10 @@ const ResponseTabs = ({
 
 const ResponsesAreSameExample = () => {
   const [updateMessage, setUpdateMessage] = useState<UpdateMessage | null>(
-    null
+    null,
   );
   const [cachedResponse, setCachedResponse] = useState<ResponseData | null>(
-    null
+    null,
   );
   const [freshResponse, setFreshResponse] = useState<ResponseData | null>(null);
   const [loading, setLoading] = useState(false);

@@ -16,6 +16,7 @@ A comprehensive Progressive Web App built with Next.js and Serwist that demonstr
 This PWA demonstrates the following advanced web capabilities:
 
 ### Device Features
+
 - **Web Bluetooth**: Connect and interact with Bluetooth devices directly from your browser
 - **Screen Wake Lock**: Keep your screen awake and monitor power usage
 - **Media Capture**: Access device camera and media features
@@ -26,6 +27,7 @@ This PWA demonstrates the following advanced web capabilities:
 - **Speech Synthesis**: Text-to-speech capabilities
 
 ### Storage & Data
+
 - **Local Storage**: Interactive data persistence in the browser
 - **Storage**: Advanced storage solutions
 - **File Handling**: Open and save files directly from the web app
@@ -35,6 +37,7 @@ This PWA demonstrates the following advanced web capabilities:
   - Create new files and save them to the device
 
 ### Network & Sync
+
 - **Network Info**: Monitor network connection status and type
   - Online/offline status detection
   - Connection type identification (wifi, cellular, ethernet)
@@ -44,10 +47,12 @@ This PWA demonstrates the following advanced web capabilities:
 - **Background Fetch**: Download resources in the background
 
 ### Media & UI
+
 - **Audio Player**: Play and control audio content
 - **View Transitions**: Smooth page transitions and animations
 
 ### Security & Payment
+
 - **Web Auth**: Secure authentication with biometrics
 - **Payment Request**: Process payments using various payment methods
 - **Web Share API**: Share content with other apps
@@ -57,6 +62,7 @@ This PWA demonstrates the following advanced web capabilities:
   - Fallback support for unsupported browsers
 
 ### PWA Benefits
+
 - **App-like Experience**: Full-screen experience, home screen installation, and offline functionality
 - **Network Independence**: Works offline or on low-quality networks
 - **Engagement**: Push notifications for user re-engagement
@@ -75,12 +81,14 @@ Before you begin, ensure you have the following installed:
 ## 🔧 Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/nextjs-pwa.git
 cd nextjs-pwa
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -90,6 +98,7 @@ npm install
 ### Development Mode
 
 Run the development server:
+
 ```bash
 npm run dev
 ```
@@ -99,6 +108,7 @@ Open [http://localhost:3001](http://localhost:3001) in your browser.
 ### Production Mode
 
 Build and start the production server:
+
 ```bash
 npm run build
 npm start
@@ -147,12 +157,14 @@ nextjs-pwa/
 ## 🔧 Technical Details
 
 ### Service Worker
+
 - Built with Serwist for optimal caching and offline support
 - Implements navigation preload for faster page loads
 - Handles offline fallbacks for document requests
 - Supports runtime caching for dynamic content
 
 ### Web App Manifest
+
 - Configurable app name and description
 - Custom icons for different screen sizes
 - App shortcuts for quick access to features
@@ -160,6 +172,7 @@ nextjs-pwa/
 - File handler registration for text files
 
 ### Theme Support
+
 - Dark mode by default
 - System theme detection
 - Smooth theme transitions

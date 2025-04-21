@@ -2,12 +2,19 @@ import type { Metadata } from "next";
 import { ArrowRight, CloudDownload } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { BackgroundSyncExample } from "@/components/BackgroundSyncExample";
 
 export const metadata: Metadata = {
   title: "Background Sync | Modern Web Features",
-  description: "Learn how to implement background sync for offline-first web applications",
+  description:
+    "Learn how to implement background sync for offline-first web applications",
 };
 
 export default function BackgroundSyncPage() {
@@ -19,12 +26,16 @@ export default function BackgroundSyncPage() {
             Background Sync
           </h1>
           <p className="max-w-[700px] text-sm sm:text-base text-muted-foreground">
-            Queue tasks for background synchronization when offline and automatically sync when back online
+            Queue tasks for background synchronization when offline and
+            automatically sync when back online
           </p>
         </div>
         <div className="flex items-center gap-2 w-full md:w-auto">
           <Button asChild className="text-sm sm:text-base w-full md:w-auto">
-            <Link href="https://developer.mozilla.org/en-US/docs/Web/API/Background_Sync_API" target="_blank">
+            <Link
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Background_Sync_API"
+              target="_blank"
+            >
               MDN Documentation
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
@@ -35,10 +46,13 @@ export default function BackgroundSyncPage() {
       <div className="mt-6 sm:mt-8 lg:mt-12 space-y-4 sm:space-y-6 lg:space-y-8">
         <section className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Implementation Example</h2>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+              Implementation Example
+            </h2>
             <p className="text-sm sm:text-base text-muted-foreground">
-              This example demonstrates how to implement background sync for offline-first web applications.
-              Tasks are queued when offline and automatically synchronized when the connection is restored.
+              This example demonstrates how to implement background sync for
+              offline-first web applications. Tasks are queued when offline and
+              automatically synchronized when the connection is restored.
             </p>
           </div>
 
@@ -49,7 +63,8 @@ export default function BackgroundSyncPage() {
                 <CardTitle>Task Queue</CardTitle>
               </div>
               <CardDescription>
-                Add tasks while offline and watch them sync automatically when back online
+                Add tasks while offline and watch them sync automatically when
+                back online
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -60,10 +75,13 @@ export default function BackgroundSyncPage() {
 
         <section className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">How It Works</h2>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+              How It Works
+            </h2>
             <p className="text-sm sm:text-base text-muted-foreground">
-              The Background Sync API allows web applications to queue tasks for background synchronization
-              when offline and automatically sync when the connection is restored.
+              The Background Sync API allows web applications to queue tasks for
+              background synchronization when offline and automatically sync
+              when the connection is restored.
             </p>
           </div>
 
@@ -99,4 +117,4 @@ export default function BackgroundSyncPage() {
       </div>
     </div>
   );
-} 
+}

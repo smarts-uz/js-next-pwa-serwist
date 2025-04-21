@@ -1,9 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Smartphone, Compass, Gauge, Lock, Unlock } from "lucide-react";
+import {
+  AlertCircle,
+  Smartphone,
+  Compass,
+  Gauge,
+  Lock,
+  Unlock,
+} from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 interface DeviceOrientationEvent {
@@ -13,7 +27,7 @@ interface DeviceOrientationEvent {
   absolute: boolean;
 }
 
-type PermissionStatus = 'granted' | 'denied' | 'prompt';
+type PermissionStatus = "granted" | "denied" | "prompt";
 
 const DeviceOrientationPage = () => {
   const [isSupported, setIsSupported] = useState(false);
@@ -24,32 +38,37 @@ const DeviceOrientationPage = () => {
     gamma: null,
     absolute: false,
   });
-  const [permissionStatus, setPermissionStatus] = useState<PermissionStatus | null>(null);
+  const [permissionStatus, setPermissionStatus] =
+    useState<PermissionStatus | null>(null);
 
   useEffect(() => {
     // Check if DeviceOrientationEvent is supported
-    if (typeof DeviceOrientationEvent !== 'undefined') {
+    if (typeof DeviceOrientationEvent !== "undefined") {
       setIsSupported(true);
     }
 
     // Request permission if needed
-    if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+    if (
+      typeof (DeviceOrientationEvent as any).requestPermission === "function"
+    ) {
       checkPermission();
     }
 
     return () => {
       if (isActive) {
-        window.removeEventListener('deviceorientation', handleOrientation);
+        window.removeEventListener("deviceorientation", handleOrientation);
       }
     };
-  }, []);
+  }, [isActive]);
 
   const checkPermission = async () => {
     try {
-      const status = await (DeviceOrientationEvent as any).requestPermission() as PermissionStatus;
+      const status = (await (
+        DeviceOrientationEvent as any
+      ).requestPermission()) as PermissionStatus;
       setPermissionStatus(status);
     } catch (error) {
-      console.error('Permission error:', error);
+      console.error("Permission error:", error);
     }
   };
 
@@ -63,24 +82,26 @@ const DeviceOrientationPage = () => {
   };
 
   const startTracking = () => {
-    window.addEventListener('deviceorientation', handleOrientation);
+    window.addEventListener("deviceorientation", handleOrientation);
     setIsActive(true);
   };
 
   const stopTracking = () => {
-    window.removeEventListener('deviceorientation', handleOrientation);
+    window.removeEventListener("deviceorientation", handleOrientation);
     setIsActive(false);
   };
 
   const formatAngle = (angle: number | null) => {
-    if (angle === null) return 'N/A';
+    if (angle === null) return "N/A";
     return `${Math.round(angle)}°`;
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="text-center space-y-2 mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold">Device Orientation API</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold">
+          Device Orientation API
+        </h1>
         <p className="text-sm sm:text-base text-muted-foreground">
           Access device orientation and motion data
         </p>
@@ -91,7 +112,8 @@ const DeviceOrientationPage = () => {
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Not Supported</AlertTitle>
           <AlertDescription>
-            The Device Orientation API is not supported in your browser or device.
+            The Device Orientation API is not supported in your browser or
+            device.
           </AlertDescription>
         </Alert>
       )}
@@ -100,7 +122,9 @@ const DeviceOrientationPage = () => {
         <Card>
           <CardHeader>
             <CardTitle>Orientation Data</CardTitle>
-            <CardDescription>Real-time device orientation values</CardDescription>
+            <CardDescription>
+              Real-time device orientation values
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-4">
@@ -109,10 +133,16 @@ const DeviceOrientationPage = () => {
                   <Compass className="h-5 w-5" />
                   <span className="font-medium">Alpha (Z-axis)</span>
                 </div>
-                <span className="font-mono">{formatAngle(orientation.alpha)}</span>
+                <span className="font-mono">
+                  {formatAngle(orientation.alpha)}
+                </span>
               </div>
-              <Progress 
-                value={orientation.alpha ? (orientation.alpha + 180) / 360 * 100 : 0} 
+              <Progress
+                value={
+                  orientation.alpha
+                    ? ((orientation.alpha + 180) / 360) * 100
+                    : 0
+                }
                 className="h-2"
               />
 
@@ -121,10 +151,14 @@ const DeviceOrientationPage = () => {
                   <Smartphone className="h-5 w-5" />
                   <span className="font-medium">Beta (X-axis)</span>
                 </div>
-                <span className="font-mono">{formatAngle(orientation.beta)}</span>
+                <span className="font-mono">
+                  {formatAngle(orientation.beta)}
+                </span>
               </div>
-              <Progress 
-                value={orientation.beta ? (orientation.beta + 90) / 180 * 100 : 0} 
+              <Progress
+                value={
+                  orientation.beta ? ((orientation.beta + 90) / 180) * 100 : 0
+                }
                 className="h-2"
               />
 
@@ -133,10 +167,14 @@ const DeviceOrientationPage = () => {
                   <Gauge className="h-5 w-5" />
                   <span className="font-medium">Gamma (Y-axis)</span>
                 </div>
-                <span className="font-mono">{formatAngle(orientation.gamma)}</span>
+                <span className="font-mono">
+                  {formatAngle(orientation.gamma)}
+                </span>
               </div>
-              <Progress 
-                value={orientation.gamma ? (orientation.gamma + 90) / 180 * 100 : 0} 
+              <Progress
+                value={
+                  orientation.gamma ? ((orientation.gamma + 90) / 180) * 100 : 0
+                }
                 className="h-2"
               />
             </div>
@@ -165,14 +203,16 @@ const DeviceOrientationPage = () => {
         <Card>
           <CardHeader>
             <CardTitle>Device Information</CardTitle>
-            <CardDescription>Current device state and permissions</CardDescription>
+            <CardDescription>
+              Current device state and permissions
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="font-medium">Absolute Orientation</span>
                 <span className="text-sm text-muted-foreground">
-                  {orientation.absolute ? 'Yes' : 'No'}
+                  {orientation.absolute ? "Yes" : "No"}
                 </span>
               </div>
 
@@ -201,14 +241,20 @@ const DeviceOrientationPage = () => {
       <Card className="mt-8">
         <CardHeader>
           <CardTitle>Documentation</CardTitle>
-          <CardDescription>Understanding the Device Orientation API</CardDescription>
+          <CardDescription>
+            Understanding the Device Orientation API
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">What is the Device Orientation API?</h3>
+              <h3 className="font-semibold mb-2">
+                What is the Device Orientation API?
+              </h3>
               <p className="text-sm text-muted-foreground">
-                The Device Orientation API provides access to the device's physical orientation and motion data. It allows web applications to respond to changes in device orientation and movement.
+                The Device Orientation API provides access to the device's
+                physical orientation and motion data. It allows web applications
+                to respond to changes in device orientation and movement.
               </p>
             </div>
 
@@ -226,7 +272,9 @@ const DeviceOrientationPage = () => {
             <div>
               <h3 className="font-semibold mb-2">Browser Support</h3>
               <p className="text-sm text-muted-foreground">
-                The Device Orientation API is supported in most modern browsers on mobile devices. Some browsers may require HTTPS and explicit user permission.
+                The Device Orientation API is supported in most modern browsers
+                on mobile devices. Some browsers may require HTTPS and explicit
+                user permission.
               </p>
             </div>
 
@@ -258,4 +306,4 @@ const DeviceOrientationPage = () => {
   );
 };
 
-export default DeviceOrientationPage; 
+export default DeviceOrientationPage;

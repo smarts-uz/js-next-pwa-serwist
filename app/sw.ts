@@ -68,7 +68,7 @@ self.addEventListener("fetch", (event) => {
           const areResponsesSame = responsesAreSame(
             cachedResponse,
             freshResponse.clone(),
-            headersToCompare
+            headersToCompare,
           );
 
           // If responses are different, notify all clients
@@ -102,7 +102,7 @@ self.addEventListener("fetch", (event) => {
 
         // Return the fresh response
         return freshResponse;
-      })()
+      })(),
     );
   }
 });

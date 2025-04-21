@@ -38,7 +38,7 @@ export default function ProtocolHandler() {
       if ("registerProtocolHandler" in navigator) {
         navigator.registerProtocolHandler(
           "web+pwa",
-          `${window.location.origin}/features/protocol-handler?url=%s`
+          `${window.location.origin}/features/protocol-handler?url=%s`,
         );
         setIsRegistered(true);
       }
@@ -51,18 +51,18 @@ export default function ProtocolHandler() {
     try {
       navigator.registerProtocolHandler(
         "web+pwa",
-        `${window.location.origin}/features/protocol-handler?url=%s`
+        `${window.location.origin}/features/protocol-handler?url=%s`,
       );
       setIsRegistered(true);
       alert(
-        "Protocol handler registered successfully. You may need to approve it in your browser settings."
+        "Protocol handler registered successfully. You may need to approve it in your browser settings.",
       );
     } catch (error) {
       console.error("Failed to register protocol handler:", error);
       alert(
         `Failed to register protocol handler: ${
           error instanceof Error ? error.message : "Unknown error"
-        }`
+        }`,
       );
     }
   };

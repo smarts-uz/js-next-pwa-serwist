@@ -1,7 +1,15 @@
-"use client"
-import { CheckCircle, XCircle, AlertCircle } from "lucide-react"
+"use client";
+import { CheckCircle, XCircle, AlertCircle } from "lucide-react";
 
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export function StorageComparison() {
   return (
@@ -70,22 +78,30 @@ export function StorageComparison() {
             <TableCell className="font-medium">Complexity</TableCell>
             <TableCell>
               <div className="flex items-center">
-                <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Low</span>
+                <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                  Low
+                </span>
               </div>
             </TableCell>
             <TableCell>
               <div className="flex items-center">
-                <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Low</span>
+                <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                  Low
+                </span>
               </div>
             </TableCell>
             <TableCell>
               <div className="flex items-center">
-                <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">High</span>
+                <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">
+                  High
+                </span>
               </div>
             </TableCell>
             <TableCell>
               <div className="flex items-center">
-                <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Medium</span>
+                <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">
+                  Medium
+                </span>
               </div>
             </TableCell>
           </TableRow>
@@ -148,11 +164,12 @@ export function StorageComparison() {
             <TableCell>Small amounts of data, user preferences</TableCell>
             <TableCell>Temporary form data, per-tab state</TableCell>
             <TableCell>Structured data, offline apps, large datasets</TableCell>
-            <TableCell>Network responses, offline assets, API caching</TableCell>
+            <TableCell>
+              Network responses, offline assets, API caching
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }
-

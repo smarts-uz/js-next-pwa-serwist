@@ -7,7 +7,6 @@ export async function GET() {
       message: "This is the modified response with modified headers",
       timestamp: new Date().toISOString(),
       modified: true,
-
     },
     {
       headers: {
@@ -15,6 +14,6 @@ export async function GET() {
         "x-custom-header": "modified-custom-value",
         "content-type": "application/json, multipart/form-data",
       },
-    }
+    },
   );
 }

@@ -23,6 +23,6 @@ export async function GET(request: NextRequest) {
       apiKey: status === 200 ? apiKey : null,
       expiresIn: status === 200 ? "1 minute" : null,
     },
-    { status }
+    { status },
   );
 }

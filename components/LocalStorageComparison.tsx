@@ -1,23 +1,29 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Save, Trash2, Moon, Sun, Monitor } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Save, Trash2, Moon, Sun, Monitor } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface UserPreferences {
-  theme: "light" | "dark" | "system"
-  fontSize: number
-  notifications: boolean
-  language: string
-  compactMode: boolean
+  theme: "light" | "dark" | "system";
+  fontSize: number;
+  notifications: boolean;
+  language: string;
+  compactMode: boolean;
 }
 
 const defaultPreferences: UserPreferences = {
@@ -26,113 +32,121 @@ const defaultPreferences: UserPreferences = {
   notifications: true,
   language: "en",
   compactMode: false,
-}
+};
 
 export function LocalStorageExample() {
-  const [preferences, setPreferences] = useState<UserPreferences>(defaultPreferences)
-  const [saved, setSaved] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [storageAvailable, setStorageAvailable] = useState(true)
+  const [preferences, setPreferences] =
+    useState<UserPreferences>(defaultPreferences);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [storageAvailable, setStorageAvailable] = useState(true);
 
   // Check if localStorage is available
   useEffect(() => {
     try {
-      const testKey = "__test__"
-      localStorage.setItem(testKey, testKey)
-      localStorage.removeItem(testKey)
-      setStorageAvailable(true)
+      const testKey = "__test__";
+      localStorage.setItem(testKey, testKey);
+      localStorage.removeItem(testKey);
+      setStorageAvailable(true);
     } catch (e) {
-      setStorageAvailable(false)
+      setStorageAvailable(false);
     }
-  }, [])
+  }, []);
 
   // Load preferences from localStorage on component mount
   useEffect(() => {
-    if (!storageAvailable) return
+    if (!storageAvailable) return;
 
     try {
-      const storedPrefs = localStorage.getItem("userPreferences")
+      const storedPrefs = localStorage.getItem("userPreferences");
       if (storedPrefs) {
-        setPreferences(JSON.parse(storedPrefs))
+        setPreferences(JSON.parse(storedPrefs));
       }
     } catch (e) {
-      setError("Failed to load preferences from localStorage")
-      console.error("Error loading preferences:", e)
+      setError("Failed to load preferences from localStorage");
+      console.error("Error loading preferences:", e);
     }
-  }, [storageAvailable])
+  }, [storageAvailable]);
 
   // Save preferences to localStorage
   const savePreferences = () => {
     if (!storageAvailable) {
-      setError("localStorage is not available in your browser")
-      return
+      setError("localStorage is not available in your browser");
+      return;
     }
 
     try {
-      localStorage.setItem("userPreferences", JSON.stringify(preferences))
-      setSaved(true)
-      setTimeout(() => setSaved(false), 2000)
+      localStorage.setItem("userPreferences", JSON.stringify(preferences));
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
     } catch (e) {
-      setError("Failed to save preferences to localStorage")
-      console.error("Error saving preferences:", e)
+      setError("Failed to save preferences to localStorage");
+      console.error("Error saving preferences:", e);
     }
-  }
+  };
 
   // Reset preferences to defaults
   const resetPreferences = () => {
     if (!storageAvailable) {
-      setError("localStorage is not available in your browser")
-      return
+      setError("localStorage is not available in your browser");
+      return;
     }
 
     try {
-      localStorage.removeItem("userPreferences")
-      setPreferences(defaultPreferences)
-      setSaved(true)
-      setTimeout(() => setSaved(false), 2000)
+      localStorage.removeItem("userPreferences");
+      setPreferences(defaultPreferences);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
     } catch (e) {
-      setError("Failed to reset preferences")
-      console.error("Error resetting preferences:", e)
+      setError("Failed to reset preferences");
+      console.error("Error resetting preferences:", e);
     }
-  }
+  };
 
   // Update a specific preference
-  const updatePreference = <K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => {
+  const updatePreference = <K extends keyof UserPreferences>(
+    key: K,
+    value: UserPreferences[K],
+  ) => {
     setPreferences((prev) => ({
       ...prev,
       [key]: value,
-    }))
-  }
+    }));
+  };
 
   // Apply theme based on preferences
   useEffect(() => {
     const applyTheme = () => {
-      const { theme } = preferences
-      const root = document.documentElement
+      const { theme } = preferences;
+      const root = document.documentElement;
 
       if (theme === "dark") {
-        root.classList.add("dark")
+        root.classList.add("dark");
       } else if (theme === "light") {
-        root.classList.remove("dark")
+        root.classList.remove("dark");
       } else {
         // System preference
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-        prefersDark ? root.classList.add("dark") : root.classList.remove("dark")
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        prefersDark
+          ? root.classList.add("dark")
+          : root.classList.remove("dark");
       }
-    }
+    };
 
-    applyTheme()
-  }, [preferences])
+    applyTheme();
+  }, [preferences]);
 
   if (!storageAvailable) {
     return (
       <Alert variant="destructive">
         <AlertDescription>
-          localStorage is not available in your browser. This could be due to private browsing mode, browser settings,
-          or storage permissions.
+          localStorage is not available in your browser. This could be due to
+          private browsing mode, browser settings, or storage permissions.
         </AlertDescription>
       </Alert>
-    )
+    );
   }
 
   return (
@@ -145,7 +159,12 @@ export function LocalStorageExample() {
                 <h3 className="text-lg font-medium">Theme</h3>
                 <RadioGroup
                   value={preferences.theme}
-                  onValueChange={(value) => updatePreference("theme", value as "light" | "dark" | "system")}
+                  onValueChange={(value) =>
+                    updatePreference(
+                      "theme",
+                      value as "light" | "dark" | "system",
+                    )
+                  }
                   className="flex space-x-2"
                 >
                   <div className="flex items-center space-x-2">
@@ -171,7 +190,9 @@ export function LocalStorageExample() {
 
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Label htmlFor="font-size">Font Size: {preferences.fontSize}px</Label>
+                  <Label htmlFor="font-size">
+                    Font Size: {preferences.fontSize}px
+                  </Label>
                 </div>
                 <Slider
                   id="font-size"
@@ -179,7 +200,9 @@ export function LocalStorageExample() {
                   max={24}
                   step={1}
                   value={[preferences.fontSize]}
-                  onValueChange={(value) => updatePreference("fontSize", value[0])}
+                  onValueChange={(value) =>
+                    updatePreference("fontSize", value[0])
+                  }
                 />
               </div>
 
@@ -187,7 +210,9 @@ export function LocalStorageExample() {
                 <Switch
                   id="notifications"
                   checked={preferences.notifications}
-                  onCheckedChange={(checked) => updatePreference("notifications", checked)}
+                  onCheckedChange={(checked) =>
+                    updatePreference("notifications", checked)
+                  }
                 />
                 <Label htmlFor="notifications">Enable Notifications</Label>
               </div>
@@ -196,14 +221,19 @@ export function LocalStorageExample() {
                 <Switch
                   id="compact-mode"
                   checked={preferences.compactMode}
-                  onCheckedChange={(checked) => updatePreference("compactMode", checked)}
+                  onCheckedChange={(checked) =>
+                    updatePreference("compactMode", checked)
+                  }
                 />
                 <Label htmlFor="compact-mode">Compact Mode</Label>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="language">Language</Label>
-                <Select value={preferences.language} onValueChange={(value) => updatePreference("language", value)}>
+                <Select
+                  value={preferences.language}
+                  onValueChange={(value) => updatePreference("language", value)}
+                >
                   <SelectTrigger id="language">
                     <SelectValue placeholder="Select Language" />
                   </SelectTrigger>
@@ -234,10 +264,18 @@ export function LocalStorageExample() {
                 }`}
                 style={{ fontSize: `${preferences.fontSize}px` }}
               >
-                <div className={`space-y-2 ${preferences.compactMode ? "leading-tight" : "leading-relaxed"}`}>
+                <div
+                  className={`space-y-2 ${preferences.compactMode ? "leading-tight" : "leading-relaxed"}`}
+                >
                   <h4 className="font-bold">Sample Content</h4>
-                  <p>This is how your content will appear with the selected preferences.</p>
-                  <p>Notifications: {preferences.notifications ? "Enabled" : "Disabled"}</p>
+                  <p>
+                    This is how your content will appear with the selected
+                    preferences.
+                  </p>
+                  <p>
+                    Notifications:{" "}
+                    {preferences.notifications ? "Enabled" : "Disabled"}
+                  </p>
                   <p>
                     Language:{" "}
                     {preferences.language === "en"
@@ -283,7 +321,11 @@ localStorage.removeItem('userPreferences');`}</code>
       </div>
 
       <div className="flex justify-between">
-        <Button variant="outline" onClick={resetPreferences} className="flex items-center">
+        <Button
+          variant="outline"
+          onClick={resetPreferences}
+          className="flex items-center"
+        >
           <Trash2 className="mr-2 h-4 w-4" />
           Reset to Defaults
         </Button>
@@ -308,16 +350,18 @@ localStorage.removeItem('userPreferences');`}</code>
       <div className="rounded-md bg-muted p-4">
         <h4 className="text-sm font-medium mb-2">How it works:</h4>
         <p className="text-sm text-muted-foreground">
-          This example demonstrates using localStorage to persist user preferences across browser sessions. When you
-          change settings and click "Save Preferences", the data is stored in your browser's localStorage. When you
-          reload the page, your preferences are automatically loaded from localStorage.
+          This example demonstrates using localStorage to persist user
+          preferences across browser sessions. When you change settings and
+          click "Save Preferences", the data is stored in your browser's
+          localStorage. When you reload the page, your preferences are
+          automatically loaded from localStorage.
         </p>
         <p className="text-sm text-muted-foreground mt-2">
-          localStorage is ideal for small amounts of data like user preferences, theme settings, and UI state. The data
-          persists even when the browser is closed and reopened, but is limited to about 5MB per domain.
+          localStorage is ideal for small amounts of data like user preferences,
+          theme settings, and UI state. The data persists even when the browser
+          is closed and reopened, but is limited to about 5MB per domain.
         </p>
       </div>
     </div>
-  )
+  );
 }
-

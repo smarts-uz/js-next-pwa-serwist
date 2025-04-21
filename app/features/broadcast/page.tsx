@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { BroadcastUpdateTest } from "@/components/BroadcastUpdateTest";
 
 export default function BroadcastPage() {
@@ -17,4 +23,4 @@ export default function BroadcastPage() {
       </Card>
     </div>
   );
-} 
+}

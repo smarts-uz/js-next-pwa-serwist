@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import ResponsesAreSameExample from "@/components/ResponsesAreSameExample";
 
 const SameResponsePage = () => {
@@ -8,7 +14,8 @@ const SameResponsePage = () => {
         <CardHeader>
           <CardTitle>Compare Responses</CardTitle>
           <CardDescription>
-            Test how service workers can compare responses using responsesAreSame
+            Test how service workers can compare responses using
+            responsesAreSame
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -17,6 +24,6 @@ const SameResponsePage = () => {
       </Card>
     </div>
   );
-}
+};
 
-export default SameResponsePage
+export default SameResponsePage;

@@ -74,7 +74,7 @@ export function CacheExpirationDemo() {
                 ...prev,
                 status: "expired",
               }
-            : null
+            : null,
         );
         fetchData();
       }
@@ -85,7 +85,7 @@ export function CacheExpirationDemo() {
               ...prev,
               isExpired,
             }
-          : null
+          : null,
       );
     }, 1000);
 

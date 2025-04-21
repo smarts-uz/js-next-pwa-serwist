@@ -1,7 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, Gauge, Lock, Unlock, Activity, Zap } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -28,7 +35,7 @@ interface DeviceMotionEvent {
   timeStamp: number;
 }
 
-type PermissionStatus = 'granted' | 'denied' | 'prompt';
+type PermissionStatus = "granted" | "denied" | "prompt";
 
 const DeviceMotionPage = () => {
   const [isSupported, setIsSupported] = useState(false);
@@ -40,33 +47,36 @@ const DeviceMotionPage = () => {
     interval: null,
     timeStamp: 0,
   });
-  const [permissionStatus, setPermissionStatus] = useState<PermissionStatus | null>(null);
+  const [permissionStatus, setPermissionStatus] =
+    useState<PermissionStatus | null>(null);
   const [showGravity, setShowGravity] = useState(false);
 
   useEffect(() => {
     // Check if DeviceMotionEvent is supported
-    if (typeof DeviceMotionEvent !== 'undefined') {
+    if (typeof DeviceMotionEvent !== "undefined") {
       setIsSupported(true);
     }
 
     // Request permission if needed
-    if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
+    if (typeof (DeviceMotionEvent as any).requestPermission === "function") {
       checkPermission();
     }
 
     return () => {
       if (isActive) {
-        window.removeEventListener('devicemotion', handleMotion);
+        window.removeEventListener("devicemotion", handleMotion);
       }
     };
-  }, []);
+  }, [isActive]);
 
   const checkPermission = async () => {
     try {
-      const status = await (DeviceMotionEvent as any).requestPermission() as PermissionStatus;
+      const status = (await (
+        DeviceMotionEvent as any
+      ).requestPermission()) as PermissionStatus;
       setPermissionStatus(status);
     } catch (error) {
-      console.error('Permission error:', error);
+      console.error("Permission error:", error);
     }
   };
 
@@ -93,17 +103,17 @@ const DeviceMotionPage = () => {
   };
 
   const startTracking = () => {
-    window.addEventListener('devicemotion', handleMotion);
+    window.addEventListener("devicemotion", handleMotion);
     setIsActive(true);
   };
 
   const stopTracking = () => {
-    window.removeEventListener('devicemotion', handleMotion);
+    window.removeEventListener("devicemotion", handleMotion);
     setIsActive(false);
   };
 
   const formatValue = (value: number | null) => {
-    if (value === null) return 'N/A';
+    if (value === null) return "N/A";
     return `${value.toFixed(2)}`;
   };
 
@@ -145,13 +155,19 @@ const DeviceMotionPage = () => {
                   <span className="font-medium">Acceleration</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <span className="text-sm text-muted-foreground">X: {formatValue(motion.acceleration.x)}</span>
-                  <span className="text-sm text-muted-foreground">Y: {formatValue(motion.acceleration.y)}</span>
-                  <span className="text-sm text-muted-foreground">Z: {formatValue(motion.acceleration.z)}</span>
+                  <span className="text-sm text-muted-foreground">
+                    X: {formatValue(motion.acceleration.x)}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    Y: {formatValue(motion.acceleration.y)}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    Z: {formatValue(motion.acceleration.z)}
+                  </span>
                 </div>
               </div>
-              <Progress 
-                value={getProgressValue(motion.acceleration.x, 10)} 
+              <Progress
+                value={getProgressValue(motion.acceleration.x, 10)}
                 className="h-2"
               />
 
@@ -163,13 +179,22 @@ const DeviceMotionPage = () => {
                       <span className="font-medium">With Gravity</span>
                     </div>
                     <div className="flex items-center space-x-4">
-                      <span className="text-sm text-muted-foreground">X: {formatValue(motion.accelerationIncludingGravity.x)}</span>
-                      <span className="text-sm text-muted-foreground">Y: {formatValue(motion.accelerationIncludingGravity.y)}</span>
-                      <span className="text-sm text-muted-foreground">Z: {formatValue(motion.accelerationIncludingGravity.z)}</span>
+                      <span className="text-sm text-muted-foreground">
+                        X: {formatValue(motion.accelerationIncludingGravity.x)}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        Y: {formatValue(motion.accelerationIncludingGravity.y)}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        Z: {formatValue(motion.accelerationIncludingGravity.z)}
+                      </span>
                     </div>
                   </div>
-                  <Progress 
-                    value={getProgressValue(motion.accelerationIncludingGravity.x, 10)} 
+                  <Progress
+                    value={getProgressValue(
+                      motion.accelerationIncludingGravity.x,
+                      10,
+                    )}
                     className="h-2"
                   />
                 </>
@@ -181,13 +206,19 @@ const DeviceMotionPage = () => {
                   <span className="font-medium">Rotation Rate</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <span className="text-sm text-muted-foreground">α: {formatValue(motion.rotationRate.alpha)}</span>
-                  <span className="text-sm text-muted-foreground">β: {formatValue(motion.rotationRate.beta)}</span>
-                  <span className="text-sm text-muted-foreground">γ: {formatValue(motion.rotationRate.gamma)}</span>
+                  <span className="text-sm text-muted-foreground">
+                    α: {formatValue(motion.rotationRate.alpha)}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    β: {formatValue(motion.rotationRate.beta)}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    γ: {formatValue(motion.rotationRate.gamma)}
+                  </span>
                 </div>
               </div>
-              <Progress 
-                value={getProgressValue(motion.rotationRate.alpha, 180)} 
+              <Progress
+                value={getProgressValue(motion.rotationRate.alpha, 180)}
                 className="h-2"
               />
             </div>
@@ -268,9 +299,14 @@ const DeviceMotionPage = () => {
         <CardContent className="space-y-6">
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">What is the Device Motion API?</h3>
+              <h3 className="font-semibold mb-2">
+                What is the Device Motion API?
+              </h3>
               <p className="text-sm text-muted-foreground">
-                The Device Motion API provides access to the device's motion and acceleration data. It allows web applications to respond to device movement, including acceleration, rotation, and gravity effects.
+                The Device Motion API provides access to the device's motion and
+                acceleration data. It allows web applications to respond to
+                device movement, including acceleration, rotation, and gravity
+                effects.
               </p>
             </div>
 
@@ -288,7 +324,9 @@ const DeviceMotionPage = () => {
             <div>
               <h3 className="font-semibold mb-2">Browser Support</h3>
               <p className="text-sm text-muted-foreground">
-                The Device Motion API is supported in most modern browsers on mobile devices. Some browsers may require HTTPS and explicit user permission.
+                The Device Motion API is supported in most modern browsers on
+                mobile devices. Some browsers may require HTTPS and explicit
+                user permission.
               </p>
             </div>
 
@@ -320,4 +358,4 @@ const DeviceMotionPage = () => {
   );
 };
 
-export default DeviceMotionPage; 
+export default DeviceMotionPage;

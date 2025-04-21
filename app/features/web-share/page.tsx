@@ -105,8 +105,8 @@ export default function WebSharePage() {
               <div className="space-y-2">
                 <h4 className="font-medium">File Sharing</h4>
                 <p className="text-sm text-muted-foreground">
-                  File sharing requires the file-handling permission and is
-                  only supported in secure contexts.
+                  File sharing requires the file-handling permission and is only
+                  supported in secure contexts.
                 </p>
                 <pre className="bg-muted p-3 rounded-lg text-sm overflow-x-auto">
                   <code>{`const file = new File(['content'], 'file.txt', { type: 'text/plain' });

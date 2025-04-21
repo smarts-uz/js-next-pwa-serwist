@@ -170,7 +170,7 @@ export function CacheAPIExample() {
       const keys = await cache.keys();
 
       const allCached = articles.every((article) =>
-        keys.some((key) => key.url.includes(`article-${article.id}`))
+        keys.some((key) => key.url.includes(`article-${article.id}`)),
       );
 
       setCacheStatus(allCached ? "cached" : "uncached");

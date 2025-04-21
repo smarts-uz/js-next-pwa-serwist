@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 interface TouchEvents {
   scale: number;
@@ -25,15 +25,18 @@ export function useTouchEvents(): TouchEvents {
     }
   }, []);
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 2) {
-      const currentDistance = getDistance(e.touches[0], e.touches[1]);
-      const scaleFactor = currentDistance / initialDistance;
-      // Add smaller steps for smoother zooming
-      const newScale = scale * (1 + (scaleFactor - 1) * 0.5);
-      setScale(Math.min(Math.max(newScale, 0.25), 1.25));
-    }
-  }, [scale, initialDistance]);
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (e.touches.length === 2) {
+        const currentDistance = getDistance(e.touches[0], e.touches[1]);
+        const scaleFactor = currentDistance / initialDistance;
+        // Add smaller steps for smoother zooming
+        const newScale = scale * (1 + (scaleFactor - 1) * 0.5);
+        setScale(Math.min(Math.max(newScale, 0.25), 1.25));
+      }
+    },
+    [scale, initialDistance],
+  );
 
   const handleTouchEnd = useCallback(() => {
     setInitialDistance(0);
@@ -42,8 +45,8 @@ export function useTouchEvents(): TouchEvents {
   const bind = {
     onTouchStart: handleTouchStart,
     onTouchMove: handleTouchMove,
-    onTouchEnd: handleTouchEnd
+    onTouchEnd: handleTouchEnd,
   };
 
   return { scale, bind };
-} 
+}
