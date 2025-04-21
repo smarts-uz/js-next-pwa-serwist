@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import {
   Serwist,
   responsesAreSame,
   BROADCAST_UPDATE_DEFAULT_HEADERS,
+  CacheExpiration,
 } from "serwist";
 
 declare global {
@@ -38,73 +40,72 @@ const serwist = new Serwist({
   },
 });
 
-// Add an event listener that runs on fetch events for the test-copy API
-self.addEventListener("fetch", (event) => {
-  const request = event.request;
+const cacheName = "/api/test-response?status=200";
 
-  // Only handle our specific test API
-  if (request.url.includes("/api/test-copy")) {
-    event.respondWith(
-      (async () => {
-        const cacheName = "test-copy-cache";
-        const cache = await caches.open(cacheName);
+const expirationManager = new CacheExpiration(cacheName, {
+  maxAgeSeconds: 60 * 1000,
+  maxEntries: 10,
+})
+const openCache = await caches.open(cacheName);
 
-        // Try to get from cache first
-        const cachedResponse = await cache.match(request);
 
-        // Always fetch a fresh response
-        const fetchPromise = fetch(request);
-        const freshResponse = await fetchPromise;
 
-        // Store the fresh response in cache
-        await cache.put(request, freshResponse.clone());
+// self.addEventListener("fetch", (event) => {
+//   const request = event.request;
 
-        // Compare cached and fresh responses if we had a cached one
-        if (cachedResponse) {
-          // Get the headers that are used for comparison
-          const headersToCompare = BROADCAST_UPDATE_DEFAULT_HEADERS;
+//   if (request.url.includes("/api/test-copy")) {
+//     event.respondWith(
+//       (async () => {
+//         const cacheName = "test-copy-cache";
+//         const cache = await caches.open(cacheName);
 
-          // Check if responses are the same
-          const areResponsesSame = responsesAreSame(
-            cachedResponse,
-            freshResponse.clone(),
-            headersToCompare,
-          );
+//         const cachedResponse = await cache.match(request);
 
-          // If responses are different, notify all clients
-          if (!areResponsesSame) {
-            const clients = await self.clients.matchAll({ type: "window" });
-            for (const client of clients) {
-              client.postMessage({
-                type: "CACHE_UPDATED",
-                message: "Cache content has been updated with new data",
-                url: request.url,
-                timestamp: new Date().toISOString(),
-                headers: headersToCompare,
-                areResponsesSame: false,
-              });
-            }
-          } else {
-            // Notify the responses are the same
-            const clients = await self.clients.matchAll({ type: "window" });
-            for (const client of clients) {
-              client.postMessage({
-                type: "CACHE_UPDATED",
-                message: "Cache content is up to date",
-                url: request.url,
-                timestamp: new Date().toISOString(),
-                headers: headersToCompare,
-                areResponsesSame: true,
-              });
-            }
-          }
-        }
+//         const fetchPromise = fetch(request);
+//         const freshResponse = await fetchPromise;
 
-        // Return the fresh response
-        return freshResponse;
-      })(),
-    );
-  }
-});
+//         await cache.put(request, freshResponse.clone());
+
+//         if (cachedResponse) {
+//           const headersToCompare = BROADCAST_UPDATE_DEFAULT_HEADERS;
+
+//           const areResponsesSame = responsesAreSame(
+//             cachedResponse,
+//             freshResponse.clone(),
+//             headersToCompare,
+//           );
+
+//           if (!areResponsesSame) {
+//             const clients = await self.clients.matchAll({ type: "window" });
+//             for (const client of clients) {
+//               client.postMessage({
+//                 type: "CACHE_UPDATED",
+//                 message: "Cache content has been updated with new data",
+//                 url: request.url,
+//                 timestamp: new Date().toISOString(),
+//                 headers: headersToCompare,
+//                 areResponsesSame: false,
+//               });
+//             }
+//           } else {
+//             const clients = await self.clients.matchAll({ type: "window" });
+//             for (const client of clients) {
+//               client.postMessage({
+//                 type: "CACHE_UPDATED",
+//                 message: "Cache content is up to date",
+//                 url: request.url,
+//                 timestamp: new Date().toISOString(),
+//                 headers: headersToCompare,
+//                 areResponsesSame: true,
+//               });
+//             }
+//           }
+//         }
+
+//         return freshResponse;
+//       })(),
+//     );
+//   }
+// });
 
 serwist.addEventListeners();

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const WebAuthnPage = () => {
   const [credential, setCredential] = useState<PublicKeyCredential | null>(
-    null,
+    null
   );
 
   const registerCredential = async () => {

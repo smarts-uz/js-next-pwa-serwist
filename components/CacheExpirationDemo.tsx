@@ -24,30 +24,25 @@ export function CacheExpirationDemo() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiKeyData, setApiKeyData] = useState<ApiKeyData | null>(null);
 
-  const generateApiKey = () => {
-    return `api_${Math.random().toString(36).substring(2, 15)}_${Date.now()}`;
-  };
+  // console.log(cacheStatus);
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const newKey = generateApiKey();
-      const now = Date.now();
-      const expiresAt = now + 60 * 1000; // 1 minute
+      const response = await fetch("/api/test-response?status=200");
+      const data = await response.json();
+      console.log(data);
 
       setApiKeyData({
-        key: newKey,
+        key: data.apiKey,
         lastRefresh: new Date(),
         status: "valid",
       });
 
       setCacheStatus({
-        timestamp: now,
-        expiresAt,
-        isExpired: false,
+        timestamp: data.timestamp,
+        expiresAt: new Date(data.timestamp).getTime(),
+        isExpired: data.isExpired,
       });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -67,17 +62,17 @@ export function CacheExpirationDemo() {
       const now = Date.now();
       const isExpired = now >= cacheStatus.expiresAt;
 
-      if (isExpired && !cacheStatus.isExpired) {
-        setApiKeyData((prev) =>
-          prev
-            ? {
-                ...prev,
-                status: "expired",
-              }
-            : null
-        );
-        fetchData();
-      }
+      // if (isExpired && !cacheStatus.isExpired) {
+      //   setApiKeyData((prev) =>
+      //     prev
+      //       ? {
+      //           ...prev,
+      //           status: "expired",
+      //         }
+      //       : null
+      //   );
+      //   fetchData();
+      // }
 
       setCacheStatus((prev) =>
         prev
@@ -109,6 +104,7 @@ export function CacheExpirationDemo() {
   const formatTime = (ms: number) => {
     const minutes = Math.floor(ms / (1000 * 60));
     const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+ 
     return `${minutes}m ${seconds}s`;
   };
 
