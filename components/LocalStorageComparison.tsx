@@ -106,7 +106,7 @@ export function LocalStorageExample() {
   // Update a specific preference
   const updatePreference = <K extends keyof UserPreferences>(
     key: K,
-    value: UserPreferences[K],
+    value: UserPreferences[K]
   ) => {
     setPreferences((prev) => ({
       ...prev,
@@ -127,7 +127,7 @@ export function LocalStorageExample() {
       } else {
         // System preference
         const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
+          "(prefers-color-scheme: dark)"
         ).matches;
         prefersDark
           ? root.classList.add("dark")
@@ -162,7 +162,7 @@ export function LocalStorageExample() {
                   onValueChange={(value) =>
                     updatePreference(
                       "theme",
-                      value as "light" | "dark" | "system",
+                      value as "light" | "dark" | "system"
                     )
                   }
                   className="flex space-x-2"
@@ -259,13 +259,17 @@ export function LocalStorageExample() {
                   preferences.theme === "dark"
                     ? "bg-gray-800 text-white"
                     : preferences.theme === "light"
-                      ? "bg-white text-gray-800"
-                      : "bg-gray-100 text-gray-800"
+                    ? "bg-white text-gray-800"
+                    : "bg-gray-100 text-gray-800"
                 }`}
                 style={{ fontSize: `${preferences.fontSize}px` }}
               >
                 <div
-                  className={`space-y-2 ${preferences.compactMode ? "leading-tight" : "leading-relaxed"}`}
+                  className={`space-y-2 ${
+                    preferences.compactMode
+                      ? "leading-tight"
+                      : "leading-relaxed"
+                  }`}
                 >
                   <h4 className="font-bold">Sample Content</h4>
                   <p>
@@ -281,14 +285,14 @@ export function LocalStorageExample() {
                     {preferences.language === "en"
                       ? "English"
                       : preferences.language === "es"
-                        ? "Español"
-                        : preferences.language === "fr"
-                          ? "Français"
-                          : preferences.language === "de"
-                            ? "Deutsch"
-                            : preferences.language === "ja"
-                              ? "日本語"
-                              : preferences.language}
+                      ? "Español"
+                      : preferences.language === "fr"
+                      ? "Français"
+                      : preferences.language === "de"
+                      ? "Deutsch"
+                      : preferences.language === "ja"
+                      ? "日本語"
+                      : preferences.language}
                   </p>
                 </div>
               </div>

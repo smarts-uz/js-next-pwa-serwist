@@ -60,7 +60,7 @@ export default function DataForm() {
       console.error("Error submitting data:", error);
       setStatus("error");
       setMessage(
-        error instanceof Error ? error.message : "Failed to submit data",
+        error instanceof Error ? error.message : "Failed to submit data"
       );
     }
   };
@@ -115,8 +115,8 @@ export default function DataForm() {
         {isSubmitting
           ? "Submitting..."
           : isOnline
-            ? "Submit"
-            : "Save for Later"}
+          ? "Submit"
+          : "Save for Later"}
       </Button>
 
       {!isOnline && (

@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function FileHandler() {
   const [fileHandle, setFileHandle] = useState<FileSystemFileHandle | null>(
-    null,
+    null
   );
   const [fileName, setFileName] = useState("");
   const [fileContent, setFileContent] = useState("");

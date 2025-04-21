@@ -37,7 +37,7 @@ export function IndexedDBExample() {
   const [currentNote, setCurrentNote] = useState<Note | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [dbStatus, setDbStatus] = useState<"loading" | "ready" | "error">(
-    "loading",
+    "loading"
   );
   const [error, setError] = useState<string | null>(null);
   const [isOffline, setIsOffline] = useState(false);
@@ -58,7 +58,7 @@ export function IndexedDBExample() {
           console.error("Database error:", event);
           setDbStatus("error");
           setError(
-            "Failed to open database. This could be due to private browsing mode or storage permissions.",
+            "Failed to open database. This could be due to private browsing mode or storage permissions."
           );
         };
 
@@ -84,7 +84,9 @@ export function IndexedDBExample() {
         console.error("Error initializing database:", err);
         setDbStatus("error");
         setError(
-          `Failed to initialize database: ${err instanceof Error ? err.message : String(err)}`,
+          `Failed to initialize database: ${
+            err instanceof Error ? err.message : String(err)
+          }`
         );
       }
     };
@@ -123,8 +125,8 @@ export function IndexedDBExample() {
         }));
         setNotes(
           processedNotes.sort(
-            (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime(),
-          ),
+            (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()
+          )
         );
       };
 
@@ -135,7 +137,9 @@ export function IndexedDBExample() {
     } catch (err) {
       console.error("Error in loadNotes:", err);
       setError(
-        `Failed to load notes: ${err instanceof Error ? err.message : String(err)}`,
+        `Failed to load notes: ${
+          err instanceof Error ? err.message : String(err)
+        }`
       );
     }
   };
@@ -180,7 +184,9 @@ export function IndexedDBExample() {
     } catch (err) {
       console.error("Error in addNote:", err);
       setError(
-        `Failed to add note: ${err instanceof Error ? err.message : String(err)}`,
+        `Failed to add note: ${
+          err instanceof Error ? err.message : String(err)
+        }`
       );
     }
   };
@@ -202,7 +208,7 @@ export function IndexedDBExample() {
         setNotes((prev) =>
           prev
             .map((n) => (n.id === note.id ? updatedNote : n))
-            .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()),
+            .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
         );
         setCurrentNote(updatedNote);
         setIsEditing(false);
@@ -215,7 +221,9 @@ export function IndexedDBExample() {
     } catch (err) {
       console.error("Error in updateNote:", err);
       setError(
-        `Failed to update note: ${err instanceof Error ? err.message : String(err)}`,
+        `Failed to update note: ${
+          err instanceof Error ? err.message : String(err)
+        }`
       );
     }
   };
@@ -243,7 +251,9 @@ export function IndexedDBExample() {
     } catch (err) {
       console.error("Error in deleteNote:", err);
       setError(
-        `Failed to delete note: ${err instanceof Error ? err.message : String(err)}`,
+        `Failed to delete note: ${
+          err instanceof Error ? err.message : String(err)
+        }`
       );
     }
   };
@@ -402,7 +412,7 @@ export function IndexedDBExample() {
                           onClick={() => {
                             // Revert changes
                             const originalNote = notes.find(
-                              (n) => n.id === currentNote.id,
+                              (n) => n.id === currentNote.id
                             );
                             if (originalNote) {
                               setCurrentNote(originalNote);

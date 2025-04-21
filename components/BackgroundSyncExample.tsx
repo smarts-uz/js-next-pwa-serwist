@@ -36,8 +36,8 @@ export function BackgroundSyncExample() {
           prev.map((file) =>
             file.id === event.data.fileId
               ? { ...file, status: "completed" }
-              : file,
-          ),
+              : file
+          )
         );
       }
     };
@@ -52,7 +52,7 @@ export function BackgroundSyncExample() {
   }, []);
 
   const handleFileSelect = async (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const selectedFiles = event.target.files;
     if (!selectedFiles) return;
@@ -87,22 +87,22 @@ export function BackgroundSyncExample() {
           // File was queued for background sync
           setFiles((prev) =>
             prev.map((f) =>
-              f.id === newFile.id ? { ...f, status: "pending" } : f,
-            ),
+              f.id === newFile.id ? { ...f, status: "pending" } : f
+            )
           );
         } else {
           // File was uploaded immediately
           setFiles((prev) =>
             prev.map((f) =>
-              f.id === newFile.id ? { ...f, status: "completed" } : f,
-            ),
+              f.id === newFile.id ? { ...f, status: "completed" } : f
+            )
           );
         }
       } catch (error) {
         setFiles((prev) =>
           prev.map((f) =>
-            f.id === newFile.id ? { ...f, status: "failed" } : f,
-          ),
+            f.id === newFile.id ? { ...f, status: "failed" } : f
+          )
         );
       }
     }

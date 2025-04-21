@@ -34,7 +34,7 @@ export default function NetworkStatus({ className }: NetworkStatusProps) {
       className={cn(
         "border-l-4",
         isOnline ? "border-l-green-500" : "border-l-amber-500",
-        className,
+        className
       )}
     >
       <CardContent className="p-4 flex items-center">

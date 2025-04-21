@@ -90,7 +90,7 @@ export default function LocalStorageManager() {
         setError(err.message);
       } else {
         setError(
-          "Failed to save to localStorage. You may have exceeded the storage limit.",
+          "Failed to save to localStorage. You may have exceeded the storage limit."
         );
       }
     }

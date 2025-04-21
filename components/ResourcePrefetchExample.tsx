@@ -86,7 +86,7 @@ export function ResourcePrefetchExample() {
               ...pokemon,
               loaded: true,
             };
-          }),
+          })
         );
 
         // Update the Pokemon state for this type
@@ -113,7 +113,7 @@ export function ResourcePrefetchExample() {
       (type) =>
         type !== activeType &&
         (pokemonByType[type as PokemonType].length === 0 ||
-          !pokemonByType[type as PokemonType][0]?.loaded),
+          !pokemonByType[type as PokemonType][0]?.loaded)
     ) as PokemonType[];
 
     if (typesToPrefetch.length === 0) {
@@ -177,9 +177,9 @@ export function ResourcePrefetchExample() {
             };
             `,
           ],
-          { type: "application/javascript" },
-        ),
-      ),
+          { type: "application/javascript" }
+        )
+      )
     );
 
     worker.onmessage = (event) => {
@@ -206,7 +206,7 @@ export function ResourcePrefetchExample() {
   const allTypesPrefetched = Object.keys(pokemonByType).every(
     (type) =>
       pokemonByType[type as PokemonType].length > 0 &&
-      pokemonByType[type as PokemonType][0]?.loaded,
+      pokemonByType[type as PokemonType][0]?.loaded
   );
 
   // Format Pokemon name
@@ -315,10 +315,10 @@ export function ResourcePrefetchExample() {
                               t.type.name === "fire"
                                 ? "bg-red-100 text-red-800"
                                 : t.type.name === "water"
-                                  ? "bg-blue-100 text-blue-800"
-                                  : t.type.name === "grass"
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-gray-100 text-gray-800"
+                                ? "bg-blue-100 text-blue-800"
+                                : t.type.name === "grass"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-gray-100 text-gray-800"
                             }`}
                           >
                             {formatName(t.type.name)}

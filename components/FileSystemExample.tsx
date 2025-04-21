@@ -15,10 +15,10 @@ import {
 declare global {
   interface Window {
     showOpenFilePicker: (
-      options?: OpenFilePickerOptions,
+      options?: OpenFilePickerOptions
     ) => Promise<FileSystemFileHandle[]>;
     showSaveFilePicker: (
-      options?: SaveFilePickerOptions,
+      options?: SaveFilePickerOptions
     ) => Promise<FileSystemFileHandle | null>;
   }
 }
@@ -199,7 +199,7 @@ export function FileSystemExample() {
           setError(
             err.name === "SyntaxError"
               ? "Invalid JSON file. The file could not be parsed."
-              : `Failed to open JSON file: ${err.message}`,
+              : `Failed to open JSON file: ${err.message}`
           );
         }
       }
@@ -279,7 +279,7 @@ export function FileSystemExample() {
   // Upload file (fallback for browsers without File System Access API)
   const uploadFile = (
     e: React.ChangeEvent<HTMLInputElement>,
-    fileType: "text" | "json",
+    fileType: "text" | "json"
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -420,7 +420,7 @@ export function FileSystemExample() {
                       onChange={(e) =>
                         updateJsonField(
                           "preferences.fontSize",
-                          Number.parseInt(e.target.value),
+                          Number.parseInt(e.target.value)
                         )
                       }
                     />
@@ -452,7 +452,7 @@ export function FileSystemExample() {
                     downloadFile(
                       JSON.stringify(jsonContent, null, 2),
                       jsonFileName,
-                      "application/json",
+                      "application/json"
                     )
                   }
                   className="flex items-center"
@@ -576,7 +576,7 @@ export function FileSystemExample() {
                     onChange={(e) =>
                       updateJsonField(
                         "preferences.fontSize",
-                        Number.parseInt(e.target.value),
+                        Number.parseInt(e.target.value)
                       )
                     }
                   />

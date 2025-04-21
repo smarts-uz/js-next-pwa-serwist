@@ -13,7 +13,7 @@ export default function PWASetup() {
       try {
         navigator.registerProtocolHandler(
           "web+pwa",
-          `${window.location.origin}/features/protocol-handler?url=%s`,
+          `${window.location.origin}/features/protocol-handler?url=%s`
         );
       } catch (error) {
         console.error("Failed to register protocol handler:", error);

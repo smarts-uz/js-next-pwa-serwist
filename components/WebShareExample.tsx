@@ -10,7 +10,7 @@ import { Share2, AlertCircle } from "lucide-react";
 export default function WebShareExample() {
   const [title, setTitle] = useState("Check out this awesome website!");
   const [text, setText] = useState(
-    "I found this interesting website that you might like.",
+    "I found this interesting website that you might like."
   );
   const [url, setUrl] = useState("https://example.com");
   const [error, setError] = useState<string | null>(null);

@@ -42,7 +42,7 @@ export function DataSyncExample() {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts/1",
+          "https://jsonplaceholder.typicode.com/posts/1"
         );
         if (!response.ok) throw new Error("Failed to fetch post");
         const data = await response.json();
@@ -61,7 +61,7 @@ export function DataSyncExample() {
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (!editedPost) return;
 
@@ -113,7 +113,7 @@ export function DataSyncExample() {
           headers: {
             "Content-type": "application/json; charset=UTF-8",
           },
-        },
+        }
       );
 
       if (!response.ok) throw new Error("Failed to sync changes");
@@ -124,7 +124,7 @@ export function DataSyncExample() {
     } catch (err) {
       setSyncStatus("error");
       setError(
-        "Failed to sync changes with the server. Will retry automatically.",
+        "Failed to sync changes with the server. Will retry automatically."
       );
 
       // In a real app, we would queue this for retry when online

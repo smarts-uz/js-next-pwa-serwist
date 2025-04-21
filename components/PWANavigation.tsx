@@ -92,7 +92,7 @@ export function PWANavigation() {
                 "flex items-center px-3 py-1.5 rounded-md text-sm transition-colors",
                 pathname === item.href
                   ? "bg-primary/10 text-primary font-medium"
-                  : "hover:bg-accent hover:text-accent-foreground",
+                  : "hover:bg-accent hover:text-accent-foreground"
               )}
               onClick={() => setIsOpen(false)}
             >
@@ -137,7 +137,7 @@ export function PWANavigation() {
                   "flex items-center p-2 gap-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap",
                   pathname === item.href
                     ? "bg-primary/10 text-primary"
-                    : "hover:bg-accent hover:text-accent-foreground",
+                    : "hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 {item.icon}
@@ -146,13 +146,13 @@ export function PWANavigation() {
             ))}
 
           {Array.from(
-            new Set(navItems.map((item) => item.category).filter(Boolean)),
+            new Set(navItems.map((item) => item.category).filter(Boolean))
           ).map((category) => (
             <div key={category} className="relative group">
               <button
                 className={cn(
                   "flex items-center p-2 gap-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap",
-                  "hover:bg-accent hover:text-accent-foreground",
+                  "hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 <span className="max-w-28 truncate">{category}</span>
@@ -170,7 +170,7 @@ export function PWANavigation() {
                           "flex items-center px-4 py-2 text-xs font-medium transition-colors",
                           pathname === item.href
                             ? "bg-primary/10 text-primary"
-                            : "hover:bg-accent hover:text-accent-foreground",
+                            : "hover:bg-accent hover:text-accent-foreground"
                         )}
                       >
                         {item.icon}

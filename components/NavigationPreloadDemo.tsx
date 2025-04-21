@@ -135,8 +135,8 @@ export default function NavigationPreloadDemo() {
             {isEnabled === null
               ? "Checking..."
               : isEnabled
-                ? "Enabled"
-                : "Disabled"}
+              ? "Enabled"
+              : "Disabled"}
           </div>
           {lastToggleTime && (
             <div className="text-sm text-muted-foreground">
