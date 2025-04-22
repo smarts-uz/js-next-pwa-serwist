@@ -49,13 +49,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <PWASetup />
-          <GoogleAnalytics
-            gaId={process.env.EXT_PUBLIC_FIREBASE_MEASUREMENT_ID || ""}
-            debugMode={true}
-          />
           <LayoutWrapper>{children}</LayoutWrapper>
         </ThemeProvider>
       </body>
+      <GoogleAnalytics
+        gaId={process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || ""}
+      />
     </html>
   );
 }
