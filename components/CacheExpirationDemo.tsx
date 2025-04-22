@@ -31,7 +31,6 @@ export function CacheExpirationDemo() {
     try {
       const response = await fetch("/api/test-response?status=200");
       const data = await response.json();
-      console.log(data);
 
       setApiKeyData({
         key: data.apiKey,
@@ -41,8 +40,8 @@ export function CacheExpirationDemo() {
 
       setCacheStatus({
         timestamp: data.timestamp,
-        expiresAt: new Date(data.timestamp).getTime(),
-        isExpired: data.isExpired,
+        expiresAt: data.expiresAt,
+        isExpired: false,
       });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -97,14 +96,12 @@ export function CacheExpirationDemo() {
     if (!cacheStatus) return 0;
     const total = 60 * 1000; // 1 minute in milliseconds
     const remaining = getTimeRemaining();
-    return ((total - remaining) / total) * 100;
+    return Math.max(0, Math.min(100, ((total - remaining) / total) * 100));
   };
 
   const formatTime = (ms: number) => {
-    const minutes = Math.floor(ms / (1000 * 60));
-    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
-
-    return `${minutes}m ${seconds}s`;
+    const seconds = Math.floor(ms / 1000);
+    return `${Math.floor(seconds / 60)}m ${seconds % 60}s`;
   };
 
   return (
@@ -113,7 +110,7 @@ export function CacheExpirationDemo() {
         <div>
           <h3 className="font-medium">API Key Status</h3>
           <p className="text-sm text-muted-foreground">
-            API key expires after 1 minute
+            API key expires after 1 minute (using CacheExpiration)
           </p>
         </div>
         <Button

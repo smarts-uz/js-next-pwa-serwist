@@ -1,19 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import {
-  Serwist,
-  responsesAreSame,
-  BROADCAST_UPDATE_DEFAULT_HEADERS,
-  CacheExpiration,
-  CacheFirst,
-} from "serwist";
+import { Serwist } from "serwist";
+import handleApiRequest from "@/lib/service-worker/cache-expiration";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
-    // Change this attribute's name to your `injectionPoint`.
-    // `injectionPoint` is an InjectManifest option.
-    // See https://serwist.pages.dev/docs/build/configuring
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }
@@ -28,13 +19,7 @@ const serwist = new Serwist({
   },
   skipWaiting: true,
   clientsClaim: true,
-  runtimeCaching: [
-    {
-      matcher: ({ url }) => url.pathname.startsWith("/"),
-      handler: new CacheFirst(),
-    },
-  ],
-  // runtimeCaching: defaultCache,
+  runtimeCaching: defaultCache,
   fallbacks: {
     entries: [
       {
@@ -47,80 +32,13 @@ const serwist = new Serwist({
   },
 });
 
-self.addEventListener("fetch", async (event) => {
-  const { request } = event;
+// Handle API test response with direct CacheExpiration
+self.addEventListener("fetch", (event) => {
+  const request = event.request;
 
-  const cacheName = "my-cache";
-
-  const expirationManager = new CacheExpiration(cacheName, {
-    maxAgeSeconds: 24 * 60 * 60,
-    maxEntries: 20,
-  });
-
-  const openCache = await caches.open(cacheName);
-
-  console.log("fetch", request.url);
-  console.log("cacheName", cacheName);
-  console.log("openCache", openCache);
-  console.log("expirationManager", expirationManager);
+  if (request.url.includes("/api/test-response")) {
+    event.respondWith(handleApiRequest(request));
+  }
 });
-
-// self.addEventListener("fetch", (event) => {
-//   const request = event.request;
-
-//   if (request.url.includes("/api/test-copy")) {
-//     event.respondWith(
-//       (async () => {
-//         const cacheName = "test-copy-cache";
-//         const cache = await caches.open(cacheName);
-
-//         const cachedResponse = await cache.match(request);
-
-//         const fetchPromise = fetch(request);
-//         const freshResponse = await fetchPromise;
-
-//         await cache.put(request, freshResponse.clone());
-
-//         if (cachedResponse) {
-//           const headersToCompare = BROADCAST_UPDATE_DEFAULT_HEADERS;
-
-//           const areResponsesSame = responsesAreSame(
-//             cachedResponse,
-//             freshResponse.clone(),
-//             headersToCompare,
-//           );
-
-//           if (!areResponsesSame) {
-//             const clients = await self.clients.matchAll({ type: "window" });
-//             for (const client of clients) {
-//               client.postMessage({
-//                 type: "CACHE_UPDATED",
-//                 message: "Cache content has been updated with new data",
-//                 url: request.url,
-//                 timestamp: new Date().toISOString(),
-//                 headers: headersToCompare,
-//                 areResponsesSame: false,
-//               });
-//             }
-//           } else {
-//             const clients = await self.clients.matchAll({ type: "window" });
-//             for (const client of clients) {
-//               client.postMessage({
-//                 type: "CACHE_UPDATED",
-//                 message: "Cache content is up to date",
-//                 url: request.url,
-//                 timestamp: new Date().toISOString(),
-//                 headers: headersToCompare,
-//                 areResponsesSame: true,
-//               });
-//             }
-//           }
-//         }
-
-//         return freshResponse;
-//       })(),
-//     );
-//   }
-// });
 
 serwist.addEventListeners();

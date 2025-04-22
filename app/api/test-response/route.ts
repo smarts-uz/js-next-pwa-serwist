@@ -14,14 +14,20 @@ export async function GET(request: NextRequest) {
     .toString(36)
     .substring(2, 15)}_${Date.now()}`;
 
+  // Calculate timestamp and expiration time
+  const timestamp = Date.now();
+  const expiresAt = timestamp + 60 * 1000; // 1 minute from now
+
   return NextResponse.json(
     {
       status,
       message: messages[status as keyof typeof messages] || "Unknown status",
-      timestamp: new Date().toISOString(),
+      timestamp,
+      expiresAt,
       cached: false, // This will be set by the service worker
       apiKey: status === 200 ? apiKey : null,
       expiresIn: status === 200 ? "1 minute" : null,
+      isExpired: false,
     },
     { status },
   );
