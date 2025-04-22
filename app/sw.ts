@@ -21,6 +21,7 @@ const serwist = new Serwist({
   skipWaiting: true,
   importScripts: ["/scripts/test.js"],
   clientsClaim: true,
+  navigationPreload: true,
   runtimeCaching: defaultCache,
   fallbacks: {
     entries: [
