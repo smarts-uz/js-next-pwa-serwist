@@ -16,6 +16,7 @@ const serwist = new Serwist({
     navigateFallbackAllowlist: [/^\/.*$/],
     cleanupOutdatedCaches: true,
     concurrency: 10,
+    ignoreURLParametersMatching: [/^\/features\/.*$/],
   },
   skipWaiting: true,
   clientsClaim: true,
