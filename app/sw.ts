@@ -2,7 +2,6 @@ import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 import handleApiRequest from "@/lib/service-worker/cache-expiration";
-
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
@@ -20,6 +19,7 @@ const serwist = new Serwist({
     ignoreURLParametersMatching: [/^\/.*$/],
   },
   skipWaiting: true,
+  importScripts: ["/scripts/test.js"],
   clientsClaim: true,
   runtimeCaching: defaultCache,
   fallbacks: {
