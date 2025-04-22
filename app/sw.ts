@@ -17,18 +17,7 @@ const serwist = new Serwist({
     navigateFallbackAllowlist: [/^\/.*$/],
     cleanupOutdatedCaches: true,
     concurrency: 10,
-    navigateFallback: "/offline",
     ignoreURLParametersMatching: [/^\/.*$/],
-    cleanURLs: true,
-    fetchOptions: {
-      cache: "force-cache",
-    },
-    cacheName: "sw-cache",
-    matchOptions: {
-      ignoreSearch: true,
-    },
-    fallbackToNetwork: false,
-    navigateFallbackDenylist: [/^\/.*$/],
   },
   skipWaiting: true,
   clientsClaim: true,
