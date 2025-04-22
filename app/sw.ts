@@ -22,6 +22,7 @@ const serwist = new Serwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
   offlineAnalyticsConfig: true,
+  disableDevLogs: true,
   fallbacks: {
     entries: [
       {
