@@ -18,11 +18,11 @@ const serwist = new Serwist({
     concurrency: 10,
     ignoreURLParametersMatching: [/^\/.*$/],
   },
-  skipWaiting: true,
-  importScripts: ["/scripts/test.js"],
-  clientsClaim: true,
+  // skipWaiting: true,
+  // clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
+  cacheId: "ramz",
   fallbacks: {
     entries: [
       {
