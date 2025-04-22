@@ -62,17 +62,16 @@ export function CacheExpirationDemo() {
       const now = Date.now();
       const isExpired = now >= cacheStatus.expiresAt;
 
-      // if (isExpired && !cacheStatus.isExpired) {
-      //   setApiKeyData((prev) =>
-      //     prev
-      //       ? {
-      //           ...prev,
-      //           status: "expired",
-      //         }
-      //       : null
-      //   );
-      //   fetchData();
-      // }
+      if (isExpired && !cacheStatus.isExpired) {
+        setApiKeyData((prev) =>
+          prev
+            ? {
+                ...prev,
+                status: "expired",
+              }
+            : null
+        );
+      }
 
       setCacheStatus((prev) =>
         prev
@@ -104,7 +103,7 @@ export function CacheExpirationDemo() {
   const formatTime = (ms: number) => {
     const minutes = Math.floor(ms / (1000 * 60));
     const seconds = Math.floor((ms % (1000 * 60)) / 1000);
- 
+
     return `${minutes}m ${seconds}s`;
   };
 

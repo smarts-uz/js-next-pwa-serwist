@@ -6,6 +6,7 @@ import {
   responsesAreSame,
   BROADCAST_UPDATE_DEFAULT_HEADERS,
   CacheExpiration,
+  CacheFirst,
 } from "serwist";
 
 declare global {
@@ -27,7 +28,13 @@ const serwist = new Serwist({
   },
   skipWaiting: true,
   clientsClaim: true,
-  runtimeCaching: defaultCache,
+  runtimeCaching: [
+    {
+      matcher: ({ url }) => url.pathname.startsWith("/"),
+      handler: new CacheFirst(),
+    },
+  ],
+  // runtimeCaching: defaultCache,
   fallbacks: {
     entries: [
       {
@@ -40,15 +47,23 @@ const serwist = new Serwist({
   },
 });
 
-const cacheName = "/api/test-response?status=200";
+self.addEventListener("fetch", async (event) => {
+  const { request } = event;
 
-const expirationManager = new CacheExpiration(cacheName, {
-  maxAgeSeconds: 60 * 1000,
-  maxEntries: 10,
-})
-const openCache = await caches.open(cacheName);
+  const cacheName = "my-cache";
 
+  const expirationManager = new CacheExpiration(cacheName, {
+    maxAgeSeconds: 24 * 60 * 60,
+    maxEntries: 20,
+  });
 
+  const openCache = await caches.open(cacheName);
+
+  console.log("fetch", request.url);
+  console.log("cacheName", cacheName);
+  console.log("openCache", openCache);
+  console.log("expirationManager", expirationManager);
+});
 
 // self.addEventListener("fetch", (event) => {
 //   const request = event.request;
