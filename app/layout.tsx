@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import PWASetup from "@/components/PWASetup";
 import { LayoutWrapper } from "./layout-wrapper";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <PWASetup />
+          <GoogleAnalytics
+            gaId={process.env.EXT_PUBLIC_FIREBASE_MEASUREMENT_ID || ""}
+            debugMode={true}
+          />
           <LayoutWrapper>{children}</LayoutWrapper>
         </ThemeProvider>
       </body>
