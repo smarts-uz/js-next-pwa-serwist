@@ -16,12 +16,12 @@ const serwist = new Serwist({
     navigateFallbackAllowlist: [/^\/.*$/],
     cleanupOutdatedCaches: true,
     concurrency: 10,
-    ignoreURLParametersMatching: [/^\/.*$/],
   },
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
+  offlineAnalyticsConfig: true,
   fallbacks: {
     entries: [
       {

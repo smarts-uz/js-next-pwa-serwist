@@ -41,7 +41,6 @@ export default function manifest(): MetadataRoute.Manifest {
         accept: [
           {
             "text/plain": [".txt"],
-            "text/markdown": [".md"],
           },
         ],
       },
