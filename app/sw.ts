@@ -34,7 +34,22 @@ const serwist = new Serwist({
   },
 });
 
-// log more details about the routes
-serwist.routes.forEach((route) => console.log(route));
+self.addEventListener("message", async (event) => {
+  if (event.data.action === "cache-on-demand") {
+    const cache = await caches.open("static-image-assets");
+    const isCached = await cache.match("images/cache-me-outside.jpg");
+    if (!isCached) {
+      const res = await fetch("images/cache-me-outside.jpg");
+      await cache.put("images/cache-me-outside.jpg", res);
+    }
+  }
+  event.ports[0].postMessage(true);
+});
 
 serwist.addEventListeners();
+// addEventListeners() {
+//   self.addEventListener("install", this.handleInstall);
+//   self.addEventListener("activate", this.handleActivate);
+//   self.addEventListener("fetch", this.handleFetch);
+//   self.addEventListener("message", this.handleCache);
+// }
