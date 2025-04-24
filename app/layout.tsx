@@ -7,6 +7,7 @@ import PWASetup from "@/components/PWASetup";
 import { LayoutWrapper } from "./layout-wrapper";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import YandexMetrika from "@/lib/analytics/YandexMetrika";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,6 +45,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head></head>
       <body className={inter.className + " dark"} suppressHydrationWarning>
+        <Suspense fallback={null}>
+          <YandexMetrika />
+        </Suspense>
+        
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -57,7 +62,6 @@ export default function RootLayout({
       <GoogleAnalytics
         gaId={process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || ""}
       />
-      <YandexMetrika />
     </html>
   );
 }
