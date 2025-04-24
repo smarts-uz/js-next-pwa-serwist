@@ -24,8 +24,6 @@ export function CacheExpirationDemo() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiKeyData, setApiKeyData] = useState<ApiKeyData | null>(null);
 
-  // console.log(cacheStatus);
-
   const fetchData = async () => {
     setIsLoading(true);
     try {

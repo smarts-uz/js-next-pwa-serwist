@@ -212,8 +212,6 @@ const ResponsesAreSameExample = () => {
   const [freshResponse, setFreshResponse] = useState<ResponseData | null>(null);
   const [loading, setLoading] = useState(false);
 
-  console.log(updateMessage);
-
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data.type === "CACHE_UPDATED") {

@@ -34,5 +34,7 @@ const serwist = new Serwist({
   },
 });
 
+// log more details about the routes
+serwist.routes.forEach((route) => console.log(route));
 
 serwist.addEventListeners();
