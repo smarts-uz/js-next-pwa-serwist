@@ -58,7 +58,6 @@ const WebAuthnPage = () => {
 
   const removeCredential = () => {
     setCredential(null);
-    console.log("Credential removed.");
   };
 
   const arrayBufferToHex = (buffer: ArrayBuffer) => {

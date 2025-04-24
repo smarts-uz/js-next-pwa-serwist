@@ -13,8 +13,6 @@ export async function submitData(data: FormData) {
       throw new Error("Title and content are required");
     }
 
-    console.log("Received data:", data);
-
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     revalidatePath("/");

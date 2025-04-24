@@ -11,7 +11,6 @@ export function BroadcastUpdateTest() {
     timestamp: number;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(lastUpdate);
 
   useEffect(() => {
     // Listen for cache updates from BroadcastChannel

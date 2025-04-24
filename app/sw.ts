@@ -34,8 +34,6 @@ const serwist = new Serwist({
   },
 });
 
-// add all requests from
-
 // Configure fetch options for precache strategy
 serwist.precacheStrategy.fetchOptions = {
   // Force caching of responses
@@ -62,24 +60,11 @@ serwist.precacheStrategy.plugins.push(
     cacheWillUpdate: async ({ response }) => {
       // Only cache successful responses
       if (response.status === 200) {
+        console.log("cacheWillUpdate", response);
+
         return response;
       }
       return null;
-    },
-  },
-  // Plugin to modify cached response before use
-  {
-    cachedResponseWillBeUsed: async ({ cachedResponse }) => {
-      // Add custom header to cached response
-      const cachedRes = cachedResponse as Response;
-
-      const headers = new Headers(cachedRes.headers);
-      headers.set("X-Cached-Response", "true");
-      return new Response(cachedRes.body, {
-        status: cachedRes.status,
-        statusText: cachedRes.statusText,
-        headers,
-      });
     },
   },
   // Plugin to handle cache updates
@@ -97,33 +82,5 @@ serwist.precacheStrategy.plugins.push(
     },
   }
 );
-
-// Custom handler for precache strategy
-serwist.precacheStrategy.handle = async ({ request }) => {
-  try {
-    // Try to get response from cache first
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-
-    // If not in cache, fetch from network
-    const response = await fetch(request);
-
-    // Cache the response if successful
-    if (response.status === 200) {
-      const cache = await caches.open(serwist.precacheStrategy.cacheName);
-      await cache.put(request, response.clone());
-    }
-
-    return response;
-  } catch (error) {
-    // Return offline fallback if fetch fails
-    return new Response("Offline fallback content", {
-      status: 200,
-      headers: { "Content-Type": "text/plain" },
-    });
-  }
-};
 
 serwist.addEventListeners();

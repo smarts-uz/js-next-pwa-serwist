@@ -246,7 +246,6 @@ export function CacheAPIExample() {
         return;
       }
 
-      console.log("Retrieved article from cache:", await response.json());
     } catch (err) {
       console.error("Error retrieving article from cache:", err);
       setError("Failed to retrieve article from cache");
