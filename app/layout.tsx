@@ -45,10 +45,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head></head>
       <body className={inter.className + " dark"} suppressHydrationWarning>
-        <Suspense fallback={null}>
+        <Suspense fallback={<></>}>
           <YandexMetrika />
         </Suspense>
-        
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
