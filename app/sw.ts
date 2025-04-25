@@ -35,10 +35,10 @@ const serwist = new Serwist({
   },
 });
 
-self.addEventListener("activate", (event) => {
-  // TODO: Implement activate event
-  console.log("activate", event);
-  serwist.handleActivate(event);
+self.addEventListener("fetch", (event) => {
+  // use serwist handle the fetch event
+  console.log("fetch", event);
+  serwist.handleFetch(event);
 });
 
 serwist.addEventListeners();
