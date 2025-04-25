@@ -56,11 +56,13 @@ serwist.registerCapture(
   })
 );
 
-// Get the cache key for the offline page URL
-const offlineUrl = "http://localhost:3001/offline";
-const offlineCacheKey = serwist.getPrecacheKeyForUrl(offlineUrl);
+// Get all cache keys
+const allCacheKeys = serwist.getUrlsToPrecacheKeys();
+console.log("All cache keys:", allCacheKeys);
 
-// Log the cache key for debugging purposes
-console.log(`Cache key for offline page:`, offlineCacheKey);
+// Get a specific cache key for a URL
+const specificUrl = "http://localhost:3001/offline";
+const specificCacheKey = serwist.getPrecacheKeyForUrl(specificUrl);
+console.log(`Cache key for ${specificUrl}:`, specificCacheKey);
 
 serwist.addEventListeners();
