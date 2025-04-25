@@ -22,6 +22,7 @@ const serwist = new Serwist({
   runtimeCaching: defaultCache,
   offlineAnalyticsConfig: true,
   disableDevLogs: true,
+  importScripts: ["/custom-sw.js"],
   fallbacks: {
     entries: [
       {
@@ -34,22 +35,27 @@ const serwist = new Serwist({
   },
 });
 
-self.addEventListener("message", async (event) => {
-  if (event.data.action === "cache-on-demand") {
-    const cache = await caches.open("static-image-assets");
-    const isCached = await cache.match("images/cache-me-outside.jpg");
-    if (!isCached) {
-      const res = await fetch("images/cache-me-outside.jpg");
-      await cache.put("images/cache-me-outside.jpg", res);
-    }
-  }
-  event.ports[0].postMessage(true);
-});
+serwist.addToPrecacheList([
+  {
+    url: "/offline",
+    revision: crypto.randomUUID(),
+  },
+]);
 
-serwist.addEventListeners();
-// addEventListeners() {
-//   self.addEventListener("install", this.handleInstall);
-//   self.addEventListener("activate", this.handleActivate);
-//   self.addEventListener("fetch", this.handleFetch);
-//   self.addEventListener("message", this.handleCache);
-// }
+// const serwist = new Serwist(options);
+
+// const urlsToPrecache = ["/", "/foo", "/bar"] as const;
+
+// self.addEventListener("install", (event) => {
+//   const requestPromises = Promise.all(
+//     urlsToPrecache.map((entry) => {
+//       return serwist.handleRequest({ request: new Request(entry), event });
+//     }),
+//   );
+
+//   event.waitUntil(requestPromises);
+// });
+
+// serwist.addEventListeners();
+
+// serwist.addEventListeners();
