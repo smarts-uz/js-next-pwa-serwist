@@ -35,17 +35,10 @@ const serwist = new Serwist({
   },
 });
 
-const urlsToPrecache = ["/", "/offline", "/features/audio"] as const;
-
-self.addEventListener("install", (event) => {
-  const requestPromises = Promise.all(
-    urlsToPrecache.map((entry) => {
-      return serwist.handleRequest({ request: new Request(entry), event });
-    })
-  );
-
-  console.log("install", requestPromises);
-  event.waitUntil(requestPromises);
+self.addEventListener("activate", (event) => {
+  // TODO: Implement activate event
+  console.log("activate", event);
+  serwist.handleActivate(event);
 });
 
 serwist.addEventListeners();
