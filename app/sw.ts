@@ -1,10 +1,5 @@
 import { defaultCache } from "@serwist/next/worker";
-import type {
-  PrecacheEntry,
-  SerwistGlobalConfig,
-  Route,
-  HTTPMethod,
-} from "serwist";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
 
 declare global {
@@ -61,32 +56,12 @@ serwist.registerCapture(
   })
 );
 
-// Example of a route that caches API responses
-serwist.unregisterRoute({
-  method: "GET",
-  match: ({ url }) => url.pathname.startsWith("/"),
-  handler: {
-    handle: async ({ request, event }) => {
-      const cache = await caches.open("api-cache");
-      const cachedResponse = await cache.match(request);
+// Get all precached URLs and their corresponding cache keys
+const precacheMap = serwist.getUrlsToPrecacheKeys();
+const precachedUrls = serwist.getPrecachedUrls();
 
-      if (cachedResponse) return cachedResponse;
-
-      const response = await fetch(request);
-
-      if (response.ok) {
-        event.waitUntil(cache.put(request, response.clone()));
-      }
-
-      return response;
-    },
-  },
-  setCatchHandler: async () => {
-    return new Response(JSON.stringify({ error: "Service unavailable" }), {
-      status: 503,
-      headers: { "Content-Type": "application/json" },
-    });
-  },
-});
+// Log the mapping for debugging purposes
+console.log("Precached URLs and their cache keys:", precacheMap);
+console.log("All precached URLs:", precachedUrls);
 
 serwist.addEventListeners();
