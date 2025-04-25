@@ -34,10 +34,26 @@ const serwist = new Serwist({
   },
 });
 
-serwist.setCatchHandler(async ({ request }) => {
-  const cache = await caches.open("default-cache");
-  const cachedResponse = await cache.match(request);
-  return cachedResponse || Response.error();
-});
+import { CacheFirst } from "serwist";
 
-serwist.addEventListeners();
+serwist.registerCapture(
+  /^\/features\/.*$/,
+  new CacheFirst({
+    cacheName: "features-cache",
+    matchOptions: {
+      ignoreSearch: true,
+    },
+    plugins: [
+      {
+        cacheWillUpdate: async ({ response }) => {
+          if (response.status === 200) {
+            return response;
+          }
+          return null;
+        },
+      },
+    ],
+  })
+);
+
+// serwist.addEventListeners();
