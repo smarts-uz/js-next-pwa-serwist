@@ -13,6 +13,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import { Menu, Wifi, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -109,6 +110,11 @@ export function PWANavigation() {
             </Link>
           ))}
         </nav>
+        <SheetDescription className="hidden">
+          Smarts PWA is a progressive web application that provides a modern,
+          responsive interface for managing and accessing your smart home
+          devices and services.
+        </SheetDescription>
       </SheetContent>
     </Sheet>
   );
