@@ -34,28 +34,6 @@ const serwist = new Serwist({
   },
 });
 
-import { CacheFirst } from "serwist";
-
-serwist.registerCapture(
-  /^\/features\/.*$/,
-  new CacheFirst({
-    cacheName: "features-cache",
-    matchOptions: {
-      ignoreSearch: true,
-    },
-    plugins: [
-      {
-        cacheWillUpdate: async ({ response }) => {
-          if (response.status === 200) {
-            return response;
-          }
-          return null;
-        },
-      },
-    ],
-  })
-);
-
 // Get all cache keys
 const allCacheKeys = serwist.getUrlsToPrecacheKeys();
 console.log("All cache keys:", allCacheKeys);
