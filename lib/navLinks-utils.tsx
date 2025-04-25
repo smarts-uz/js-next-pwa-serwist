@@ -26,6 +26,7 @@ import {
   Copy,
   Zap,
   FileCheck,
+  Download,
 } from "lucide-react";
 
 interface NavItem {
@@ -169,6 +170,12 @@ export const navItems: NavItem[] = [
     title: "Cacheable Response",
     href: "/features/cacheable-response",
     icon: <CheckCircle2 className="h-4 w-4" />,
+    category: "Storage & Network",
+  },
+  {
+    title: "Cache On Demand",
+    href: "/features/cache-on-demand",
+    icon: <Download className="h-4 w-4" />,
     category: "Storage & Network",
   },
   {

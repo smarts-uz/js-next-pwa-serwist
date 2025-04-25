@@ -35,10 +35,32 @@ const serwist = new Serwist({
   },
 });
 
-self.addEventListener("fetch", (event) => {
-  // use serwist handle the fetch event
-  console.log("fetch", event);
-  serwist.handleFetch(event);
+// Add message event listener to handle cache requests
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "CACHE_URLS") {
+    // Pass the actual event to handleCache
+    console.log("event", event);
+    serwist.handleCache(event);
+  }
+});
+
+// Manually trigger caching important URLs
+self.clients.matchAll().then((clients) => {
+  if (clients && clients.length > 0) {
+    console.log("clients", clients);
+    clients[0].postMessage({
+      type: "CACHE_URLS",
+      payload: {
+        urlsToCache: [
+          "/",
+          "/offline",
+          "/manifest.json",
+          "/favicon.ico",
+          "/images/logo.png",
+        ],
+      },
+    });
+  }
 });
 
 serwist.addEventListeners();
