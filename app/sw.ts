@@ -34,17 +34,10 @@ const serwist = new Serwist({
   },
 });
 
-// set default handler
-serwist.setDefaultHandler(async ({ request }) => {
-  // Simple network-first strategy example
-  try {
-    const response = await fetch(request);
-    return response;
-  } catch (error) {
-    const cache = await caches.open("default-cache");
-    const cachedResponse = await cache.match(request);
-    return cachedResponse || Response.error();
-  }
+serwist.setCatchHandler(async ({ request }) => {
+  const cache = await caches.open("default-cache");
+  const cachedResponse = await cache.match(request);
+  return cachedResponse || Response.error();
 });
 
 serwist.addEventListeners();
