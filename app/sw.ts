@@ -35,27 +35,17 @@ const serwist = new Serwist({
   },
 });
 
-serwist.addToPrecacheList([
-  {
-    url: "/offline",
-    revision: crypto.randomUUID(),
-  },
-]);
+const urlsToPrecache = ["/", "/offline", "/features/audio"] as const;
 
-// const serwist = new Serwist(options);
+self.addEventListener("install", (event) => {
+  const requestPromises = Promise.all(
+    urlsToPrecache.map((entry) => {
+      return serwist.handleRequest({ request: new Request(entry), event });
+    })
+  );
 
-// const urlsToPrecache = ["/", "/foo", "/bar"] as const;
+  console.log("install", requestPromises);
+  event.waitUntil(requestPromises);
+});
 
-// self.addEventListener("install", (event) => {
-//   const requestPromises = Promise.all(
-//     urlsToPrecache.map((entry) => {
-//       return serwist.handleRequest({ request: new Request(entry), event });
-//     }),
-//   );
-
-//   event.waitUntil(requestPromises);
-// });
-
-// serwist.addEventListeners();
-
-// serwist.addEventListeners();
+serwist.addEventListeners();
