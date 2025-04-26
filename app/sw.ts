@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { NavigationRoute, Serwist } from "serwist";
+import { Serwist, NetworkFirst, RegExpRoute } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -12,41 +12,32 @@ declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
-  // precacheOptions: {
-  //   cleanupOutdatedCaches: true,
-  // },
-  // skipWaiting: true,
-  // clientsClaim: true,
-  // navigationPreload: true,
+  precacheOptions: {
+    cleanupOutdatedCaches: true,
+  },
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
   runtimeCaching: [...defaultCache],
-  // offlineAnalyticsConfig: true,
-  // disableDevLogs: true,
-  // importScripts: ["/custom-sw.js"],
-  // fallbacks: {
-  //   entries: [
-  //     {
-  //       url: "/offline",
-  //       matcher({ request }) {
-  //         return request.destination === "document";
-  //       },
-  //     },
-  //   ],
-  // },
+  offlineAnalyticsConfig: true,
+  disableDevLogs: true,
+  importScripts: ["/custom-sw.js"],
+  fallbacks: {
+    entries: [
+      {
+        url: "/offline",
+        matcher({ request }) {
+          return request.destination === "document";
+        },
+      },
+    ],
+  },
 });
 
-// get all urls from serwist & log them
-const urls = serwist.getPrecachedUrls();
-console.log(urls);
-
 const result = serwist.registerRoute(
-  new NavigationRoute(
-    serwist.createHandlerBoundToUrl("http://localhost:3001/offline"),
-    {
-      allowlist: [],
-      denylist: [],
-    }
-  )
+  new RegExpRoute(/^\/api\/.*/, new NetworkFirst(), "POST")
 );
-console.log(result);
+
+console.log("result", result);
 
 serwist.addEventListeners();
