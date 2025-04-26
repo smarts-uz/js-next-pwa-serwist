@@ -34,9 +34,13 @@ const serwist = new Serwist({
   },
 });
 
-// create handler bound for url example
-const handler = serwist.createHandlerBoundToUrl("/offline");
-// log the handler
-console.log(handler);
+
+self.addEventListener("install", async (event) => {
+  const response = await serwist.handleRequest({
+    request: new Request("/offline"),
+    event,
+  });
+  console.log("response", response);
+});
 
 serwist.addEventListeners();
