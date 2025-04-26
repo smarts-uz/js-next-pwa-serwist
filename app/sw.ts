@@ -34,8 +34,15 @@ const serwist = new Serwist({
   },
 });
 
-// find matching route
-const matchingRoute = await serwist.matchPrecache("/offline");
+// find matching route example
+// Type 'string' is not assignable to type 'URL'.
+const matchingRoute = serwist.findMatchingRoute({
+  url: new URL("http://localhost:3001/offline"),
+  sameOrigin: true,
+  request: new Request("/offline"),
+  event: new ExtendableEvent("install"),
+});
+
 console.log("matchingRoute", matchingRoute);
 
 serwist.addEventListeners();
