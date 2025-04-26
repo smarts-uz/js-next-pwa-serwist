@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist, NetworkOnly } from "serwist";
+import { Serwist, NetworkOnly, StaleWhileRevalidate } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -21,8 +21,8 @@ const serwist = new Serwist({
   runtimeCaching: [
     ...defaultCache,
     {
-      matcher: ({ request }) => request.destination === "document",
-      handler: new NetworkOnly({ networkTimeoutSeconds: 10 }),
+      matcher: ({ request }) => request.destination === "style",
+      handler: new StaleWhileRevalidate(),
     },
   ],
   offlineAnalyticsConfig: true,
