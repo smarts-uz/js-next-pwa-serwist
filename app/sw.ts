@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist, NetworkFirst, RegExpRoute } from "serwist";
+import { CacheFirst, Route, Serwist } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -35,7 +35,9 @@ const serwist = new Serwist({
 });
 
 const result = serwist.registerRoute(
-  new RegExpRoute(/^\/api\/.*/, new NetworkFirst(), "POST")
+  new Route(({ request, sameOrigin }) => {
+    return sameOrigin && request.destination === "image";
+  }, new CacheFirst())
 );
 
 console.log("result", result);
