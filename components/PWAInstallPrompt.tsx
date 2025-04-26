@@ -72,7 +72,7 @@ export default function PWAInstallPrompt() {
   return (
     <Button
       onClick={handleInstallClick}
-      className="animate-pulse"
+      className="animate-pulse "
       aria-label="Install application"
     >
       <Download className="mr-2 h-4 w-4" />
