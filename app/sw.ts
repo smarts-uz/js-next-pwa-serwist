@@ -10,34 +10,34 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
-const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
-  precacheOptions: {
-    cleanupOutdatedCaches: true,
-  },
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: [
-    ...defaultCache,
-    {
-      matcher: ({ request }) => request.destination === "style",
-      handler: new CacheFirst(),
-    },
-  ],
-  offlineAnalyticsConfig: true,
-  disableDevLogs: true,
-  importScripts: ["/custom-sw.js"],
-  fallbacks: {
-    entries: [
-      {
-        url: "/offline",
-        matcher({ request }) {
-          return request.destination === "document";
-        },
-      },
-    ],
-  },
-});
+// const serwist = new Serwist({
+//   precacheEntries: self.__SW_MANIFEST,
+//   precacheOptions: {
+//     cleanupOutdatedCaches: true,
+//   },
+//   skipWaiting: true,
+//   clientsClaim: true,
+//   navigationPreload: true,
+//   runtimeCaching: [...defaultCache],
+//   offlineAnalyticsConfig: true,
+//   disableDevLogs: true,
+//   importScripts: ["/custom-sw.js"],
+//   fallbacks: {
+//     entries: [
+//       {
+//         url: "/offline",
+//         matcher({ request }) {
+//           return request.destination === "document";
+//         },
+//       },
+//     ],
+//   },
+// });
+const serwist = new Serwist({ precacheEntries: self.__SW_MANIFEST });
+
+serwist.registerCapture(({ request, sameOrigin }) => {
+  console.log("request", request);
+  return sameOrigin && request.destination === "document";
+}, new CacheFirst());
 
 serwist.addEventListeners();
