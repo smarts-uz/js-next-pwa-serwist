@@ -61,7 +61,7 @@ export function PWANavigation() {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="w-[280px] sm:w-[350px] overflow-y-auto"
+        className="w-80 pb-4 bg-opacity-90 backdrop-blur-md sm:w-96 overflow-y-auto"
       >
         <SheetHeader className="border-b pb-4 mb-4">
           <SheetTitle className="text-left flex items-center">

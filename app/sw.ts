@@ -35,13 +35,20 @@ const serwist = new Serwist({
 });
 
 // create a storable request example
-
-const request = new Request("/offline");
-const storableRequest = await StorableRequest.fromRequest(request);
-
-const objectRequest = storableRequest.toObject();
-console.log("objectRequest", objectRequest);
-const parsedRequest = new StorableRequest(objectRequest).toRequest();
-console.log("parsedRequest", parsedRequest);
+// wrap in a listener
+// The code example is demonstrating how to serialize/deserialize a Request object:
+// Convert a Request to a StorableRequest
+// Convert to a plain object (which can be stored in IndexedDB)
+// Later reconstruct the original Request from the stored data
+// This pattern enables reliable handling of network operations in offline-first Progressive Web Apps.
+self.addEventListener("install", async () => {
+  const request = new Request("/offline");
+  const storableRequest = await StorableRequest.fromRequest(request);
+  console.log("storableRequest", storableRequest);
+  const objectRequest = storableRequest.toObject();
+  console.log("objectRequest", objectRequest);
+  const parsedRequest = new StorableRequest(objectRequest).toRequest();
+  console.log("parsedRequest", parsedRequest);
+});
 
 serwist.addEventListeners();

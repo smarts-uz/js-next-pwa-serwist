@@ -1,30 +1,37 @@
 import {
-  FileText,
   MapPin,
-  Database,
-  Wifi,
-  Link,
-  Bell,
-  Smartphone,
-  Camera,
+  LinkIcon,
   ArrowRightLeft,
-  Lock,
-  Share,
+  Camera,
   Vibrate,
   AudioLines,
-  CloudCog,
-  Package,
   Bluetooth,
+  Power,
+  Smartphone,
+  Activity,
+  Mic,
+  RefreshCw,
+  Radio,
+  Clock,
+  CheckCircle2,
+  Copy,
   Zap,
+  FileCheck,
+  Download,
+  FileText,
+  Package,
+  CloudCog,
+  Lock,
+  Share,
+  Hand,
+  Volume2,
+  Wifi,
+  Bell,
   Shield,
   Server,
-  Power,
-  Hand,
-  Mic,
-  Volume2,
 } from "lucide-react";
 
-// Feature categories and items
+// Web API feature categories and items
 export const featureCategories = [
   {
     title: "Device Features",
@@ -43,10 +50,22 @@ export const featureCategories = [
         href: "/features/screen-wake-lock",
       },
       {
-        title: "Media Capture",
-        description: "Access device camera and media features",
-        icon: Camera,
-        href: "/features/media-capture",
+        title: "Device Orientation",
+        description: "Detect device orientation changes and positioning",
+        icon: Smartphone,
+        href: "/features/device-orientation",
+      },
+      {
+        title: "Device Motion",
+        description: "Track acceleration and rotation rate of the device",
+        icon: Activity,
+        href: "/features/device-motion",
+      },
+      {
+        title: "Vibration",
+        description: "Provide haptic feedback",
+        icon: Vibrate,
+        href: "/features/vibration",
       },
       {
         title: "Geolocation",
@@ -55,10 +74,10 @@ export const featureCategories = [
         href: "/features/geolocation",
       },
       {
-        title: "Vibration",
-        description: "Provide haptic feedback",
-        icon: Vibrate,
-        href: "/features/vibration",
+        title: "Media Capture",
+        description: "Access device camera and media features",
+        icon: Camera,
+        href: "/features/media-capture",
       },
       {
         title: "Touch Events",
@@ -83,12 +102,6 @@ export const featureCategories = [
   {
     title: "Storage & Data",
     features: [
-      {
-        title: "Local Storage",
-        description: "Interactive data persistence in the browser",
-        icon: Database,
-        href: "/features/local-storage",
-      },
       {
         title: "Storage",
         description: "Advanced storage solutions",
@@ -115,7 +128,7 @@ export const featureCategories = [
       {
         title: "Protocol Handler",
         description: "Register as a handler for custom protocols",
-        icon: Link,
+        icon: LinkIcon,
         href: "/features/protocol-handler",
       },
       {
@@ -123,6 +136,55 @@ export const featureCategories = [
         description: "Download resources in the background",
         icon: CloudCog,
         href: "/features/background-fetch",
+      },
+      {
+        title: "Background Sync",
+        description: "Defer actions until user has stable connectivity",
+        icon: RefreshCw,
+        href: "/features/background-sync",
+      },
+      {
+        title: "Broadcast Updates",
+        description: "Communicate between tabs or service workers",
+        icon: Radio,
+        href: "/features/broadcast",
+      },
+      {
+        title: "Cache Expiration",
+        description: "Set expiration dates for cached content",
+        icon: Clock,
+        href: "/features/cache-expiration",
+      },
+      {
+        title: "Cacheable Response",
+        description: "Define which responses should be cached",
+        icon: CheckCircle2,
+        href: "/features/cacheable-response",
+      },
+      {
+        title: "Cache On Demand",
+        description: "Cache resources on user request for offline use",
+        icon: Download,
+        href: "/features/cache-on-demand",
+      },
+      {
+        title: "Copy Response",
+        description: "Create copies of request responses for future use",
+        icon: Copy,
+        href: "/features/copy-response",
+      },
+      {
+        title: "Navigation Preload",
+        description:
+          "Speed up service worker activation with preloaded content",
+        icon: Zap,
+        href: "/features/navigation-preload",
+      },
+      {
+        title: "Same Response",
+        description: "Return the same response for multiple requests",
+        icon: FileCheck,
+        href: "/features/same-response",
       },
     ],
   },
