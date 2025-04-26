@@ -17,7 +17,8 @@ export default function PWAInstallPrompt() {
 
     // Listen for the beforeinstallprompt event
     const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
+      // Don't prevent default here to allow the banner to show
+      // Store the event for later use
       setDeferredPrompt(e);
       setIsInstallable(true);
     };
@@ -69,7 +70,11 @@ export default function PWAInstallPrompt() {
   }
 
   return (
-    <Button onClick={handleInstallClick} className="animate-pulse">
+    <Button
+      onClick={handleInstallClick}
+      className="animate-pulse"
+      aria-label="Install application"
+    >
       <Download className="mr-2 h-4 w-4" />
       Install App
     </Button>

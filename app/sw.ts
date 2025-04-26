@@ -33,14 +33,12 @@ const serwist = new Serwist({
     ],
   },
 });
-
-// Get all cache keys
-const allCacheKeys = serwist.getUrlsToPrecacheKeys();
-console.log("All cache keys:", allCacheKeys);
-
-// Get a specific cache key for a URL
-const specificUrl = "http://localhost:3001/offline";
-const specificCacheKey = serwist.getPrecacheKeyForUrl(specificUrl);
-console.log(`Cache key for ${specificUrl}:`, specificCacheKey);
-
 serwist.addEventListeners();
+
+// Example of using matchPrecache to check if a resource is precached
+const offlinePage = await serwist.matchPrecache("/offline");
+if (offlinePage) {
+  console.log("Offline page is precached and available");
+} else {
+  console.log("Offline page is not precached");
+}
