@@ -33,12 +33,10 @@ const serwist = new Serwist({
     ],
   },
 });
-serwist.addEventListeners();
 
-// Example of using matchPrecache to check if a resource is precached
-const offlinePage = await serwist.matchPrecache("/offline");
-if (offlinePage) {
-  console.log("Offline page is precached and available");
-} else {
-  console.log("Offline page is not precached");
-}
+// create handler bound for url example
+const handler = serwist.createHandlerBoundToUrl("/offline");
+// log the handler
+console.log(handler);
+
+serwist.addEventListeners();
