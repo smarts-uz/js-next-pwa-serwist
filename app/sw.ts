@@ -34,13 +34,8 @@ const serwist = new Serwist({
   },
 });
 
-
-self.addEventListener("install", async (event) => {
-  const response = await serwist.handleRequest({
-    request: new Request("/offline"),
-    event,
-  });
-  console.log("response", response);
-});
+// find matching route
+const matchingRoute = await serwist.matchPrecache("/offline");
+console.log("matchingRoute", matchingRoute);
 
 serwist.addEventListeners();
