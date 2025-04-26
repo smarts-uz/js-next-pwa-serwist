@@ -31,7 +31,7 @@ const SpeechSynthesisPage = () => {
   const [voices, setVoices] = useState<Voice[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<string>("");
   const [text, setText] = useState(
-    "Hello! This is a demonstration of the Web Speech Synthesis API. You can type any text here and have it read aloud.",
+    "Hello! This is a demonstration of the Web Speech Synthesis API. You can type any text here and have it read aloud."
   );
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [rate, setRate] = useState(1);
@@ -100,7 +100,7 @@ const SpeechSynthesisPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <>
       <div className="text-center space-y-2 mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">Speech Synthesis API</h1>
         <p className="text-sm sm:text-base text-muted-foreground">
@@ -298,7 +298,7 @@ const SpeechSynthesisPage = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 };
 

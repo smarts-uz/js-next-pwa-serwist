@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   return (
-    <main className="container mx-auto p-4 max-w-5xl">
+    <>
       <h1 className="text-4xl font-bold mb-8 text-center">
         Next.js PWA Example
       </h1>
@@ -82,6 +82,6 @@ export default function Home() {
           </Card>
         </TabsContent>
       </Tabs>
-    </main>
+    </>
   );
 }

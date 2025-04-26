@@ -110,7 +110,7 @@ const ScreenWakeLockPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <>
       <div className="text-center space-y-2 mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">Screen Wake Lock API</h1>
         <p className="text-sm sm:text-base text-muted-foreground">
@@ -297,7 +297,7 @@ const ScreenWakeLockPage = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 };
 

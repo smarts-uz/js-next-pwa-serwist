@@ -13,7 +13,7 @@ import { featureCategories, benefits } from "./features";
 
 export default function Home() {
   return (
-    <main className="container mx-auto p-4 max-w-5xl">
+    <>
       <div className="flex flex-col items-center justify-center mb-8 text-center">
         <h1 className="text-4xl font-bold mb-2">Next.js Serwist PWA</h1>
         <p className="text-muted-foreground mb-4">
@@ -74,6 +74,6 @@ export default function Home() {
           ))}
         </CardContent>
       </Card>
-    </main>
+    </>
   );
 }

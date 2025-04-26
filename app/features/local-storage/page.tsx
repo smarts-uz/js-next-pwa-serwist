@@ -11,7 +11,7 @@ import LocalStorageManager from "@/components/LocalStorageManager";
 
 export default function LocalStoragePage() {
   return (
-    <main className="container mx-auto p-4 max-w-4xl">
+    <>
       <h1 className="text-3xl font-bold mb-6">Interactive Local Storage</h1>
 
       <Card className="mb-8">
@@ -55,6 +55,6 @@ export default function LocalStoragePage() {
           </p>
         </CardContent>
       </Card>
-    </main>
+    </>
   );
 }

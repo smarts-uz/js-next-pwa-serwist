@@ -75,7 +75,7 @@ export default function WebBluetoothPage() {
   const [isScanning, setIsScanning] = useState(false);
   const [isConnecting, setIsConnecting] = useState<string | null>(null);
   const [selectedDevice, setSelectedDevice] = useState<BluetoothDevice | null>(
-    null,
+    null
   );
 
   const scanDevices = async () => {
@@ -102,7 +102,7 @@ export default function WebBluetoothPage() {
       setDevices((prev) => [...prev, newDevice]);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to scan for devices",
+        err instanceof Error ? err.message : "Failed to scan for devices"
       );
     } finally {
       setIsScanning(false);
@@ -111,11 +111,12 @@ export default function WebBluetoothPage() {
 
   const readCharacteristic = async (
     service: any,
-    characteristicUUID: string,
+    characteristicUUID: string
   ) => {
     try {
-      const characteristic =
-        await service.getCharacteristic(characteristicUUID);
+      const characteristic = await service.getCharacteristic(
+        characteristicUUID
+      );
       const value = await characteristic.readValue();
       return new TextDecoder().decode(value);
     } catch (err) {
@@ -154,7 +155,7 @@ export default function WebBluetoothPage() {
               // Generic Access service
               const deviceName = await readCharacteristic(
                 service,
-                CHARACTERISTICS.DEVICE_NAME,
+                CHARACTERISTICS.DEVICE_NAME
               );
               if (deviceName) {
                 characteristics.push({
@@ -190,15 +191,15 @@ export default function WebBluetoothPage() {
       };
 
       setDevices((prev) =>
-        prev.map((d) => (d.id === deviceId ? updatedDevice : d)),
+        prev.map((d) => (d.id === deviceId ? updatedDevice : d))
       );
       setSelectedDevice(updatedDevice);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to connect to device",
+        err instanceof Error ? err.message : "Failed to connect to device"
       );
       setDevices((prev) =>
-        prev.map((d) => (d.id === deviceId ? { ...d, connected: false } : d)),
+        prev.map((d) => (d.id === deviceId ? { ...d, connected: false } : d))
       );
       setSelectedDevice(null);
     } finally {
@@ -212,7 +213,7 @@ export default function WebBluetoothPage() {
       if (deviceToDisconnect?.device?.gatt?.connected) {
         await deviceToDisconnect.device.gatt.disconnect();
         setDevices((prev) =>
-          prev.map((d) => (d.id === deviceId ? { ...d, connected: false } : d)),
+          prev.map((d) => (d.id === deviceId ? { ...d, connected: false } : d))
         );
         setSelectedDevice(null);
       }
@@ -222,7 +223,7 @@ export default function WebBluetoothPage() {
   };
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 space-y-4 sm:space-y-6">
+    <>
       <div className="text-center space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold">Web Bluetooth</h1>
         <p className="text-sm sm:text-base text-muted-foreground">
@@ -381,7 +382,7 @@ export default function WebBluetoothPage() {
                                       </p>
                                       {char.value && <p>Value: {char.value}</p>}
                                     </div>
-                                  ),
+                                  )
                                 )}
                               </div>
                             )}
@@ -433,6 +434,6 @@ export default function WebBluetoothPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 }

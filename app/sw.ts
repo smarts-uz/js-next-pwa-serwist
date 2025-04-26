@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
+import { Serwist, StorableRequest } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -34,15 +34,14 @@ const serwist = new Serwist({
   },
 });
 
-// find matching route example
-// Type 'string' is not assignable to type 'URL'.
-const matchingRoute = serwist.findMatchingRoute({
-  url: new URL("http://localhost:3001/offline"),
-  sameOrigin: true,
-  request: new Request("/offline"),
-  event: new ExtendableEvent("install"),
-});
+// create a storable request example
 
-console.log("matchingRoute", matchingRoute);
+const request = new Request("/offline");
+const storableRequest = await StorableRequest.fromRequest(request);
+
+const objectRequest = storableRequest.toObject();
+console.log("objectRequest", objectRequest);
+const parsedRequest = new StorableRequest(objectRequest).toRequest();
+console.log("parsedRequest", parsedRequest);
 
 serwist.addEventListeners();

@@ -10,7 +10,7 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
   return (
     <div className="min-h-screen flex flex-col">
       <PWANavigation />
-      <main className="container mx-auto p-4 max-w-4xl flex-1">{children}</main>
+      <main className="container mx-auto p-4 flex-1">{children}</main>
       <footer className="border-t py-4 text-center text-sm text-muted-foreground">
         <p>
           Next.js PWA Example created by{" "}

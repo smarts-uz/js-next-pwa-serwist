@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function BackgroundFetchPage() {
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-12">
+    <>
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="space-y-4">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
@@ -226,6 +226,6 @@ export default function BackgroundFetchPage() {
           </Card>
         </section>
       </div>
-    </div>
+    </>
   );
 }

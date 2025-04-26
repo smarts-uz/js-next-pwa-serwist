@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function StorageAPIPage() {
   return (
-    <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 lg:py-12 max-w-[1400px]">
+    <>
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="space-y-4 w-full md:w-auto">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -346,6 +346,6 @@ export default function StorageAPIPage() {
           </Card>
         </section>
       </div>
-    </div>
+    </>
   );
 }

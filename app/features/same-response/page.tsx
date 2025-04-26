@@ -9,7 +9,7 @@ import ResponsesAreSameExample from "@/components/ResponsesAreSameExample";
 
 const SameResponsePage = () => {
   return (
-    <div className="container mx-auto p-4 max-w-5xl">
+    <>
       <Card>
         <CardHeader>
           <CardTitle>Compare Responses</CardTitle>
@@ -22,7 +22,7 @@ const SameResponsePage = () => {
           <ResponsesAreSameExample />
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 };
 

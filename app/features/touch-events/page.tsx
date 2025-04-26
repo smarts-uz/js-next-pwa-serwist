@@ -12,7 +12,7 @@ export default function TouchEventsFeature() {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <>
       <h1 className="text-2xl font-bold mb-4">Multi Touch Demo</h1>
 
       {!isSupported && (
@@ -70,6 +70,6 @@ export default function TouchEventsFeature() {
           </ul>
         </div>
       </div>
-    </div>
+    </>
   );
 }

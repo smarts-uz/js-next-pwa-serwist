@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function WebSharePage() {
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <>
       <div className="space-y-4">
         <div>
           <h1 className="text-4xl font-bold tracking-tight">Web Share API</h1>
@@ -197,6 +197,6 @@ await navigator.share({
           </Card>
         </div>
       </div>
-    </div>
+    </>
   );
 }

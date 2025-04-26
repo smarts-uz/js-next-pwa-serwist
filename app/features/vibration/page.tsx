@@ -13,7 +13,7 @@ import { Info } from "lucide-react";
 
 const VibrationPage: React.FC = () => {
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <>
       <div className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">Vibration API</h1>
         <p className="text-muted-foreground">
@@ -78,7 +78,7 @@ const VibrationPage: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 };
 

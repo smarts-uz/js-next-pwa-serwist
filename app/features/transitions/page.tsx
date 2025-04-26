@@ -267,7 +267,7 @@ const TransitionsPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
@@ -541,7 +541,7 @@ document.startViewTransition(() => {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 };
 

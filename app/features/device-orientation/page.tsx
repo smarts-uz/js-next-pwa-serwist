@@ -97,7 +97,7 @@ const DeviceOrientationPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <>
       <div className="text-center space-y-2 mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">
           Device Orientation API
@@ -302,7 +302,7 @@ const DeviceOrientationPage = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 };
 

@@ -59,7 +59,7 @@ declare global {
 const SpeechRecognitionPage = () => {
   const [isSupported, setIsSupported] = useState(false);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(
-    null,
+    null
   );
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -176,7 +176,7 @@ const SpeechRecognitionPage = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <>
       <div className="text-center space-y-2 mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">
           Speech Recognition API
@@ -372,7 +372,7 @@ const SpeechRecognitionPage = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 };
 

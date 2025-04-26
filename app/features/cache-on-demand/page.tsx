@@ -4,7 +4,7 @@ import CacheUrlsExample from "./components/CacheUrlsExample";
 
 export default function Page() {
   return (
-    <main className="container mx-auto p-4 max-w-4xl space-y-6">
+    <>
       <CacheOnDemandExample />
       <CacheUrlsExample />
       <Card>
@@ -24,6 +24,6 @@ export default function Page() {
           </ul>
         </CardContent>
       </Card>
-    </main>
+    </>
   );
 }
