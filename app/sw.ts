@@ -21,7 +21,7 @@ const serwist = new Serwist({
   runtimeCaching: [
     ...defaultCache,
     {
-      matcher: ({ url }) => url.pathname.startsWith("/"),
+      matcher: ({ request }) => request.destination === "document",
       handler: new NetworkFirst({ networkTimeoutSeconds: 10 }),
     },
   ],
