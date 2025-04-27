@@ -1,10 +1,5 @@
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import {
-  Serwist,
-  ExpirationPlugin,
-  CacheFirst,
-  StaleWhileRevalidate,
-} from "serwist";
+import { Serwist, PrecacheFallbackPlugin, NetworkOnly } from "serwist";
 import { defaultCache } from "@serwist/next/worker";
 
 declare global {
@@ -16,34 +11,16 @@ declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
-  // precacheOptions: {
-  //   cleanupOutdatedCaches: true,
-  // },
+  precacheOptions: {
+    cleanupOutdatedCaches: true,
+  },
   skipWaiting: true,
   clientsClaim: true,
-  // navigationPreload: true,
-  runtimeCaching: [
-    {
-      matcher: ({ url }) => url.pathname.includes("api"),
-      handler: new StaleWhileRevalidate({
-        cacheName: "my-api-cache",
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 2,
-            maxAgeSeconds: 6, // Changed from 5 to 6 seconds
-            purgeOnQuotaError: true,
-            maxAgeFrom: "last-fetched",
-            matchOptions: {
-              ignoreVary: true,
-            },
-          }),
-        ],
-      }),
-    },
-  ],
-  // offlineAnalyticsConfig: true,
+  navigationPreload: true,
+
+  offlineAnalyticsConfig: true,
   // disableDevLogs: true,
-  // importScripts: ["/custom-sw.js"],
+  importScripts: ["/custom-sw.js"],
   // fallbacks: {
   //   entries: [
   //     {
@@ -56,6 +33,16 @@ const serwist = new Serwist({
   // },
 });
 
-// add an event listener to check when cache is deleted
+serwist.registerCapture(
+  /^\/$/,
+  new NetworkOnly({
+    plugins: [
+      new PrecacheFallbackPlugin({
+        fallbackUrls: ["/offline"],
+        serwist,
+      }),
+    ],
+  })
+);
 
 serwist.addEventListeners();

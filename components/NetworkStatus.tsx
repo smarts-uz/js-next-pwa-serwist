@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Wifi, WifiOff } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { useRouter } from "next/navigation";
 interface NetworkStatusProps {
   className?: string;
 }
 
 export default function NetworkStatus({ className }: NetworkStatusProps) {
   const [isOnline, setIsOnline] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     // Set initial state
@@ -18,7 +19,10 @@ export default function NetworkStatus({ className }: NetworkStatusProps) {
 
     // Add event listeners
     const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
+    const handleOffline = () => {
+      setIsOnline(false);
+      router.push("/offline");
+    };
 
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
@@ -27,7 +31,7 @@ export default function NetworkStatus({ className }: NetworkStatusProps) {
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };
-  }, []);
+  }, [router]);
 
   return (
     <Card
