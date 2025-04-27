@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const status = parseInt(searchParams.get("status") || "200");
+  const requestUrl = request.url;
+
+  console.log(`Processing request to ${requestUrl} with status ${status}`);
 
   const messages = {
     200: "This is a successful response with a valid API key that will be cached",
@@ -27,17 +30,25 @@ export async function GET(request: NextRequest) {
     apiKey: status === 200 ? apiKey : null,
     expiresIn: status === 200 ? "1 minute" : null,
     isExpired: false,
+    requestUrl,
+    cacheInfo: {
+      isCacheable: status === 200,
+      possibleCacheKey: "/api/test-response?status=200"
+    }
   };
+
+  console.log(`Responding with status ${status}, timestamp ${timestamp}`);
 
   return NextResponse.json(responseBody, {
     status,
     headers: {
       "X-Serwist-Broadcast-Update": "true",
-      "X-Is-Cacheable": "false",
+      "X-Is-Cacheable": status === 200 ? "true" : "false",
       "X-Response-Status": status.toString(),
       "X-API-Key": responseBody.apiKey || "",
       "X-Timestamp": timestamp.toString(),
       "X-Expires-At": expiresAt.toString(),
+      "Cache-Control": status === 200 ? "max-age=60" : "no-store"
     },
   });
 }
