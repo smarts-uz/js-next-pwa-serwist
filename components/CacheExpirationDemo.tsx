@@ -48,9 +48,9 @@ export function CacheExpirationDemo() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     if (!cacheStatus) return;

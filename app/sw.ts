@@ -1,7 +1,8 @@
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import {
-  CacheableResponsePlugin,
   Serwist,
+  ExpirationPlugin,
+  CacheFirst,
   StaleWhileRevalidate,
 } from "serwist";
 import { defaultCache } from "@serwist/next/worker";
@@ -11,7 +12,6 @@ declare global {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }
-
 declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
@@ -26,11 +26,15 @@ const serwist = new Serwist({
     {
       matcher: ({ url }) => url.pathname.includes("api"),
       handler: new StaleWhileRevalidate({
+        cacheName: "my-api-cache",
         plugins: [
-          new CacheableResponsePlugin({
-            statuses: [0, 200],
-            headers: {
-              "X-Is-Cacheable": "true",
+          new ExpirationPlugin({
+            maxEntries: 2,
+            maxAgeSeconds: 6, // Changed from 5 to 6 seconds
+            purgeOnQuotaError: true,
+            maxAgeFrom: "last-fetched",
+            matchOptions: {
+              ignoreVary: true,
             },
           }),
         ],
@@ -51,5 +55,7 @@ const serwist = new Serwist({
   //   ],
   // },
 });
+
+// add an event listener to check when cache is deleted
 
 serwist.addEventListeners();
