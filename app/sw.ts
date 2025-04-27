@@ -1,5 +1,10 @@
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist, BroadcastUpdatePlugin, StaleWhileRevalidate } from "serwist";
+import {
+  CacheableResponsePlugin,
+  Serwist,
+  StaleWhileRevalidate,
+} from "serwist";
+import { defaultCache } from "@serwist/next/worker";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -14,13 +19,24 @@ const serwist = new Serwist({
   // precacheOptions: {
   //   cleanupOutdatedCaches: true,
   // },
-  // skipWaiting: true,
-  // clientsClaim: true,
+  skipWaiting: true,
+  clientsClaim: true,
   // navigationPreload: true,
-  // runtimeCaching: [
-  //   ...defaultCache,
-
-  // ],
+  runtimeCaching: [
+    {
+      matcher: ({ url }) => url.pathname.includes("api"),
+      handler: new StaleWhileRevalidate({
+        plugins: [
+          new CacheableResponsePlugin({
+            statuses: [0, 200],
+            headers: {
+              "X-Is-Cacheable": "true",
+            },
+          }),
+        ],
+      }),
+    },
+  ],
   // offlineAnalyticsConfig: true,
   // disableDevLogs: true,
   // importScripts: ["/custom-sw.js"],
@@ -34,41 +50,6 @@ const serwist = new Serwist({
   //     },
   //   ],
   // },
-});
-
-serwist.registerCapture(
-  ({ url }) => url.pathname.includes("/api/"),
-  new StaleWhileRevalidate({
-    plugins: [new BroadcastUpdatePlugin()],
-  })
-);
-
-self.addEventListener("message", async (event) => {
-  // Optional: ensure the message came from Serwist
-  console.log(event.data);
-  if (
-    event.data?.meta === "serwist-broadcast-update" &&
-    event.data?.type === "CACHE_UPDATED"
-  ) {
-    const { cacheName, updatedURL } = event.data.payload || {};
-    console.log(cacheName, updatedURL);
-    // Do something with cacheName and updatedURL.
-    // For example, get the cached content and update
-    // the content on the page.
-
-    if (!cacheName || !updatedURL) {
-      return;
-    }
-
-    const cache = await caches.open(cacheName);
-    const updatedResponse = await cache.match(updatedURL);
-    if (!updatedResponse) {
-      return;
-    }
-
-    const updatedText = await updatedResponse.text();
-    console.log(updatedText);
-  }
 });
 
 serwist.addEventListeners();
