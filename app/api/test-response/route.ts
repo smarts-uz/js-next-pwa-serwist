@@ -18,17 +18,25 @@ export async function GET(request: NextRequest) {
   const timestamp = Date.now();
   const expiresAt = timestamp + 60 * 1000; // 1 minute from now
 
-  return NextResponse.json(
-    {
-      status,
-      message: messages[status as keyof typeof messages] || "Unknown status",
-      timestamp,
-      expiresAt,
-      cached: false, // This will be set by the service worker
-      apiKey: status === 200 ? apiKey : null,
-      expiresIn: status === 200 ? "1 minute" : null,
-      isExpired: false,
+  const responseBody = {
+    status,
+    message: messages[status as keyof typeof messages] || "Unknown status",
+    timestamp,
+    expiresAt,
+    cached: false, // This will be set by the service worker
+    apiKey: status === 200 ? apiKey : null,
+    expiresIn: status === 200 ? "1 minute" : null,
+    isExpired: false,
+  };
+
+  return NextResponse.json(responseBody, {
+    status,
+    headers: {
+      "X-Serwist-Broadcast-Update": "true",
+      "X-Response-Status": status.toString(),
+      "X-API-Key": responseBody.apiKey || "",
+      "X-Timestamp": timestamp.toString(),
+      "X-Expires-At": expiresAt.toString(),
     },
-    { status },
-  );
+  });
 }

@@ -1,30 +1,16 @@
-import type {
-  PrecacheEntry,
-  SerwistGlobalConfig,
-  SerwistPlugin,
-} from "serwist";
+import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import {
   Serwist,
-  NetworkOnly,
-  BackgroundSyncPlugin,
-  BackgroundSyncQueue,
+  BroadcastUpdatePlugin,
+  StaleWhileRevalidate,
+  BROADCAST_UPDATE_DEFAULT_HEADERS,
 } from "serwist";
-import { defaultCache } from "@serwist/next/worker";
-
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }
 declare const self: ServiceWorkerGlobalScope;
-
-const backgroundSync = new BackgroundSyncPlugin("myQueueName", {
-  maxRetentionTime: 24 * 60, // Retry for a maximum of 24 Hours (specified in minutes)
-  onSync(options) {
-    console.log("onSync", options);
-  },
-  forceSyncFallback: true,
-});
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
@@ -33,9 +19,20 @@ const serwist = new Serwist({
   },
   runtimeCaching: [
     {
-      matcher: ({ request }) => request.method === "POST",
-      handler: new NetworkOnly({
-        plugins: [backgroundSync],
+      matcher: ({ url }) => url.pathname.includes("api"),
+      handler: new StaleWhileRevalidate({
+        plugins: [
+          new BroadcastUpdatePlugin({
+            headersToCheck: [
+              ...BROADCAST_UPDATE_DEFAULT_HEADERS,
+              "X-Serwist-Broadcast-Update",
+              "X-Response-Status",
+              "X-API-Key",
+              "X-Timestamp",
+              "X-Expires-At"
+            ],
+          }),
+        ],
       }),
     },
   ],
@@ -56,48 +53,5 @@ const serwist = new Serwist({
     ],
   },
 });
-
-// const queue = new BackgroundSyncQueue("myQueueName");
-
-// const statusPlugin = {
-//   fetchDidSucceed({ response }) {
-//     if (response.status >= 500) {
-//       // Throwing anything here will trigger fetchDidFail.
-//       throw new Error("Server error.");
-//     }
-//     // If it's not 5xx, use the response as-is.
-//     return response;
-//   },
-// } satisfies SerwistPlugin;
-
-// serwist.registerCapture(
-//   /\/api\/.*\/*.json/,
-//   new NetworkOnly({
-//     plugins: [statusPlugin],
-//   }),
-//   "POST"
-// );
-
-// self.addEventListener("fetch", (event) => {
-//   // Add in your own criteria here to return early if this
-//   // isn't a request that should use background sync.
-//   if (event.request.method !== "POST") {
-//     return;
-//   }
-
-//   const backgroundSync = async () => {
-//     try {
-//       const response = await fetch(event.request.clone());
-//       console.log("response", response);
-//       return response;
-//     } catch (error) {
-//       await queue.pushRequest({ request: event.request });
-//       console.log("error", error);
-//       return Response.error();
-//     }
-//   };
-
-//   event.respondWith(backgroundSync());
-// });
 
 serwist.addEventListeners();
