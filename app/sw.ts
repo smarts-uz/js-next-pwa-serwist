@@ -1,10 +1,10 @@
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import {
   Serwist,
-  BroadcastUpdatePlugin,
+  CacheableResponsePlugin,
   StaleWhileRevalidate,
-  BROADCAST_UPDATE_DEFAULT_HEADERS,
 } from "serwist";
+import { defaultCache } from "@serwist/next/worker";
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
@@ -22,15 +22,11 @@ const serwist = new Serwist({
       matcher: ({ url }) => url.pathname.includes("api"),
       handler: new StaleWhileRevalidate({
         plugins: [
-          new BroadcastUpdatePlugin({
-            headersToCheck: [
-              ...BROADCAST_UPDATE_DEFAULT_HEADERS,
-              "X-Serwist-Broadcast-Update",
-              "X-Response-Status",
-              "X-API-Key",
-              "X-Timestamp",
-              "X-Expires-At"
-            ],
+          new CacheableResponsePlugin({
+            statuses: [0, 200],
+            headers: {
+              "X-Is-Cacheable": "true",
+            },
           }),
         ],
       }),

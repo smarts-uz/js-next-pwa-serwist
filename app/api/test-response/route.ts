@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
     status,
     headers: {
       "X-Serwist-Broadcast-Update": "true",
+      "X-Is-Cacheable": "false",
       "X-Response-Status": status.toString(),
       "X-API-Key": responseBody.apiKey || "",
       "X-Timestamp": timestamp.toString(),
