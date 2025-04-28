@@ -33,31 +33,4 @@ const serwist = new Serwist({
   },
 });
 
-self.addEventListener("fetch", async (event) => {
-  // const cache = await caches.open(serwist.precacheStrategy.cacheName);
-  const url = new URL(event.request.url);
-
-  if (url.origin === location.origin && url.pathname === "/api/test-response") {
-    event.respondWith(
-      (async () => {
-        const apiCache = await caches.open("api-cache");
-        const cachedResponse = await apiCache.match(event.request);
-        console.log("cachedResponse", cachedResponse);
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        const networkResponse = await fetch(event.request);
-
-        // Only cache successful responses
-        if (networkResponse.ok) {
-          await apiCache.put(event.request, networkResponse.clone());
-        }
-
-        return networkResponse;
-      })()
-    );
-  }
-});
-
 serwist.addEventListeners();

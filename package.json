@@ -67,6 +67,7 @@
   "devDependencies": {
     "@eslint/js": "9.25.0",
     "@next/eslint-plugin-next": "15.3.1",
+    "@serwist/window": "^9.0.14",
     "@types/node": "22.13.5",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",

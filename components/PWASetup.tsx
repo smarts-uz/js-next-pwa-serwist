@@ -5,7 +5,6 @@ import { registerSW } from "@/lib/pwa-utils";
 
 export default function PWASetup() {
   useEffect(() => {
-    // Register service worker
     registerSW();
 
     // Register protocol handler
