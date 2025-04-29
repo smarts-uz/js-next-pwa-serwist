@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { isAppInstalled } from "@/lib/pwa-utils";
 import { navItems } from "@/lib/navLinks-utils";
 
-export function PWANavigation() {
+export default function PWANavigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [installed, setInstalled] = useState(false);
@@ -121,18 +121,19 @@ export function PWANavigation() {
 
   return (
     <div className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex md:justify-between px-4 h-14 items-center">
-        <MobileNav />
-
-        <Link
-          href="/"
-          className="font-bold inline-block min-w-28 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 text-transparent bg-clip-text"
-        >
-          Smarts PWA
-        </Link>
+      <div className="container mx-auto flex h-14 items-center justify-between px-4">
+        <div className="flex items-center gap-4">
+          <MobileNav />
+          <Link
+            href="/"
+            className="font-bold inline-block bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 text-transparent bg-clip-text"
+          >
+            Smarts PWA
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex md:items-center xl:gap-2">
+        <nav className="hidden md:flex items-center gap-1">
           {navItems
             .filter((item) => !item.category)
             .map((item) => (
@@ -140,14 +141,14 @@ export function PWANavigation() {
                 key={item.title}
                 href={item.href}
                 className={cn(
-                  "flex items-center p-2 gap-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap",
+                  "flex items-center p-2 gap-1 rounded-md text-xs font-medium transition-colors",
                   pathname === item.href
                     ? "bg-primary/10 text-primary"
                     : "hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 {item.icon}
-                <span className="max-w-28 truncate">{item.title}</span>
+                <span>{item.title}</span>
               </Link>
             ))}
 
@@ -157,14 +158,14 @@ export function PWANavigation() {
             <div key={category} className="relative group">
               <button
                 className={cn(
-                  "flex items-center p-2 gap-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap",
+                  "flex items-center p-2 gap-1 rounded-md text-xs font-medium transition-colors",
                   "hover:bg-accent hover:text-accent-foreground"
                 )}
               >
-                <span className="max-w-28 truncate">{category}</span>
-                <ChevronDown className="h-4 w-4" />
+                <span>{category}</span>
+                <ChevronDown className="h-4 w-4 shrink-0" />
               </button>
-              <div className="absolute top-full left-0 mt-1 w-48 rounded-md shadow-lg bg-background border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="absolute top-full right-0 mt-1 w-48 rounded-md shadow-lg bg-background border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="py-1">
                   {navItems
                     .filter((item) => item.category === category)
@@ -180,14 +181,14 @@ export function PWANavigation() {
                         )}
                       >
                         {item.icon}
-                        <span className="ml-2 truncate">{item.title}</span>
+                        <span className="ml-2">{item.title}</span>
                       </Link>
                     ))}
                 </div>
               </div>
             </div>
           ))}
-        </div>
+        </nav>
       </div>
     </div>
   );

@@ -87,7 +87,7 @@ const VibrationExample: React.FC = () => {
             </div>
           </div>
 
-          <Button onClick={vibrate} className="w-full">
+          <Button onClick={vibrate} className="w-min">
             <Zap className="mr-2 h-4 w-4" />
             Vibrate ({duration}ms)
           </Button>
@@ -112,7 +112,7 @@ const VibrationExample: React.FC = () => {
           </div>
 
           <div className="flex gap-2">
-            <Button onClick={vibratePattern} className="flex-1">
+            <Button onClick={vibratePattern} className=" w-min">
               <Play className="mr-2 h-4 w-4" />
               Play Pattern
             </Button>

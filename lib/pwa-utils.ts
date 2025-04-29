@@ -1,3 +1,5 @@
+'use client'
+
 import { Serwist } from "@serwist/window";
 
 // Service Worker Registration
