@@ -1,6 +1,6 @@
 // Import React and the VibrationExample component
 import React from "react";
-import VibrationExample from "@/components/VibrationExample";
+import VibrationExample from "./components/VibrationExample";
 import {
   Card,
   CardContent,

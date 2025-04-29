@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,26 +11,20 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Info } from "lucide-react";
 
 // Debug logging
 const debug = (...args: any[]) => {
   console.log("[NavigationPreloadDemo]", ...args);
 };
 
-export default function NavigationPreloadDemo() {
+export const NavigationPreloadDemo = () => {
   const [isEnabled, setIsEnabled] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [lastToggleTime, setLastToggleTime] = useState<Date | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [swStatus, setSwStatus] = useState<string>("checking");
 
-  useEffect(() => {
-    debug("Component mounted");
-    checkServiceWorker();
-  }, []);
-
-  const checkServiceWorker = async () => {
+  const checkServiceWorker = useCallback(async () => {
     try {
       if ("serviceWorker" in navigator) {
         debug("Service Worker is supported");
@@ -67,7 +61,7 @@ export default function NavigationPreloadDemo() {
       debug("Error checking service worker:", err);
       setError("Failed to check service worker status");
     }
-  };
+  }, []);
 
   const checkNavigationPreloadState = async () => {
     try {
@@ -108,6 +102,11 @@ export default function NavigationPreloadDemo() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    debug("Component mounted");
+    checkServiceWorker();
+  }, [checkServiceWorker]);
 
   return (
     <div className="space-y-4">
@@ -152,37 +151,6 @@ export default function NavigationPreloadDemo() {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>About Navigation Preload</CardTitle>
-          <CardDescription>
-            Learn how navigation preload works and its benefits
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Alert>
-            <Info className="h-4 w-4" />
-            <AlertDescription>
-              Navigation preload is a performance optimization feature that
-              allows the browser to start loading resources before the service
-              worker has a chance to respond to navigation requests. This can
-              significantly improve the perceived performance of your PWA.
-            </AlertDescription>
-          </Alert>
-          <div className="text-sm space-y-2">
-            <p>
-              <strong>Benefits:</strong>
-            </p>
-            <ul className="list-disc pl-4 space-y-1">
-              <li>Faster page loads during navigation</li>
-              <li>Reduced perceived latency</li>
-              <li>Better user experience</li>
-              <li>Works with service worker caching strategies</li>
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
-
       {error && (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -190,4 +158,4 @@ export default function NavigationPreloadDemo() {
       )}
     </div>
   );
-}
+};

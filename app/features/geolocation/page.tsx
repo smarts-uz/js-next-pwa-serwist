@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import GeolocationDisplay from "@/components/GeolocationDisplay";
+import GeolocationDisplay from "./components/GeolocationDisplay";
 
 export default function GeolocationPage() {
   return (

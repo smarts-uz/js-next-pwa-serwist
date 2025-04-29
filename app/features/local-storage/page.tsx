@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import LocalStorageManager from "@/components/LocalStorageManager";
+import LocalStorageManager from "./components/LocalStorageManager";
 
 export default function LocalStoragePage() {
   return (

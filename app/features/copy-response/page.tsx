@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CopyResponseDemo } from "@/components/CopyResponseDemo";
+import { CopyResponseDemo } from "./components/CopyResponseDemo";
 
 export default function CopyResponsePage() {
   return (

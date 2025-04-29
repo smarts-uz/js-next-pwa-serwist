@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BroadcastUpdateTest } from "@/components/BroadcastUpdateTest";
+import { BroadcastUpdateTest } from "./components/BroadcastUpdateTest";
 
 export default function BroadcastPage() {
   return (

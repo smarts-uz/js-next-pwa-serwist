@@ -7,6 +7,7 @@ interface TouchEvents {
     onTouchMove: (e: React.TouchEvent) => void;
     onTouchEnd: (e: React.TouchEvent) => void;
   };
+  resetScale: () => void;
 }
 
 export function useTouchEvents(): TouchEvents {
@@ -42,11 +43,15 @@ export function useTouchEvents(): TouchEvents {
     setInitialDistance(0);
   }, []);
 
+  const resetScale = useCallback(() => {
+    setScale(1);
+  }, []);
+
   const bind = {
     onTouchStart: handleTouchStart,
     onTouchMove: handleTouchMove,
     onTouchEnd: handleTouchEnd,
   };
 
-  return { scale, bind };
+  return { scale, bind, resetScale };
 }

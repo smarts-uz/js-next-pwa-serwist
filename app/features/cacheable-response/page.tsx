@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CacheableResponseDemo } from "@/components/CacheableResponseDemo";
+import { CacheableResponseDemo } from "./components/CacheableResponseDemo";
 
 export default function CacheableResponsePage() {
   return (

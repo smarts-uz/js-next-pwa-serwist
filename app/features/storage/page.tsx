@@ -19,11 +19,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { StorageComparison } from "@/components/StorageComparison";
-import { LocalStorageExample } from "@/components/LocalStorageComparison";
-import { IndexedDBExample } from "@/components/IndexedDBExample";
-import { CacheAPIExample } from "@/components/CacheApiExample";
-import { FileSystemExample } from "@/components/FileSystemExample";
+import { StorageComparison } from "./components/StorageComparison";
+import { LocalStorageExample } from "./components/LocalStorageComparison";
+import { IndexedDBExample } from "./components/IndexedDBExample";
+import { CacheAPIExample } from "./components/CacheApiExample";
+import { FileSystemExample } from "./components/FileSystemExample";
 
 export const metadata: Metadata = {
   title: "Web Storage API | Modern Web Features",

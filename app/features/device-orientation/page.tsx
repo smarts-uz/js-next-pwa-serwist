@@ -53,7 +53,6 @@ const DeviceOrientationPage = () => {
     ) {
       checkPermission();
     }
-
     return () => {
       if (isActive) {
         window.removeEventListener("deviceorientation", handleOrientation);
@@ -307,3 +306,4 @@ const DeviceOrientationPage = () => {
 };
 
 export default DeviceOrientationPage;
+

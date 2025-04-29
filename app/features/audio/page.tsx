@@ -1,6 +1,6 @@
 // Import React and the AudioPlayer component
 import React from "react";
-import AudioPlayer from "@/components/AudioPlayer";
+import AudioPlayer from "./components/AudioPlayer";
 
 const AudioPlayerPage: React.FC = () => {
   return (

@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { registerSW } from "@/lib/pwa-utils";
-import { messageSW } from "@serwist/window";
 declare const confirmUpdate: () => boolean;
 import { Serwist } from "@serwist/window";
 import type { BroadcastMessage } from "serwist";
@@ -81,18 +79,6 @@ export default function PWASetup() {
 
     handleServiceWorkerRegistration();
   }, []);
-
-  // useEffect(() => {
-  //   const getSWVersion = async () => {
-  //     const sw = await window.serwist.getSW();
-  //     const swVersion = await messageSW(sw, {
-  //       type: "GET_VERSION",
-  //       data: { message: "hello" },
-  //     });
-  //     console.log("Service worker version:", swVersion);
-  //   };
-  //   getSWVersion();
-  // }, []);
 
   useEffect(() => {
     // Register protocol handler

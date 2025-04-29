@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CacheExpirationDemo } from "@/components/CacheExpirationDemo";
+import { CacheExpirationDemo } from "./components/CacheExpirationDemo";
 
 export default function CacheExpirationPage() {
   return (

@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BackgroundSyncExample } from "@/components/BackgroundSyncExample";
+import { BackgroundSyncExample } from "./components/BackgroundSyncExample";
 
 export const metadata: Metadata = {
   title: "Background Sync | Modern Web Features",

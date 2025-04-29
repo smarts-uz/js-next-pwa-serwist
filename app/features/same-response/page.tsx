@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import ResponsesAreSameExample from "@/components/ResponsesAreSameExample";
+import ResponsesAreSameExample from "./components/ResponsesAreSameExample";
 
 const SameResponsePage = () => {
   return (

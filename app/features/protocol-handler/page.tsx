@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import ProtocolHandler from "@/components/ProtocolHandler";
+import ProtocolHandler from "./components/ProtocolHandler";
 import { Suspense } from "react";
 
 export default function ProtocolHandlerPage() {

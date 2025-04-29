@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import NetworkInfo from "@/components/NetworkInfo";
+import NetworkInfo from "./components/NetworkInfo";
 
 export default function NetworkInfoPage() {
   return (

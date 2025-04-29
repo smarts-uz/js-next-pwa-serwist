@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import FileHandler from "@/components/FileHandler";
+import FileHandler from "./components/FileHandler";
 
 export default function FileHandlingPage() {
   return (

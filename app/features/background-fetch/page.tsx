@@ -11,8 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DataSyncExample } from "@/components/DataSyncExample";
-import { ResourcePrefetchExample } from "@/components/ResourcePrefetchExample";
+import { DataSyncExample } from "./components/DataSyncExample";
+import { ResourcePrefetchExample } from "./components/ResourcePrefetchExample";
 
 export const metadata: Metadata = {
   title: "Background Fetch | Modern Web Features",
