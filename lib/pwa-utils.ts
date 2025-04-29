@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Serwist } from "@serwist/window";
 
@@ -6,12 +6,8 @@ import { Serwist } from "@serwist/window";
 export async function registerSW() {
   if ("serviceWorker" in navigator) {
     try {
-      // const registration = await navigator.serviceWorker.register("/sw.js");
-      // console.log("Service Worker registered with scope:", registration.scope);
-      // return registration;
       const serwist = new Serwist("/sw.js", { scope: "/", type: "classic" });
-
-      void serwist.register();
+      return void serwist.register();
     } catch (error) {
       console.error("Service Worker registration failed:", error);
     }

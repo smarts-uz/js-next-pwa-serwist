@@ -138,13 +138,13 @@ const SpeechSynthesisPage = () => {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 ">
               <Label htmlFor="voice">Voice</Label>
-              <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+              <Select value={selectedVoice}  onValueChange={setSelectedVoice}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a voice" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="w-min">
                   {voices.map((voice) => (
                     <SelectItem key={voice.voiceURI} value={voice.voiceURI}>
                       {voice.name} ({voice.lang})
