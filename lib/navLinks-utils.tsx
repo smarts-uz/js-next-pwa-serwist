@@ -27,6 +27,7 @@ import {
   Volume2,
   Wifi,
   Database,
+  InfoIcon,
 } from "lucide-react";
 
 interface NavItem {
@@ -210,6 +211,12 @@ export const navItems: NavItem[] = [
     title: "Web Share API",
     href: "/features/web-share",
     icon: <Share className="h-4 w-4" />,
+    category: "Security",
+  },
+  {
+    title: "Share Target",
+    href: "/features/share-target",
+    icon: <InfoIcon className="h-4 w-4" />,
     category: "Security",
   },
 ];

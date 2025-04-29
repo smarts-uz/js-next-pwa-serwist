@@ -69,6 +69,32 @@ export default function manifest(): MetadataRoute.Manifest {
           },
         ],
       },
+      {
+        action: "/features/file-handling",
+        accept: {
+          // @ts-ignore
+          "application/pdf": [".pdf"],
+        },
+        icons: [
+          {
+            src: "./icons/pdf-file.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+        launch_type: "single-client",
+      },
     ],
+    share_target: {
+      action: "/features/share-target",
+      text: "text",
+      url: "url",
+      files: [
+        {
+          name: "lists",
+          accept: ["text/csv", ".csv"],
+        },
+      ],
+    },
   };
 }
