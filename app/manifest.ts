@@ -3,16 +3,18 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Modern PWA Features Demo",
+    name: "Smarts PWA Features Demo",
     short_name: "PWA Demo",
     description:
       "Explore and test modern Progressive Web App capabilities with real-world examples",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#000000",
+    background_color: "#000000",
+    theme_color: "#121212",
+    display_override: ["window-controls-overlay"],
+    lang: "en-US",
     orientation: "portrait",
-    icons: icons,
+    icons,
     shortcuts: [
       {
         name: "File Handling",
