@@ -15,6 +15,7 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "en-US",
     orientation: "portrait",
     icons,
+    categories: ["productivity", "utilities"],
     shortcuts: [
       {
         name: "File Handling",
