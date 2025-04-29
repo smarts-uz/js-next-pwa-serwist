@@ -16,6 +16,28 @@ export default function manifest(): MetadataRoute.Manifest {
     orientation: "portrait",
     icons,
     categories: ["productivity", "utilities"],
+    screenshots: [
+      {
+        src: "/screenshots/desktop-home.png",
+        sizes: "1440x900",
+        type: "image/png",
+      },
+      {
+        src: "/screenshots/desktop-storage.png",
+        sizes: "1440x900",
+        type: "image/png",
+      },
+      {
+        src: "/screenshots/mobile-home.png",
+        sizes: "420x900",
+        type: "image/png",
+      },
+      {
+        src: "/screenshots/mobile-storage.png",
+        sizes: "420x900",
+        type: "image/png",
+      },
+    ],
     shortcuts: [
       {
         name: "File Handling",
