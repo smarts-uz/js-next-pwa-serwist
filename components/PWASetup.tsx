@@ -5,8 +5,6 @@ import { registerSW } from "@/lib/pwa-utils";
 import { messageSW } from "@serwist/window";
 
 export default function PWASetup() {
-  // ---cut-before---
-
   useEffect(() => {
     const getSWVersion = async () => {
       const sw = await window.serwist.getSW();

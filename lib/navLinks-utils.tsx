@@ -1,5 +1,4 @@
 import {
-  Home,
   MapPin,
   LinkIcon,
   ArrowRightLeft,
@@ -40,11 +39,6 @@ interface NavItem {
 
 // Navigation items organized by category
 export const navItems: NavItem[] = [
-  {
-    title: "Home",
-    href: "/",
-    icon: <Home className="h-4 w-4" />,
-  },
   // Device Features
   {
     title: "Web Bluetooth",

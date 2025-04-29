@@ -3,11 +3,13 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import PWASetup from "@/components/PWASetup";
+import dynamic from "next/dynamic";
 import { LayoutWrapper } from "./layout-wrapper";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import YandexMetrika from "@/lib/analytics/YandexMetrika";
 import { Suspense } from "react";
+
+const PWASetup = dynamic(() => import("@/components/PWASetup"), { ssr: false });
 
 const inter = Inter({ subsets: ["latin"] });
 
