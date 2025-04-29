@@ -1,5 +1,5 @@
 import React from "react";
-import WebShareExample from "@/components/WebShareExample";
+import WebShareExample from "./components/WebShareExample";
 import {
   Card,
   CardContent,

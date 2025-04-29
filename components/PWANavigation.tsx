@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/sheet";
 import { Menu, Wifi, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { isAppInstalled } from "@/lib/pwa-utils";
 import { navItems } from "@/lib/navLinks-utils";
 
 export default function PWANavigation() {
@@ -25,6 +24,16 @@ export default function PWANavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [installed, setInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+
+  function isAppInstalled(): boolean {
+    if (typeof window !== "undefined") {
+      return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        (window.navigator as any).standalone === true
+      );
+    }
+    return false;
+  }
 
   // Close mobile menu when route changes
   useEffect(() => {
