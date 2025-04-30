@@ -11,15 +11,18 @@ const PeriodicBackgroundSyncApiExample = () => {
   const [lastSync, setLastSync] = useState<string>("");
 
   useEffect(() => {
-    const checkSupport = () => {
-      if ("serviceWorker" in navigator && "periodicSync" in navigator.serviceWorker) {
+    const checkSupport = async () => {
+      const status = await navigator.permissions.query({
+        name: "periodic-background-sync" as PermissionName,
+      });
+      if (status.state === "granted") {
+        // Periodic background sync can be used.
         setIsSupported(true);
       } else {
-        setSyncStatus("Periodic Background Sync not supported");
+        // Periodic background sync cannot be used.
         setIsSupported(false);
       }
     };
-
     checkSupport();
   }, []);
 
@@ -27,31 +30,39 @@ const PeriodicBackgroundSyncApiExample = () => {
     try {
       if (isSupported) {
         const registration = await navigator.serviceWorker.ready;
-        // @ts-ignore
-        const tags = await registration.periodicSync.getTags();
-        
-        if (!tags.includes("content-sync")) {
-          // @ts-ignore
-          await registration.periodicSync.register("content-sync", {
-            minInterval: 24 * 60 * 60 * 1000, // 24 hours
-          });
-          setSyncStatus("Periodic sync registered successfully");
-          setLastSync(new Date().toLocaleString());
+        if ("periodicSync" in registration) {
+          try {
+            // @ts-ignore
+            await registration.periodicSync.register("content-sync", {
+              // An interval of one minute.
+              minInterval: 60 * 1000,
+            });
+            setSyncStatus("Periodic sync registered successfully");
+            setLastSync(new Date().toLocaleString());
+          } catch (error) {
+            // Periodic background sync cannot be used.
+            setSyncStatus("Failed to register periodic sync");
+            console.error(error);
+          }
         }
       }
     } catch (error) {
       setSyncStatus("Failed to register periodic sync");
+      console.error(error);
     }
   };
 
   const handleUnregisterSync = async () => {
     try {
       const registration = await navigator.serviceWorker.ready;
-      // @ts-ignore
-      await registration.periodicSync.unregister("content-sync");
-      setSyncStatus("Periodic sync unregistered");
+      if ("periodicSync" in registration) {
+        // @ts-ignore
+        await registration.periodicSync.unregister("content-sync");
+        setSyncStatus("Periodic sync unregistered");
+      }
     } catch (error) {
       setSyncStatus("Failed to unregister periodic sync");
+      console.error(error);
     }
   };
 
@@ -67,13 +78,10 @@ const PeriodicBackgroundSyncApiExample = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex flex-col gap-4">
-          <Button 
-            onClick={handleRegisterSync}
-            disabled={!isSupported}
-          >
+          <Button onClick={handleRegisterSync} disabled={!isSupported}>
             Register Periodic Sync
           </Button>
-          <Button 
+          <Button
             onClick={handleUnregisterSync}
             variant="outline"
             disabled={!isSupported}
@@ -81,13 +89,13 @@ const PeriodicBackgroundSyncApiExample = () => {
             Unregister Periodic Sync
           </Button>
         </div>
-        
+
         {syncStatus && (
           <div className="text-sm text-muted-foreground">
             Status: {syncStatus}
           </div>
         )}
-        
+
         {lastSync && (
           <div className="text-sm text-muted-foreground">
             Last Sync: {lastSync}

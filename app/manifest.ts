@@ -19,22 +19,22 @@ export default function manifest(): MetadataRoute.Manifest {
     screenshots: [
       {
         src: "/screenshots/desktop-home.png",
-        sizes: "1440x900",
+        sizes: "1800x1125",
         type: "image/png",
       },
       {
         src: "/screenshots/desktop-storage.png",
-        sizes: "1440x900",
+        sizes: "1800x1125",
         type: "image/png",
       },
       {
         src: "/screenshots/mobile-home.png",
-        sizes: "420x900",
+        sizes: "525x1125",
         type: "image/png",
       },
       {
         src: "/screenshots/mobile-storage.png",
-        sizes: "420x900",
+        sizes: "525x1125",
         type: "image/png",
       },
     ],
@@ -69,31 +69,18 @@ export default function manifest(): MetadataRoute.Manifest {
           },
         ],
       },
-      {
-        action: "/features/file-handling",
-        accept: {
-          // @ts-ignore
-          "application/pdf": [".pdf"],
-        },
-        icons: [
-          {
-            src: "./icons/pdf-file.png",
-            sizes: "512x512",
-            type: "image/png",
-          },
-        ],
-        launch_type: "single-client",
-      },
     ],
     share_target: {
       action: "/features/share-target",
+      method: "get",
       text: "text",
       url: "url",
       enctype: "application/x-www-form-urlencoded",
-      files: [
+      params: [
         {
           name: "lists",
-          accept: ["text/csv", ".csv", "text/plain", ".txt"],
+          value: "text/plain",
+          required: true,
         },
       ],
     },
