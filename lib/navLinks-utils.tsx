@@ -11,6 +11,7 @@ import {
   Activity,
   Mic,
   RefreshCw,
+  RefreshCcw,
   Radio,
   Clock,
   CheckCircle2,
@@ -144,6 +145,12 @@ export const navItems: NavItem[] = [
     title: "Background Sync",
     href: "/features/background-sync",
     icon: <RefreshCw className="h-4 w-4" />,
+    category: "Network & Sync",
+  },
+  {
+    title: "Periodic Background Sync",
+    href: "/features/periodic-background-sync",
+    icon: <RefreshCcw className="h-4 w-4" />,
     category: "Network & Sync",
   },
   {

@@ -18,7 +18,6 @@ const serwist = new Serwist({
   clientsClaim: true,
   offlineAnalyticsConfig: true,
   disableDevLogs: true,
-  importScripts: ["/custom-sw.js", "/badge-sw.js"],
   fallbacks: {
     entries: [
       {
@@ -30,6 +29,5 @@ const serwist = new Serwist({
     ],
   },
 });
-
 
 serwist.addEventListeners();
