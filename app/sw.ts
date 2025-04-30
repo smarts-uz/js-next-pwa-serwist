@@ -18,6 +18,7 @@ const serwist = new Serwist({
   clientsClaim: true,
   offlineAnalyticsConfig: true,
   disableDevLogs: true,
+  importScripts: ["/periodic-sw.js"],
   fallbacks: {
     entries: [
       {

@@ -23,14 +23,19 @@ export default function PWASetup() {
   }, []);
 
   useEffect(() => {
-    if (navigator.serviceWorker) {
-      navigator.serviceWorker.ready.then((registration) => {
-        registration.sync.register("/badge-sw.js");
-        registration.sync.register("/periodic-sw.js");
-        registration.sync.register("/custom-sw.js");
-      });
-      console.log("Service worker registered for badge sync");
-    }
+    const registerBackgroundSync = async () => {
+      try {
+        if ("serviceWorker" in navigator && "SyncManager" in window) {
+          const registration = await navigator.serviceWorker.ready;
+          await registration.sync.register("periodic-sync");
+          console.log("Background sync registered successfully");
+        }
+      } catch (error) {
+        console.error("Error registering background sync:", error);
+      }
+    };
+
+    void registerBackgroundSync();
   }, []);
 
   return null;

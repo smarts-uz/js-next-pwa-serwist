@@ -10,7 +10,7 @@ export async function registerSW() {
 
   const serwist = new Serwist("/sw.js", { scope: "/", type: "classic" });
   const SW_VERSION = "1.0.0";
-  console.log("serwist", serwist);
+  // console.log("serwist", serwist);
   const handleWaiting = () => {
     console.log(
       "A new service worker has installed, but it can't activate until all tabs running the current version have fully unloaded."
@@ -60,7 +60,7 @@ export async function registerSW() {
   };
 
   serwist.addEventListener("waiting", handleWaiting);
-  serwist.addEventListener("message", handleMessage);
+  // serwist.addEventListener("message", handleMessage);
   // self.addEventListener("message", handleSelfMessage);
 
   cacheUrls();
@@ -69,7 +69,7 @@ export async function registerSW() {
   // Cleanup function
   return () => {
     serwist.removeEventListener("waiting", handleWaiting);
-    serwist.removeEventListener("message", handleMessage);
+    // serwist.removeEventListener("message", handleMessage);
     // self.removeEventListener("message", handleSelfMessage);
   };
 }
