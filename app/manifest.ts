@@ -65,7 +65,10 @@ export default function manifest(): MetadataRoute.Manifest {
         action: "/features/file-handling",
         accept: [
           {
-            "text/plain": [".txt"],
+            "image/jpeg": [".jpg", ".jpeg"],
+          },
+          {
+            "image/png": [".png"],
           },
         ],
       },
@@ -73,16 +76,35 @@ export default function manifest(): MetadataRoute.Manifest {
     share_target: {
       action: "/features/share-target",
       method: "get",
+      enctype: "application/x-www-form-urlencoded",
+      title: "title",
       text: "text",
       url: "url",
-      enctype: "application/x-www-form-urlencoded",
       params: [
         {
-          name: "lists",
-          value: "text/plain",
+          name: "title",
+          value: "title",
           required: true,
+        },
+        {
+          name: "text",
+          value: "text",
+          required: true,
+        },
+        {
+          name: "url",
+          value: "url",
+          required: false,
         },
       ],
     },
+    prefer_related_applications: false,
+    related_applications: [
+      {
+        platform: "web",
+        url: "https://whatpwacando.today/",
+        id: "whatpwacando.today",
+      },
+    ],
   };
 }
