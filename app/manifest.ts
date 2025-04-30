@@ -11,6 +11,12 @@ export default function manifest(): MetadataRoute.Manifest {
     display: "standalone",
     background_color: "#000000",
     theme_color: "#121212",
+    id: "v01",
+    launch_handler: {
+      platform: "windows",
+      url: "/",
+    },
+    dir: "ltr",
     display_override: ["window-controls-overlay"],
     lang: "en-US",
     orientation: "portrait",
@@ -86,31 +92,33 @@ export default function manifest(): MetadataRoute.Manifest {
           accept: [".txt"],
         },
       ],
-      // params: [
-      //   {
-      //     name: "title",
-      //     value: "title",
-      //     required: true,
-      //   },
-      //   {
-      //     name: "text",
-      //     value: "text",
-      //     required: true,
-      //   },
-      //   {
-      //     name: "url",
-      //     value: "url",
-      //     required: false,
-      //   },
-      // ],
+      params: [
+        {
+          name: "title",
+          value: "title",
+          required: true,
+        },
+        {
+          name: "text",
+          value: "text",
+          required: true,
+        },
+        {
+          name: "url",
+          value: "url",
+          required: false,
+        },
+      ],
     },
+
     prefer_related_applications: false,
     related_applications: [
       {
-        platform: "web",
-        url: "https://whatpwacando.today/",
-        id: "whatpwacando.today",
+        platform: "play",
+        url: "https://play.google.com/store/apps/details?id=com.twitter.android",
+        id: "com.twitter.android",
       },
     ],
+    scope: "/",
   };
 }
