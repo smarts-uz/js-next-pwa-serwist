@@ -80,23 +80,29 @@ export default function manifest(): MetadataRoute.Manifest {
       title: "title",
       text: "text",
       url: "url",
-      params: [
+      files: [
         {
-          name: "title",
-          value: "title",
-          required: true,
-        },
-        {
-          name: "text",
-          value: "text",
-          required: true,
-        },
-        {
-          name: "url",
-          value: "url",
-          required: false,
+          name: "file",
+          accept: [".txt"],
         },
       ],
+      // params: [
+      //   {
+      //     name: "title",
+      //     value: "title",
+      //     required: true,
+      //   },
+      //   {
+      //     name: "text",
+      //     value: "text",
+      //     required: true,
+      //   },
+      //   {
+      //     name: "url",
+      //     value: "url",
+      //     required: false,
+      //   },
+      // ],
     },
     prefer_related_applications: false,
     related_applications: [

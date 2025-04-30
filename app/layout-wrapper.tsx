@@ -14,8 +14,8 @@ const PWANavigation = dynamic(() => import("@/components/PWANavigation"), {
         <Skeleton className="h-6 w-28" />
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex md:items-center  gap-2">
-          {[1, 2, 3, 4].map((item) => (
+        <div className="hidden md:flex md:items-center gap-2 xl:gap-4">
+          {[1, 2, 3, 4, 5].map((item) => (
             <Skeleton key={item} className="h-8 w-20" />
           ))}
         </div>

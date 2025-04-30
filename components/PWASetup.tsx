@@ -22,21 +22,21 @@ export default function PWASetup() {
     }
   }, []);
 
-  useEffect(() => {
-    const registerBackgroundSync = async () => {
-      try {
-        if ("serviceWorker" in navigator && "SyncManager" in window) {
-          const registration = await navigator.serviceWorker.ready;
-          await registration.sync.register("periodic-sync");
-          console.log("Background sync registered successfully");
-        }
-      } catch (error) {
-        console.error("Error registering background sync:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const registerBackgroundSync = async () => {
+  //     try {
+  //       if ("serviceWorker" in navigator && "SyncManager" in window) {
+  //         const registration = await navigator.serviceWorker.ready;
+  //         await registration.sync.register("periodic-sync");
+  //         console.log("Background sync registered successfully");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error registering background sync:", error);
+  //     }
+  //   };
 
-    void registerBackgroundSync();
-  }, []);
+  //   void registerBackgroundSync();
+  // }, []);
 
   return null;
 }

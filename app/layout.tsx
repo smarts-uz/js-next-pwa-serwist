@@ -47,9 +47,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head></head>
       <body className={inter.className + " dark"} suppressHydrationWarning>
-        {/* <Suspense fallback={<></>}>
+        <Suspense fallback={<></>}>
           <YandexMetrika />
-        </Suspense> */}
+        </Suspense>
         <Suspense fallback={<></>}>
           <PWASetup />
         </Suspense>
@@ -62,9 +62,9 @@ export default function RootLayout({
           <LayoutWrapper>{children}</LayoutWrapper>
         </ThemeProvider>
       </body>
-      {/* <GoogleAnalytics
+      <GoogleAnalytics
         gaId={process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || ""}
-      /> */}
+      />
     </html>
   );
 }
