@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.netlify.smarts_next_pwa.twa",
+        "sha256_cert_fingerprints": ["20:0C:10:0B:83:FA:51:45:06:00:41:FF:A2:1F:50:5C:8B:72:EB:CD:FA:BB:0E:48:B5:CB:4D:81:93:C4:D2:A7"]
+      }
+    }]
