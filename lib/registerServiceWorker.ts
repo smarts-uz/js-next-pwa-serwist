@@ -61,7 +61,7 @@ export async function registerSW() {
 
   serwist.addEventListener("waiting", handleWaiting);
   serwist.addEventListener("message", handleMessage);
-  self.addEventListener("message", handleSelfMessage);
+  // self.addEventListener("message", handleSelfMessage);
 
   cacheUrls();
   void serwist.register();
@@ -70,6 +70,6 @@ export async function registerSW() {
   return () => {
     serwist.removeEventListener("waiting", handleWaiting);
     serwist.removeEventListener("message", handleMessage);
-    self.removeEventListener("message", handleSelfMessage);
+    // self.removeEventListener("message", handleSelfMessage);
   };
 }

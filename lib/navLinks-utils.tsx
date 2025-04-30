@@ -28,6 +28,7 @@ import {
   Wifi,
   Database,
   InfoIcon,
+  Tag,
 } from "lucide-react";
 
 interface NavItem {
@@ -198,6 +199,12 @@ export const navItems: NavItem[] = [
     title: "View Transitions",
     href: "/features/transitions",
     icon: <ArrowRightLeft className="h-4 w-4" />,
+    category: "Media & UI",
+  },
+  {
+    title: "Badge API",
+    href: "/features/badge",
+    icon: <Tag className="h-4 w-4" />,
     category: "Media & UI",
   },
   // Security

@@ -89,10 +89,11 @@ export default function manifest(): MetadataRoute.Manifest {
       action: "/features/share-target",
       text: "text",
       url: "url",
+      enctype: "application/x-www-form-urlencoded",
       files: [
         {
           name: "lists",
-          accept: ["text/csv", ".csv"],
+          accept: ["text/csv", ".csv", "text/plain", ".txt"],
         },
       ],
     },
