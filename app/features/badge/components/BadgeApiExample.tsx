@@ -6,10 +6,43 @@ import { Button } from "@/components/ui/button";
 const BadgeApiExample = () => {
   const [badgeCount, setBadgeCount] = useState(0);
 
-  const handleSetAppBadge = () => {
+  // const handleSetAppBadge = () => {
+  //   if ("setAppBadge" in navigator) {
+  //     try {
+  //       navigator.setAppBadge(badgeCount);
+  //     } catch (error) {
+  //       console.error("Failed to set app badge:", error);
+  //     }
+  //   } else {
+  //     console.warn("App Badge API is not supported in this browser");
+  //   }
+  // };
+
+  // const handleClearAppBadge = () => {
+  //   if ("clearAppBadge" in navigator) {
+  //     try {
+  //       navigator.clearAppBadge();
+  //       setBadgeCount(0);
+  //     } catch (error) {
+  //       console.error("Failed to clear app badge:", error);
+  //     }
+  //   } else {
+  //     console.warn("App Badge API is not supported in this browser");
+  //   }
+  // };
+
+  const handleSetAppBadge = async () => {
     if ("setAppBadge" in navigator) {
       try {
-        navigator.setAppBadge(badgeCount);
+        await navigator.setAppBadge(badgeCount);
+
+        // Send message to service worker to sync badge state
+        if (navigator.serviceWorker?.controller) {
+          navigator.serviceWorker.controller.postMessage({
+            type: "SET_BADGE",
+            count: badgeCount,
+          });
+        }
       } catch (error) {
         console.error("Failed to set app badge:", error);
       }
@@ -18,11 +51,19 @@ const BadgeApiExample = () => {
     }
   };
 
-  const handleClearAppBadge = () => {
+  const handleClearAppBadge = async () => {
     if ("clearAppBadge" in navigator) {
       try {
-        navigator.clearAppBadge();
+        await navigator.clearAppBadge();
         setBadgeCount(0);
+
+        // Send message to service worker to clear badge
+        if (navigator.serviceWorker?.controller) {
+          navigator.serviceWorker.controller.postMessage({
+            type: "SET_BADGE",
+            count: 0,
+          });
+        }
       } catch (error) {
         console.error("Failed to clear app badge:", error);
       }
