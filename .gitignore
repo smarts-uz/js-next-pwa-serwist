@@ -40,3 +40,5 @@ next-env.d.ts
 # Serwist
 public/sw*
 public/swe-worker*
+# SpecStory explanation file
+.specstory/.what-is-this.md
