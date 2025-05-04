@@ -6,7 +6,8 @@
       "package_name": "app.netlify.smarts_next_pwa.twa",
       "sha256_cert_fingerprints": [
         "20:0C:10:0B:83:FA:51:45:06:00:41:FF:A2:1F:50:5C:8B:72:EB:CD:FA:BB:0E:48:B5:CB:4D:81:93:C4:D2:A7",
-        "D3:65:3B:DA:59:9B:FC:DA:9B:0B:A6:23:57:F0:E2:3C:3E:F0:CC:90:75:0E:E4:B4:6F:80:03:73:A6:B1:A6:E3"
+        "D3:65:3B:DA:59:9B:FC:DA:9B:0B:A6:23:57:F0:E2:3C:3E:F0:CC:90:75:0E:E4:B4:6F:80:03:73:A6:B1:A6:E3",
+        "16:2C:8B:AA:33:73:67:A8:40:F5:52:72:24:8A:68:B1:36:F0:78:CF:0D:A3:3F:72:27:37:A8:F4:C7:C3:76:0F"
       ]
     }
   }
